@@ -7,12 +7,14 @@ const mainRoutes = require('./routes/main');
 
 // Express App
 const app = express();
+const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 3000;
 
 // Database Connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
-        app. listen(process.env.PORT, () => {
-            console.log('Connected to db & listening on port', process.env.PORT)
+        app. listen(process.env.PORT, host, port, () => {
+            console.log(`Server running at http://${host}:${port}/`)
         });
     })
     .catch((error) => {
@@ -24,3 +26,7 @@ app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
 });
+
+// Routes
+app.use('/', mainRoutes);
+app.use('/exercises',exercisesRoutes);
