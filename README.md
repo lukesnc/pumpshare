@@ -8,5 +8,3 @@ Here's the link to our [Low Fidelity Prototype on Figma](https://www.figma.com/f
 
 ### Context Diagram
 ![Context Diagram](./.docs/context-diagram.png)
-
-I have added some text to the ReadMe file.
