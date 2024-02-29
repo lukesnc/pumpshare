@@ -30,6 +30,12 @@ scroll-behavior: smooth;
 
 /* Custom Classes */
 
+@layer utilities {
+  .tracking-custom {
+    letter-spacing: 0.7em; /* Adjust the value to your preference */
+  }
+}
+
 .overlay {
   position: relative;
   background-color: #F4F4F4;
