@@ -8,7 +8,7 @@ const Home = () => {
       <div className="relative flex flex-col justify-center items-center h-screen overlay">
         <div className="relative z-80">
           <h1 className={`${styles.heading1}`}>experience the best workout tracker.</h1>
-          <h4 className="text-center pt-10 font-lato text-secondary font-light">
+          <h4 className="text-center pt-10 font-lato text-secondary font-light text-[18px]">
             YOUR WORKOUTS <br /> 
             YOUR PROGRESS <br /> 
             YOUR TRACKER</h4>
