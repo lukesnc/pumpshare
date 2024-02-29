@@ -7,9 +7,8 @@ export default {
   colors: { // Add custom color palette
   primary: "#2B2B2A",
   secondary: "#A2A2A2",
+  tertiary: "#F4F4F4",
   accent: 'tealGreen',
-  text: '#000000',
-  background: '#000000',
   dimGray: '#A2A2A2',
   tealGreen: '#2E8185',
   emeraldMist: `#4BBD8E`
