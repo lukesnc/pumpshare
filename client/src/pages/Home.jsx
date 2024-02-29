@@ -23,15 +23,15 @@ const Home = () => {
 
       <div className="flex flex-col">
         {features.map((feature) => (
-          <div key={feature.id} className={`flex-1 bg-${feature.color} pt-40 pb-40`}>
-            <h2 className="text-xl font-bold text-center text-white mb-2">{feature.title}</h2>
-            <p className="text-center text-white">{feature.content}</p>
+          <div key={feature.id} className={`flex-1 bg-${feature.color} pt-40 pb-40 px-8`}>
+            <h2 className="text-xl font-semibold text-center text-white mb-2 uppercase tracking-custom">{feature.title}</h2>
+            <p className="text-center text-white font-thin font-merriweather">{feature.content}</p>
           </div>
         ))}
       </div>
 
       <div className="flex flex-col justify-center bg-high-jump h-screen relative ">
-        <h1 className="font-poppins font-semibold text-[32px] text-primary w-full text-center text-white">Call to Action</h1>
+        <h1 className="font-poppins font-semibold text-[32px] text-primary w-full text-center text-white mt-[550px]">Call to Action</h1>
       </div> 
     </div>
   )
