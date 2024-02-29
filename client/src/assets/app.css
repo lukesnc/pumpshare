@@ -1,0 +1,57 @@
+/* Poppins */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+/* Merriweather */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+/* Lato */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables */
+:root {
+--card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+--primary: "#2B2B2A";
+--secondary: "#A2A2A2";
+--accent: "#000000";
+--background: "#000000";
+--text: "#000000";
+--dimGray: "#A2A2A2";
+--tealGreen: "#2E8185";
+--emeraldMist: "#4BBD8E";
+}
+
+/* Universal Styles */
+
+* {
+scroll-behavior: smooth;
+}
+
+/* Custom Classes */
+
+.overlay {
+  position: relative;
+  background-color: #F4F4F4;
+  background-image: url('../../public/images/graphy.png');
+  background-position: center;
+}
+
+.bg-primary {
+  background-color: #2B2B2A;
+}
+
+.bg-tealGreen {
+  background-color: #2E8185;
+}
+
+
+.bg-emeraldMist {
+  background-color: #4BBD8E;
+}
+
+.bg-high-jump {
+  background-image: url('../../public/images/high-jump-outside.jpg');
+  background-size: cover;
+  background-position: center;
+}
