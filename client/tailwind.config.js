@@ -1,28 +1,23 @@
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: [],
-//   theme: {
-//     extend: {},
-//   },
-//   plugins: [],
-// }
-
-
-
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ["./index.html", "./src/**/*.{js,jsx}"],
-  mode: "jit",
+export default {
+  content: ["./index.html", "./src/**/*.{js,jsx}"], 
+  mode: "jit", // Just in Time Compiler
   theme: {
   extend: {
-  colors: {
-  primary: "#00040f",
-  secondary: "#00f6ff",
-  dimWhite: "rgba(255, 255, 255, 0.7)",
-  dimBlue: "rgba(9, 151, 124, 0.1)",
+  colors: { // Add custom color palette
+  primary: "#2B2B2A",
+  secondary: "#A2A2A2",
+  accent: 'tealGreen',
+  text: '#000000',
+  background: '#000000',
+  dimGray: '#A2A2A2',
+  tealGreen: '#2E8185',
+  emeraldMist: `#4BBD8E`
   },
   fontFamily: {
   poppins: ["Poppins", "sans-serif"],
+  merriweather: ["Merriweather", "serif"],
+  lato: ["Lato", "sans-serif"]
   },
   },
   screens: {
