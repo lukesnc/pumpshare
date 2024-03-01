@@ -11,15 +11,12 @@
 
 /* Variables */
 :root {
+--primary: #2B2B2A; /* Dark Gray */
+--secondary: #A2A2A2; /* Medium Gray */
+--tertiary: #F4F4F4; /* Light Gray */
+--tealGreen: #2E8185;
+--emeraldMist: #4BBD8E;
 --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
---primary: "#2B2B2A";
---secondary: "#A2A2A2";
---accent: "#000000";
---background: "#000000";
---text: "#000000";
---dimGray: "#A2A2A2";
---tealGreen: "#2E8185";
---emeraldMist: "#4BBD8E";
 }
 
 /* Universal Styles */
@@ -36,28 +33,88 @@ scroll-behavior: smooth;
   }
 }
 
+/* Note: VSCode says there is an error with @apply directive - it still works */
+@layer components {
+  .navbar {
+    @apply flex flex-row fixed w-full h-[60px] bg-tealGreen z-50;
+  }
+  .nav-link {
+    /* Use @apply directive to utilize Tailwind classes */
+    @apply flex flex-col text-tertiary font-bold leading-[4em] cursor-pointer;
+  }
+  .nav-link-active {
+    /* Use @apply directive to utilize Tailwind classes */
+    @apply flex flex-col text-tealGreen font-bold leading-[4em] cursor-pointer;
+  }
+}
+
 .overlay {
   position: relative;
-  background-color: #F4F4F4;
+  background-color: var(--tertiary);
   background-image: url('../../public/images/graphy.png');
   background-position: center;
 }
 
 .bg-primary {
-  background-color: #2B2B2A;
+  background-color: var(--primary);
 }
 
 .bg-tealGreen {
-  background-color: #2E8185;
+  background-color: var(--tealGreen);
 }
 
 
 .bg-emeraldMist {
-  background-color: #4BBD8E;
+  background-color: var(--emeraldMist);
 }
 
 .bg-high-jump {
   background-image: url('../../public/images/high-jump-outside.jpg');
   background-size: cover;
   background-position: center;
+}
+
+/* Menu */
+
+.burger-menu {
+  height: 100%;
+  width: 4em;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 80%;
+  background-color: var(--primary);
+  position: fixed;
+  top: 0;
+  padding-top: 5em;
+  padding-left: 2em;
+  z-index: 10;
+  /* backdrop-filter: blur(5px); */
+}
+
+.menu-item {
+  padding: 1em;
+  margin: 1em;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer
+}
+
+/* Menu Tray */
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: inherit;
 }
