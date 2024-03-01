@@ -30,7 +30,6 @@ const Signup = () => {
         <button className="bg-[#DB4437] w-full text-white py-2 px-4 rounded-md">Sign up with Google</button>
         <button className="bg-primary w-full text-white py-2 px-4 rounded-md mt-3">Sign up with Apple</button>
       </div> */}
-
       </div>
     </div>
   );
