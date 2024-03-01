@@ -1,25 +1,48 @@
-import React from 'react';
+import { useState } from 'react';
+import { Alert } from '../components';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
+  // Error state
+  const [error, setError] = useState(null);
+
+  // Form data state
+  const [ email, setEmail ] = useState('');
+  const [ password, setPassword ] = useState('');
+  const [ confirmPassword, setConfirmPassword ] = useState('');
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    console.log('Form submitted');
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-        <h2 className="text-3xl font-semibold font-merriweather text-center mb-10">Create an Account</h2>
-        <form>
+        <h2 className="form-title">Create an Account</h2>
+        <form onSubmit={handleSignup}>
           <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium text-primary font-merriweather">Email</label>
-            <input type="email" id="email" name="email" className="mt-1 h-[38px] block w-full border-emeraldMist rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50" />
+            <label htmlFor="email" className="input-label">Email</label>
+            <input type="email" id="email" name="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium text-primary font-merriweather">Password</label>
-            <input type="password" id="password" name="password" className="mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50" />
+            <label htmlFor="password" className="input-label">Password</label>
+            <input type="password" id="password" name="password" className="input" value={password} onChange={(e) => setPassword(e.target.value)} />
           </div>
           <div className="mb-4">
-            <label htmlFor="confirm-password" className="block text-sm font-medium text-primary font-merriweather">Confirm Password</label>
-            <input type="password" id="confirm-password" name="confirm-password" className="mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50" />
+            <label htmlFor="confirm-password" className="input-label">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" className="input" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
           </div>
-          <button type="submit" className="w-full mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-emeraldMist hover:bg-emeraldMist focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emeraldMist font-merriweather">Sign Up</button>
+          
+          { error && <Alert message={error} type="error" />}
+
+          <button type="submit" className="form-btn">Sign Up</button>
         </form>
+        <p className="mt-4 text-center font-merriweather text-sm pt-2">Already have an account? <Link to="/login" className="text-emeraldMist">Log in</Link></p>
         {/* Google/Apple Signup Buttons */}
         {/* <div className="flex items-center mt-4">
         <div className="border-t border-gray-300 w-full"></div>
