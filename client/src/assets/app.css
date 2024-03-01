@@ -51,7 +51,7 @@ scroll-behavior: smooth;
 .overlay {
   position: relative;
   background-color: var(--tertiary);
-  background-image: url('../../public/images/graphy.png');
+  background-image: url('/images/graphy.png');
   background-position: center;
 }
 
@@ -69,7 +69,7 @@ scroll-behavior: smooth;
 }
 
 .bg-high-jump {
-  background-image: url('../../public/images/high-jump-outside.jpg');
+  background-image: url('/images/high-jump-outside.jpg');
   background-size: cover;
   background-position: center;
 }
