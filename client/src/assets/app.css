@@ -76,16 +76,6 @@ scroll-behavior: smooth;
 
 /* Menu */
 
-.burger-menu {
-  height: 100%;
-  width: 4em;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
 .menu {
   display: flex;
   flex-direction: column;
