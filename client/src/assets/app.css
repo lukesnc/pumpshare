@@ -5,13 +5,14 @@
 /* Lato */
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
 
+/* Required */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Variables */
 :root {
---primary: #2B2B2A; /* Dark Gray */
+--primary: theme('colors.primary'); /* Dark Gray */
 --secondary: #A2A2A2; /* Medium Gray */
 --tertiary: #F4F4F4; /* Light Gray */
 --tealGreen: #2E8185;
@@ -29,23 +30,46 @@ scroll-behavior: smooth;
 
 @layer utilities {
   .tracking-custom {
-    letter-spacing: 0.7em; /* Adjust the value to your preference */
+    letter-spacing: 0.7em; 
   }
 }
 
-/* Note: VSCode says there is an error with @apply directive - it still works */
+/* Note: The @apply directive allows css to implement Tailwind classes */
 @layer components {
   .navbar {
     @apply flex flex-row fixed w-full h-[60px] bg-tealGreen z-50;
   }
   .nav-link {
-    /* Use @apply directive to utilize Tailwind classes */
     @apply flex flex-col text-tertiary font-bold leading-[4em] cursor-pointer;
   }
   .nav-link-active {
-    /* Use @apply directive to utilize Tailwind classes */
     @apply flex flex-col text-tealGreen font-bold leading-[4em] cursor-pointer;
   }
+  .input-label {
+    @apply block text-sm font-medium text-primary font-merriweather;
+  }
+  .input {
+    @apply mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50
+  }
+  .form-title {
+    @apply text-3xl font-semibold font-merriweather text-center mb-10;
+  }
+  .form-btn {
+    @apply w-full mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-emeraldMist hover:bg-emeraldMist focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emeraldMist font-merriweather;
+  }
+}
+ 
+@layer alerts {
+  .alert {
+    @apply text-white text-sm p-2 rounded-md;
+  }
+  .alert-success {
+    @apply text-green-500;
+  }
+  .alert-error {
+    @apply text-center text-red-500;
+  }
+
 }
 
 .overlay {
@@ -55,17 +79,8 @@ scroll-behavior: smooth;
   background-position: center;
 }
 
-.bg-primary {
-  background-color: var(--primary);
-}
-
 .bg-tealGreen {
-  background-color: var(--tealGreen);
-}
-
-
-.bg-emeraldMist {
-  background-color: var(--emeraldMist);
+  background-color: var(--tealGreen)
 }
 
 .bg-high-jump {
@@ -89,17 +104,6 @@ scroll-behavior: smooth;
   z-index: 10;
   /* backdrop-filter: blur(5px); */
 }
-
-.menu-item {
-  padding: 1em;
-  margin: 1em;
-  font-size: 1.5em;
-  font-weight: 600;
-  color: var(--primary);
-  cursor: pointer
-}
-
-/* Menu Tray */
 
 .hidden {
   display: none;
