@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Alert } from '../components';
 import { Link } from 'react-router-dom';
+import { registerUser } from '../controllers/userController';
 
 const Signup = () => {
   // Error state
@@ -11,14 +12,13 @@ const Signup = () => {
   const [ password, setPassword ] = useState('');
   const [ confirmPassword, setConfirmPassword ] = useState('');
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
+    try {
+      await registerUser(email, password, confirmPassword);
+    } catch (error) {
+      setError(error.message);
     }
-    setError(null);
-    console.log('Form submitted');
   }
 
   return (
