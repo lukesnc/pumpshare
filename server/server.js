@@ -2,8 +2,9 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const MongoStore = require('connect-mongo'); // Session store for MongoDB
-const exercisesRoutes = require('./routes/exercises');
 const mainRoutes = require('./routes/main');
+const exercisesRoutes = require('./routes/exercises');
+const usersRoutes = require('./routes/users');
 
 // Express App
 const app = express();
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3000;
 // Database Connection
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
+        console.log('Connected to database successfully');
         app. listen(process.env.PORT, host, port, () => {
             console.log(`Server running at http://${host}:${port}/`)
         });
@@ -29,4 +31,5 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', mainRoutes);
-app.use('/exercises',exercisesRoutes);
+app.use('/api/exercises',exercisesRoutes);
+app.use('/api/users', usersRoutes);
