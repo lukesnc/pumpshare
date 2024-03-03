@@ -2,32 +2,44 @@
 
 export const navLinks = [
   {
+    id: "home",
+    title: "Home",
+    path: "/"
+  },
+  {
     id: "dashboard",
     title: "Dashboard",
+    path: ""
   },
   {
     id: "activity",
     title: "Activity",
+    path: ""
   },
   {
     id: "log-exercise",
     title: "Log Exercise",
+    path: ""
   },
   {
     id: "notifications",
     title: "Notifications",
+    path: ""
   },
   {
     id: "profile",
     title: "Profile",
+    path: ""
   },
   {
     id: "settings",
     title: "Settings",
+    path: ""
   },
   {
     id: "logout",
     title: "Logout",
+    path: ""
   }
 ];
 
