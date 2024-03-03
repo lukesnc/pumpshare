@@ -1,6 +1,5 @@
 // import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import styles from './style'
 
 // Pages and Components
 import { Home, Signup } from './pages'
