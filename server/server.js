@@ -29,4 +29,4 @@ app.use((req, res, next) => {
 
 // Routes
 app.use('/', mainRoutes);
-app.use('/exercises',exercisesRoutes);
+app.use('/api/exercises',exercisesRoutes);
