@@ -29,6 +29,7 @@ const Navbar = () => {
             {/* NavLink has prop for active link - Currently not working (probably until backend API is functioning) */}
             <NavLink to="/" exact activeClassName="nav-link-active" className="nav-link" onClick={toggleMenu}>Home</NavLink>
             <NavLink to="/signup" exact activeClassName="nav-link-active" className="nav-link" onClick={toggleMenu}>Sign-Up</NavLink>
+            <NavLink to="/login" exact activeClassName="nav-link-active" className="nav-link" onClick={toggleMenu}>Login</NavLink>
         </div>
     </header>
     )
