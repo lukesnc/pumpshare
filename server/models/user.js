@@ -6,14 +6,7 @@ const userSchema = new Schema({
     password: { type: String, required: [true, 'Password is required'], trim: true, minlength: 8 }
 }, { timestamps: true });
 
-// userSchema.methods.comparePassword = function(inputPassword) {
-//     let user = this;
-//     // return (inputPassword === user.password);
-//     return true;
-//   }
-
-
-// This function is to be replaced by the comparePassword method above when bcrypt is introduced because it is asynchronous
+// Replace if-else with 'return bcrypt.compare(inputPassword, user.password)' when bcrypt is introduced
 // Right now, we are using resolve to mimic the asynchronous nature of bcrypt
   userSchema.methods.comparePassword = function(inputPassword) {
     return new Promise((resolve, reject) => {
