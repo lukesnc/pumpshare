@@ -24,6 +24,10 @@ mongoose.connect(process.env.MONGO_URI)
     })
 
 // Middleware
+app.use(express.json()); // Parse JSON bodies (as sent by API clients)
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies 
+app.use(express.static('public')); // Serve static files
+// For debugging purposes
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
