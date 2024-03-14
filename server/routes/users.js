@@ -12,7 +12,9 @@ router.get('/:id', (req, res) => {
     res.json({mssg: 'GET one user'});
 });
 
-// POST one user
+
+router.post('/login', controller.loginUser);
+
 router.post('/register', controller.registerUser);
 
 module.exports = router;
