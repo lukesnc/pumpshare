@@ -1,5 +1,29 @@
 /****** Login User ******/
+// Using 'async' because we are making a fetch request
+const loginUser = async (email, password) => {
+    if (!email || !password) {
+        throw Error('All fields are required');
+    }
 
+    const res = await fetch('/api/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+    });
+    
+    // data is the response from the server
+    const data = await res.json();
+    if (!res.ok) {
+        throw Error(data.error);
+    }
+
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('email', data.email);
+
+    return data;
+};
 
 /****** Register User ******/
 const registerUser = async (email, password, passwordConfirm) => {
@@ -27,4 +51,4 @@ const registerUser = async (email, password, passwordConfirm) => {
     return data;
 };
 
-export { registerUser }
+export { loginUser, registerUser }
