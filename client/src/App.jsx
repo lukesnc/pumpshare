@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 // Pages and Components
-import { Home, Signup } from './pages'
+import { Home, Signup, Login } from './pages'
 import { Navbar } from './components' // Import all components here from components/index.js
 
 
@@ -13,6 +13,7 @@ const App = ()  =>{
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
       </BrowserRouter>
   );
