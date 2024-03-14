@@ -12,6 +12,9 @@ const userSchema = new Schema({
 //     return true;
 //   }
 
+
+// This function is to be replaced by the comparePassword method above when bcrypt is introduced because it is asynchronous
+// Right now, we are using resolve to mimic the asynchronous nature of bcrypt
   userSchema.methods.comparePassword = function(inputPassword) {
     return new Promise((resolve, reject) => {
         let user = this;
