@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const ExerciseLibrary = () => {
   // Use navigate hook
@@ -58,10 +58,10 @@ const ExerciseLibrary = () => {
         </form>
 
         <button type="submit" className="form-btn">
-          Create New Routine
+          <Link to="/create-routine">Create New Routine</Link>
         </button>
         <button type="submit" className="form-btn">
-          Create New Exercise
+          <Link to="/create-exercise">Create New Exercise</Link>
         </button>
       </div>
     </div>
