@@ -34,11 +34,15 @@ const ExerciseLibrary = () => {
         <form>
           <select id="routines" className="border rounded-lgblock w-full p-2.5">
             <option selected>Choose a routine</option>
-            {routines.map((r) => (
+            <option>Chest Routine</option>
+            <option>Back Routine</option>
+            <option>Legs Routine</option>
+            <option>Cardio Routine</option>
+            {/* {routines.map((r) => (
               <option key={r.id} value={r.value}>
                 {r.label}
               </option>
-            ))}
+            ))} */}
           </select>
         </form>
 
@@ -49,11 +53,15 @@ const ExerciseLibrary = () => {
             className="border rounded-lgblock w-full p-2.5"
           >
             <option selected>Choose an exercise</option>
-            {exercises.map((e) => (
+            <option>Squat</option>
+            <option>Bench Press</option>
+            <option>Dumbell Row</option>
+            <option>Dumbell Fly</option>
+            {/* {exercises.map((e) => (
               <option key={e.id} value={e.value}>
                 {e.label}
               </option>
-            ))}
+            ))} */}
           </select>
         </form>
 
