@@ -3,9 +3,11 @@
 import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login";
+import ExerciseLibrary  from "./ExerciseLibrary";
 
 export {
 Home,
 Signup,
-Login
+Login,
+ExerciseLibrary
 };
