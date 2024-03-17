@@ -83,6 +83,10 @@ scroll-behavior: smooth;
   background-color: var(--tealGreen)
 }
 
+.bg-emeraldMist {
+  background-color: var(--emeraldMist)
+}
+
 .bg-high-jump {
   background-image: url('/images/high-jump-outside.jpg');
   background-size: cover;
