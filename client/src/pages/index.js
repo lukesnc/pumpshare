@@ -4,10 +4,12 @@ import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login";
 import ExerciseLibrary  from "./ExerciseLibrary";
+import ActivityFeed from "./ActivityFeed";
 
 export {
 Home,
 Signup,
 Login,
-ExerciseLibrary
+ExerciseLibrary,
+ActivityFeed
 };
