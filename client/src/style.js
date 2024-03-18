@@ -3,6 +3,8 @@
 const styles = {
     heading1: "font-poppins font-semibold text-[32px] text-primary leading-[48px] w-full text-center",
     paragraph: "font-merriweather font-normal text-primary text-[18px] leading-[30.8px]",
+    postCard: "bg-white px-4 width-[100%]",
+    postButton: 'text-tealGreen',
     flexCenter: "flex justify-center items-center",
     flexStart: "flex justify-center items-start",
     paddingX: "sm:px-16 px-6",

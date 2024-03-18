@@ -5,6 +5,7 @@ const MongoStore = require('connect-mongo'); // Session store for MongoDB
 const mainRoutes = require('./routes/main');
 const exercisesRoutes = require('./routes/exercises');
 const usersRoutes = require('./routes/users');
+const postsRoutes = require('./routes/posts');
 
 // Express App
 const app = express();
@@ -37,3 +38,4 @@ app.use((req, res, next) => {
 app.use('/', mainRoutes);
 app.use('/api/exercises',exercisesRoutes);
 app.use('/api/users', usersRoutes);
+app.use('/api/posts', postsRoutes);
