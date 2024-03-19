@@ -8,9 +8,7 @@ router.get('/', (req, res) => {
 });
 
 // GET one user
-router.get('/:id', (req, res) => {
-    res.json({mssg: 'GET one user'});
-});
+router.get('/:username', controller.getProfile);
 
 
 router.post('/login', controller.loginUser);
