@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const { posts } = require('./postsController'); // This to be removed - for testing only
 
 exports.registerUser = (req, res) => {
     res.send('registerUser');
@@ -32,3 +33,24 @@ exports.loginUser = async (req, res) => {
     })
     .catch(error => res.status(500).json({error: error.message}));
 }
+
+// This function has errors, but connection has been established
+exports.getProfile = (req, res) => {
+    const username = req.params.username;
+    console.log('username:', username);
+
+    User.findOne({ username: username })
+        .then(user => {
+            console.log('userData:', user);
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ error: 'User not found' });
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching user data:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        });
+};
+
