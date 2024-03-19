@@ -18,7 +18,7 @@ const userSchema = new Schema({
 
 // Replace if-else with 'return bcrypt.compare(inputPassword, user.password)' when bcrypt is introduced
 // Right now, we are using resolve to mimic the asynchronous nature of bcrypt
-  userSchema.methods.comparePassword = function(inputPassword) {
+userSchema.methods.comparePassword = function(inputPassword) {
     return new Promise((resolve, reject) => {
         let user = this;
         if (inputPassword === user.password) {
@@ -28,6 +28,5 @@ const userSchema = new Schema({
         }
     });
 }
-
 
 module.exports = mongoose.model('User', userSchema, 'users'); // The third argument is the name of the collection in the database (if it is not provided, it will be the lowercase-plural of the first argument)
