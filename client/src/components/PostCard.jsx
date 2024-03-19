@@ -7,7 +7,7 @@ const PostCard = ({ id, username, displayName, image, content, timestamp }) => {
 
   return (
     <div className='flex text-primary flex-auto my-4'>
-      {/* Avatar */}
+      {/* Avatar - condition to remove if being viewed in profile */}
       <div className='min-w-12 w-12'> 
         <img src={imagePlaceholder} alt="avatar" className='' />
       </div>
@@ -22,7 +22,7 @@ const PostCard = ({ id, username, displayName, image, content, timestamp }) => {
           <span className='text-gray-400'>{timestamp}</span>
           {/* Comment */}
           <button className='flex-auto flex-wrap'>
-            <i class={`fa-regular fa-message ${styles.postButton}`}></i>
+            <i className={`fa-regular fa-message ${styles.postButton}`}></i>
           </button>
           {/* Like Button */}
           <button className=''> 
