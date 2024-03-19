@@ -5,11 +5,15 @@ import Signup from "./Signup";
 import Login from "./Login";
 import ExerciseLibrary  from "./ExerciseLibrary";
 import ActivityFeed from "./ActivityFeed";
+import Profile from "./Profile";
+import Follow from "./Follow";
 
 export {
 Home,
 Signup,
 Login,
 ExerciseLibrary,
-ActivityFeed
+ActivityFeed,
+Profile,
+Follow
 };
