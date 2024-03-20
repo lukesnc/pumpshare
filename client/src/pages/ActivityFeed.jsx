@@ -30,10 +30,8 @@ const ActivityFeed = () => {
           <h2 className="text-3xl font-semibold font-merriweather text-center mx-4">Activity Feed</h2>
         </div>
               {posts.map(post => (
-                <div className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}>
+                <div key={post.id} className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}>
                   <PostCard
-                  // key and id share the same value, so we can use the id as the key?
-                    key={post.id}
                     id={post.id}
                     username={post.username}
                     displayName={post.displayName}
