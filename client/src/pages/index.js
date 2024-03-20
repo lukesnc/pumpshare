@@ -8,6 +8,7 @@ import Dashboard  from "./Dashboard";
 import ActivityFeed from "./ActivityFeed";
 import Profile from "./Profile";
 import Follow from "./Follow";
+import Create from "./Create";
 
 export {
 Home,
@@ -17,5 +18,6 @@ ExerciseLibrary,
 Dashboard,
 ActivityFeed,
 Profile,
-Follow
+Follow,
+Create
 };
