@@ -26,7 +26,7 @@ const ActivityFeed = () => {
   return (
     <div className="flex min-h-screen bg-gray-100 justify-center">
       <div className="flex-col w-full">
-        <div className="w-full p-8 mt-12">
+        <div className="w-full p-8 mt-[3em]">
           <h2 className="text-3xl font-semibold font-merriweather text-center mx-4">Activity Feed</h2>
         </div>
               {posts.map(post => (
