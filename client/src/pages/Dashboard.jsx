@@ -6,13 +6,11 @@ import { PieChart, Pie, Tooltip, ResponsiveContainer, BarChart, CartesianGrid, X
 
 const Dashboard = () => {
 
-
-
     const data = [
-        { name: "Facebook", value: 20000000 },
-        { name: "Instagram", value: 15000000 },
-        { name: "Twitter", value: 10000000 },
-        { name: "LinkedIn", value: 5000000 }
+        { name: "Exercise 1", value: 20000000 },
+        { name: "Exercise 2", value: 15000000 },
+        { name: "Exercise 3", value: 10000000 },
+        { name: "Exercise 4", value: 5000000 }
     ];
 
     const gridContainerStyle = {
@@ -23,8 +21,6 @@ const Dashboard = () => {
         alignItems: 'center', // vertically center the items
     };
     
-    
-
     const chartContainerStyle = {
         border: '1px solid #ccc',
         borderRadius: '5px',
@@ -32,13 +28,11 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="Dashboard">
-            
-            
-            <div style={gridContainerStyle}>
-                <div style={chartContainerStyle}>
+        <div className='flex flex-col'>
+            <div classname=''>
+                <div className='flex flex-col mt-[5em]' style={chartContainerStyle}>
                     <h2>Pie Chart</h2>
-                    <ResponsiveContainer width="80%" height={400}>
+                    <ResponsiveContainer width="100%" height={300}>
                         <PieChart>
                             <Pie
                                 dataKey="value"
@@ -55,9 +49,9 @@ const Dashboard = () => {
                     </ResponsiveContainer>
                 </div>
 
-                <div style={chartContainerStyle}>
+                <div className='flex flex-col' style={chartContainerStyle}>
                     <h2>Bar Chart</h2>
-                    <ResponsiveContainer width="80%" height={400}>
+                    <ResponsiveContainer width="100%" height={200}>
                         <BarChart
                             width={500}
                             height={300}
