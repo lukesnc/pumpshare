@@ -12,4 +12,6 @@ router.get('/:id', (req, res) => {
 // POST a post
 router.post('/post', controller.postPost);
 
+router.get('/create', controller.create);
+
 module.exports = router;

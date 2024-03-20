@@ -33,7 +33,7 @@ const PostCard = ({ id, username, displayName, image, content, timestamp }) => {
       </div>
       {/* Options */}
       <div className=''>
-        <i class={`fa-solid fa-ellipsis ${styles.postButton}`}></i>
+        <i className={`fa-solid fa-ellipsis ${styles.postButton}`}></i>
       </div>
     </div>
   );
