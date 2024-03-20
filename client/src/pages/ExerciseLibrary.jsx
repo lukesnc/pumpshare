@@ -66,10 +66,10 @@ const ExerciseLibrary = () => {
         </form>
 
         <button type="submit" className="form-btn">
-          <Link to="/create-routine">Create New Routine</Link>
+          <Link to="/">Create New Routine</Link>
         </button>
         <button type="submit" className="form-btn">
-          <Link to="/create-exercise">Create New Exercise</Link>
+          <Link to="/create">Create New Exercise</Link>
         </button>
       </div>
     </div>
