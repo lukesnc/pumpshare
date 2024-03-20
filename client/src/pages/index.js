@@ -8,6 +8,7 @@ import Dashboard  from "./Dashboard";
 import ActivityFeed from "./ActivityFeed";
 import Profile from "./Profile";
 import Follow from "./Follow";
+import Log from "./Log";
 import Create from "./Create";
 
 export {
@@ -19,5 +20,6 @@ Dashboard,
 ActivityFeed,
 Profile,
 Follow,
+Log,
 Create
 };
