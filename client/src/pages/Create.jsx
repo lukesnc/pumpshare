@@ -1,35 +1,37 @@
-
 const Create = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 flex justify-center">
+      <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
+        
+          <h2 className="form-title">Create an exercise</h2>
 
-   
+          <form className="log-form">
+            <label htmlFor="sets">Exercise Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="input"
+            />
 
-      
-    return <section className="create-section">
-      
-            
-            <h1>Log Exercise</h1>
+            <label for="attr">Choose exercise attributes:</label>
+            <select name="attr" id="attr" className="input">
+              <option value="distance">Distance</option>
+              <option value="laps">Laps</option>
+              <option value="sets">Sets</option>
+              <option value="time">Time</option>
+              <option value="repitions">Repititions</option>
+              <option value="weight">Weight</option>
+            </select>
 
-            
-            <form className="create-form">
-                <label htmlFor="date">Date</label>
-                <input type="date" name="date" id="date" className="createInput createTextInput"/>
-
-                <label htmlFor="sets">Sets</label>
-                <input type="text" name="sets" id="sets" className="createInput createTextInput"/>
-
-                <label htmlFor="reps">Reps</label>
-                <input type="text" name="reps" id="reps" className="createInput createTextInput"/>
-
-                <label htmlFor="weight">Weight</label>
-                <input type="text" name="weight" id="weight" className="createInput createTextInput"/>
-
-                <label htmlFor="about">About</label>
-                <textarea name="about" id="about" cols="30" rows="6" className="createInput"></textarea>
-
-                <button type="submit" className="create-btn">Submit</button>
-            </form>
-          </section>
-    
-}
+            <button type="submit" className="form-btn">
+              Submit
+            </button>
+          </form>
+        
+      </div>
+    </div>
+  );
+};
 
 export default Create;
