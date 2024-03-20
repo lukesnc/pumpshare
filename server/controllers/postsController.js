@@ -7,6 +7,9 @@ exports.getAllPosts = (req, res) => {
 exports.postPost = (req, res) => {
     res.send('viewOnePost');
 }
+exports.create = (req,res)=>{
+  res.send('Create');
+}
 
 // Sample posts
 const posts = [

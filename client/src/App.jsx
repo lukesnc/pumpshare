@@ -2,7 +2,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages and Components
-import { Home, Signup, Login, ExerciseLibrary, ActivityFeed, Profile, Follow } from "./pages";
+import { Home, Signup, Login, ExerciseLibrary, ActivityFeed, Profile, Follow, Create} from "./pages";
 import { Navbar } from "./components"; // Import all components here from components/index.js
 
 const App = () => {
@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/library" element={<ExerciseLibrary />} />
         <Route path="/activity" element={<ActivityFeed />} />
+        <Route path="/create" element={<Create />} />
         <Route path="/:username" element={<Profile />} />
         <Route path="/:username/:follow" element={<Follow />} />
       </Routes>
