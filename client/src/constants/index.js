@@ -9,7 +9,7 @@ export const navLinks = [
   {
     id: "dashboard",
     title: "Dashboard",
-    path: ""
+    path: "/Dashboard"
   },
   {
     id: "activity",
