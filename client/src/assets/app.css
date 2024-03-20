@@ -117,10 +117,11 @@ scroll-behavior: smooth;
   display: inherit;
 }
 
-.create-form{
+.log-form{
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  
+  
   
   
 }
@@ -129,17 +130,20 @@ scroll-behavior: smooth;
   top:0;
 }
 
-.create-section{
+.log-section{
+  align-items:center;
   position:relative;
   margin-top:70px;
 }
-.createInput{
+.log-input{
   border: 3px solid black;
+  margin-bottom:20px;
 }
-.createTextInput{
+.log-text-input{
   max-height:50px;
 }
-.create-btn{
+.log-btn{
+  margin:20px, auto;
   background-color: var(--primary);
   color: var(--tertiary);
 }
