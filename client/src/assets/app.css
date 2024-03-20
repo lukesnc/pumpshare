@@ -116,3 +116,30 @@ scroll-behavior: smooth;
 .visible {
   display: inherit;
 }
+
+.create-form{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+  
+}
+.navbar{
+  position:absolute;
+  top:0;
+}
+
+.create-section{
+  position:relative;
+  margin-top:70px;
+}
+.createInput{
+  border: 3px solid black;
+}
+.createTextInput{
+  max-height:50px;
+}
+.create-btn{
+  background-color: var(--primary);
+  color: var(--tertiary);
+}
