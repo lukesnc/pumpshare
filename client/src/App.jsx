@@ -30,7 +30,7 @@ const App = () => {
         <Route path="/log" element={<Log />} />
         <Route path="/:username" element={<Profile />} />
         <Route path="/:username/:follow" element={<Follow />} />
-        <Route path="/create" element={<Create />} />
+        <Route path="/create-exercise" element={<Create />} />
       </Routes>
     </BrowserRouter>
   );
