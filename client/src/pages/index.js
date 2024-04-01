@@ -3,23 +3,25 @@
 import Home from "./Home";
 import Signup from "./Signup";
 import Login from "./Login";
-import ExerciseLibrary  from "./ExerciseLibrary";
-import Dashboard  from "./Dashboard";
+import ExerciseLibrary from "./ExerciseLibrary";
+import Dashboard from "./Dashboard";
 import ActivityFeed from "./ActivityFeed";
 import Profile from "./Profile";
 import Follow from "./Follow";
 import Log from "./Log";
 import Create from "./Create";
+import ErrorPage from "./ErrorPage";
 
 export {
-Home,
-Signup,
-Login,
-ExerciseLibrary,
-Dashboard,
-ActivityFeed,
-Profile,
-Follow,
-Log,
-Create
+  Home,
+  Signup,
+  Login,
+  ExerciseLibrary,
+  Dashboard,
+  ActivityFeed,
+  Profile,
+  Follow,
+  Log,
+  Create,
+  ErrorPage,
 };
