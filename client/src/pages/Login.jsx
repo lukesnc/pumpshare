@@ -20,10 +20,10 @@ const Login = () => {
         // Login the user
       await loginUser(email, password);
       // Update the user state
-      setUser({ email, posts: [] });
+      // setUser({ email, posts: [] }); <-------------- // Uncomment this when the user state is created //
       setError(null);
         // Redirect to the dashboard
-        // navigate('/dashboard');  <-------------- // Uncomment this when the dashboard is created //
+        navigate('/dashboard'); 
     } catch (error) {
       setError(error.message);
     }
