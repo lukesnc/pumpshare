@@ -13,6 +13,7 @@ import {
   Log,
   Create,
   Dashboard,
+  ErrorPage,
 } from "./pages";
 import { Navbar } from "./components"; // Import all components here from components/index.js
 
@@ -31,6 +32,7 @@ const App = () => {
         <Route path="/:username" element={<Profile />} />
         <Route path="/:username/:follow" element={<Follow />} />
         <Route path="/create-exercise" element={<Create />} />
+        <Route path="/error" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   );
