@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const { posts } = require('./postsController'); // This to be removed - for testing only
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt'); 
 
 exports.registerUser = async (req, res) => {
     // Get the email and password from the request body (json object)
