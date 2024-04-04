@@ -1,5 +1,4 @@
 const Exercise = require('../models/exercise');
-const location = require('react-router-dom')
 
 
 
