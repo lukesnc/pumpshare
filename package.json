@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "node server/server.js",
+    "server": "npm run dev --prefix server",
+    "frontend": "npm run dev --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run frontend\""
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  }
+}
