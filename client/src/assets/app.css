@@ -1,9 +1,9 @@
 /* Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
 /* Merriweather */
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap");
 /* Lato */
-@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 /* Required */
 @tailwind base;
@@ -12,25 +12,25 @@
 
 /* Variables */
 :root {
---primary: theme('colors.primary'); /* Dark Gray */
---secondary: #A2A2A2; /* Medium Gray */
---tertiary: #F4F4F4; /* Light Gray */
---tealGreen: #2E8185;
---emeraldMist: #4BBD8E;
---card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
+  --primary: theme("colors.primary"); /* Dark Gray */
+  --secondary: #a2a2a2; /* Medium Gray */
+  --tertiary: #f4f4f4; /* Light Gray */
+  --tealGreen: #2e8185;
+  --emeraldMist: #4bbd8e;
+  --card-shadow: 0px 20px 100px -10px rgba(66, 71, 91, 0.1);
 }
 
 /* Universal Styles */
 
 * {
-scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 /* Custom Classes */
 
 @layer utilities {
   .tracking-custom {
-    letter-spacing: 0.7em; 
+    letter-spacing: 0.7em;
   }
 }
 
@@ -49,7 +49,7 @@ scroll-behavior: smooth;
     @apply block text-sm font-medium text-primary font-merriweather;
   }
   .input {
-    @apply mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50
+    @apply mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50;
   }
   .form-title {
     @apply text-3xl font-semibold font-merriweather text-center mb-10;
@@ -58,7 +58,7 @@ scroll-behavior: smooth;
     @apply w-full mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-emeraldMist hover:bg-emeraldMist focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emeraldMist font-merriweather;
   }
 }
- 
+
 @layer alerts {
   .alert {
     @apply text-white text-sm p-2 rounded-md;
@@ -69,26 +69,25 @@ scroll-behavior: smooth;
   .alert-error {
     @apply text-center text-red-500;
   }
-
 }
 
 .overlay {
   position: relative;
   background-color: var(--tertiary);
-  background-image: url('/images/graphy.png');
+  background-image: url("/images/graphy.png");
   background-position: center;
 }
 
 .bg-tealGreen {
-  background-color: var(--tealGreen)
+  background-color: var(--tealGreen);
 }
 
 .bg-emeraldMist {
-  background-color: var(--emeraldMist)
+  background-color: var(--emeraldMist);
 }
 
 .bg-high-jump {
-  background-image: url('/images/high-jump-outside.jpg');
+  background-image: url("/images/high-jump-outside.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -117,33 +116,29 @@ scroll-behavior: smooth;
   display: inherit;
 }
 
-.log-form{
+.log-form {
   display: flex;
   flex-direction: column;
-  
-  
-  
-  
 }
-.navbar{
-  position:absolute;
-  top:0;
+.navbar {
+  position: absolute;
+  top: 0;
 }
 
-.log-section{
-  align-items:center;
-  position:relative;
-  margin-top:70px;
+.log-section {
+  align-items: center;
+  position: relative;
+  margin-top: 70px;
 }
-.log-input{
+.log-input {
   border: 3px solid black;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
-.log-text-input{
-  max-height:50px;
+.log-text-input {
+  max-height: 50px;
 }
-.log-btn{
-  margin:20px, auto;
+.log-btn {
+  margin: 20px, auto;
   background-color: var(--primary);
   color: var(--tertiary);
 }

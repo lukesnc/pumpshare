@@ -13,16 +13,22 @@ const createToken = (_id) => {
 
 exports.registerUser = async (req, res) => {
   // Get the email and password from the request body (json object)
-  const { email, password } = req.body;
+  const { firstName, lastName, username, email, password } = req.body;
 
   // Check if the email and password are not empty
-  if (!email || !password) {
+  if (!firstName || !lastName || !username || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
+  // Check if the username exists
+  const usernameExists = await User.findOne({ username });
+  if (usernameExists) {
+    return res.status(400).json({ error: "Username is taken" });
+  }
+
   // Check if the email exists
-  const exists = await User.findOne({ email });
-  if (exists) {
+  const emailExists = await User.findOne({ email });
+  if (emailExists) {
     return res.status(400).json({ error: "Email is taken" });
   }
 
@@ -31,14 +37,20 @@ exports.registerUser = async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, salt);
 
   // Create a new user
-  const user = new User({ email, password: hashedPassword });
+  const user = new User({
+    firstName,
+    lastName,
+    username,
+    email,
+    password: hashedPassword,
+  });
   user
     .save()
     .then(() => {
       // Create a token
       const token = createToken(user._id);
       // Send the response
-      res.status(200).json({ email, token });
+      res.status(200).json({ user, email, token });
     }) // add a toast alert
     .catch((error) => res.status(400).json({ error: error.message }));
 };
@@ -63,8 +75,8 @@ exports.loginUser = async (req, res) => {
             } else {
               // Create a token
               const token = createToken(user._id);
-              // Send the response
-              res.status(200).json({ email, token });
+              // Send the response (sent as 'data' in the client side)
+              res.status(200).json({ user, email, token });
             }
           })
           .catch((error) => res.status(500).json({ error: error.message }));
@@ -76,11 +88,9 @@ exports.loginUser = async (req, res) => {
 // This function has errors, but connection has been established
 exports.getProfile = (req, res) => {
   const username = req.params.username;
-  console.log("username:", username);
 
-  User.findOne({ username: username })
+  User.findOne({ username })
     .then((user) => {
-      console.log("userData:", user);
       if (user) {
         res.status(200).json(user);
       } else {

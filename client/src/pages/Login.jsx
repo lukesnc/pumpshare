@@ -6,7 +6,7 @@ import { UserContext } from "../contexts/userContext";
 
 const Login = () => {
   // User context
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   // Use navigate hook
   const navigate = useNavigate();
@@ -22,9 +22,9 @@ const Login = () => {
     e.preventDefault();
     try {
       // Login the user
-      await loginUser(email, password);
-      // Update the user state
-      setUser({ email, posts: [] });
+      const { user } = await loginUser(email, password);
+      // Update the user state > this may be handled in the controller
+      setUser(user);
       setError(null);
       // Redirect to the dashboard
       navigate("/dashboard");
