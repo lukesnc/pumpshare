@@ -37,11 +37,20 @@ const Navbar = () => {
         >
           PumpShare
         </Link>
-        <div className={menuIcon} onClick={toggleMenu}></div>
+        <div className="my-auto ml-auto">
+          {user.email && (
+            <Link
+              to={`/${user.username}`}
+              className="my-auto ml-auto mr-[1em] text-white"
+            >
+              <i className="fa-solid fa-user fa-lg"></i>
+            </Link>
+          )}
+          <div className={menuIcon} onClick={toggleMenu}></div>
+        </div>
       </nav>
       <div className={showMenu}>
         {/* NavLink has prop for active link - Currently not working (probably until backend API is functioning) */}
-
         {user.email ? (
           <>
             <NavLink to="/" className="nav-link" onClick={toggleMenu}>
