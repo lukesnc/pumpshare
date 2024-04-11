@@ -50,7 +50,7 @@ exports.registerUser = async (req, res) => {
       // Create a token
       const token = createToken(user._id);
       // Send the response
-      res.status(200).json({ username, email, token });
+      res.status(200).json({ user, email, token });
     }) // add a toast alert
     .catch((error) => res.status(400).json({ error: error.message }));
 };
