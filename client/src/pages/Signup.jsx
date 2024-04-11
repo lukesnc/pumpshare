@@ -15,6 +15,9 @@ const Signup = () => {
   const [error, setError] = useState(null);
 
   // Form data state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -22,7 +25,16 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(email, password, confirmPassword);
+      await registerUser(
+        firstName,
+        lastName,
+        username,
+        email,
+        password,
+        confirmPassword
+      );
+      // Clear the form - necessary?
+      setUsername("");
       setEmail("");
       setPassword("");
       setConfirmPassword("");
@@ -40,6 +52,47 @@ const Signup = () => {
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
         <h2 className="form-title">Create an Account</h2>
         <form onSubmit={handleSignup}>
+          <div className="mb-4">
+            <label htmlFor="firstName" className="input-label">
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              className="input"
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="lastName" className="input-label">
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              className="input"
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="username" className="input-label">
+              Username
+            </label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              className="input"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
           <div className="mb-4">
             <label htmlFor="email" className="input-label">
               Email
