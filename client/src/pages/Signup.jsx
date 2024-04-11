@@ -25,7 +25,7 @@ const Signup = () => {
   const handleSignup = async (e) => {
     e.preventDefault();
     try {
-      await registerUser(
+      const { user } = await registerUser(
         firstName,
         lastName,
         username,
@@ -33,13 +33,8 @@ const Signup = () => {
         password,
         confirmPassword
       );
-      // Clear the form - necessary?
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
       // Update the user state
-      setUser({ email, posts: [] });
+      setUser(user);
       setError(null);
       navigate("/dashboard");
     } catch (error) {
