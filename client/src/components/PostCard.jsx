@@ -1,38 +1,52 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import styles from '../style';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "../style";
 
-const PostCard = ({ id, username, displayName, image, content, timestamp }) => {
-  const imagePlaceholder = './images/avatar.png'; // To be removed later
+const PostCard = ({
+  id,
+  username,
+  displayName,
+  image,
+  content,
+  comments,
+  likes,
+  timestamp,
+}) => {
+  const imagePlaceholder = "./images/avatar.png"; // To be removed later
+
+  const numLikes = likes.length;
+  const numComments = comments.length;
 
   return (
-    <div className='flex text-primary flex-auto my-4'>
+    <div className="flex text-primary flex-auto my-4">
       {/* Avatar - condition to remove if being viewed in profile */}
-      <div className='min-w-12 w-12'> 
-        <img src={imagePlaceholder} alt="avatar" className='' />
+      <div className="min-w-12 w-12">
+        <img src={imagePlaceholder} alt="avatar" className="" />
       </div>
       {/* Content */}
-      <div className='px-3 flex-auto'>
-
-        <span className='font-semibold mr-3'>{displayName}</span>
-        <span className='text-gray-400'>{'@' + username}</span>
+      <div className="px-3 flex-auto">
+        <span className="font-semibold mr-3">{displayName}</span>
+        <span className="text-gray-400">{"@" + username}</span>
         <p className={`line-clamp-5 ${styles.truncate}`}>{content}</p>
 
-        <div className='flex flex-auto mt-2'>
-          <span className='text-gray-400'>{timestamp}</span>
+        <div className="flex flex-auto mt-2">
+          <span className="text-gray-400">{timestamp}</span>
           {/* Comment */}
-          <button className='flex-auto flex-wrap'>
+          <button className="flex-auto flex-wrap">
             <i className={`fa-regular fa-message ${styles.postButton}`}></i>
+            <span className="ml-1 text-gray-400 text-[10px]">
+              {numComments}
+            </span>
           </button>
           {/* Like Button */}
-          <button className=''> 
+          <button className="">
             <i className={`fa-regular fa-heart ${styles.postButton}`}></i>
+            <span className="ml-1 text-gray-400 text-[10px]">{numLikes}</span>
           </button>
         </div>
-
       </div>
       {/* Options */}
-      <div className=''>
+      <div className="">
         <i className={`fa-solid fa-ellipsis ${styles.postButton}`}></i>
       </div>
     </div>
