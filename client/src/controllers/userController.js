@@ -34,29 +34,6 @@ const registerUser = async (
   password,
   passwordConfirm
 ) => {
-  //  Already checked in the backend
-  // Check if username is taken
-  //   if (!username) {
-  //     throw Error("Username is required");
-  //   } else {
-  //     const res = await fetch(`/api/users/${username}`);
-  //     const data = await res.json();
-  //     if (res.ok) {
-  //       throw Error(data.error);
-  //     }
-  //   }
-
-  //   // Check if email is taken
-  //   if (!email) {
-  //     throw Error("Email is required");
-  //   } else {
-  //     const res = await fetch(`/api/users/${email}`);
-  //     const data = await res.json();
-  //     if (res.ok) {
-  //       throw Error(data.error);
-  //     }
-  //   }
-
   if (!firstName || !lastName || !password || !passwordConfirm) {
     throw Error("All fields are required");
   }
