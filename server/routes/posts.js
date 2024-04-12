@@ -6,13 +6,11 @@ const controller = require("../controllers/postsController");
 router.get("/", controller.getAllPosts);
 
 // GET one post
-router.get("/:id", (req, res) => {
-  res.json({ mssg: "GET one post" });
-});
+router.get("/:id", controller.getPost);
 
 router.get("/user/:id", controller.getPostsByUserId);
 // POST a post
-router.post("/post", controller.postPost);
+router.post("/post", controller.getPost);
 
 router.get("/create", controller.create);
 

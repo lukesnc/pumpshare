@@ -37,9 +37,8 @@ const ActivityFeed = () => {
           >
             <PostCard
               key={post.id}
-              id={post.id}
-              username={post.user}
-              displayName={post.displayName}
+              id={post._id}
+              userId={post.user}
               content={post.content}
               comments={post.comments}
               likes={post.likes}

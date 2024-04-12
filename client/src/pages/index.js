@@ -11,6 +11,7 @@ import Follow from "./Follow";
 import Log from "./Log";
 import Create from "./Create";
 import ErrorPage from "./ErrorPage";
+import PostPage from "./PostPage";
 
 export {
   Home,
@@ -24,4 +25,5 @@ export {
   Log,
   Create,
   ErrorPage,
+  PostPage,
 };
