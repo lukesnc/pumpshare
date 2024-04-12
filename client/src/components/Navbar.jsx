@@ -25,6 +25,7 @@ const Navbar = () => {
     setUser({ email: null, posts: [] });
     localStorage.removeItem("email");
     localStorage.removeItem("token");
+    localStorage.removeItem("username");
     toggleMenu();
   };
 
