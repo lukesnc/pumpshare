@@ -46,20 +46,23 @@ const PostPage = () => {
           )}
         </div>
       </div>
-      <div className="flex flex-col text-center  w-full">
-        {/* Add Comment */}
-        <div className="w-full bg-emeraldMist">
-          <button className="w-full max-w-sm bg-emeraldMist text-white font-medium py-2 px-4">
-            Add Comment
-          </button>
-        </div>
+      <div className="flex flex-col w-full">
         {/* Comments */}
         <div>
-          <h3 className="text-gray-400 font-semibold my-5">Comments</h3>
+          <h3 className="text-center text-gray-400 font-semibold my-5">
+            Comments
+          </h3>
           <div className="bg-white py-6 border-t-2 border-gray-100">
             <p className="text-primary text-[14px] mx-2">
               This is a fake comment. Replace with actual comments later.
             </p>
+          </div>
+          {/* Add Comment */}
+          <div className="flex bg-emeraldMist bottom-0 justify-center w-full fixed z-50 shadow-md box-shadow">
+            {/* app.css for dropshadow */}
+            <button className="bg-emeraldMist text-white font-medium py-5 px-4 w-full max-w-sm">
+              Add Comment
+            </button>
           </div>
         </div>
       </div>
