@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 import styles from "../style";
 import { findUser } from "../controllers/userController";
