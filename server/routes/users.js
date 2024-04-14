@@ -11,6 +11,8 @@ router.get("/", (req, res) => {
 // GET one user
 router.get("/:username", checkUsername, controller.getProfile);
 
+router.get("/find/:id", controller.getUserById);
+
 router.post("/login", controller.loginUser);
 
 router.post("/register", controller.registerUser);

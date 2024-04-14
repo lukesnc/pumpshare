@@ -14,6 +14,7 @@ import {
   Create,
   Dashboard,
   ErrorPage,
+  PostPage,
 } from "./pages";
 import { Navbar } from "./components"; // Import all components here from components/index.js
 
@@ -33,6 +34,7 @@ const App = () => {
         <Route path="/:username/:follow" element={<Follow />} />
         <Route path="/create-exercise" element={<Create />} />
         <Route path="/error" element={<ErrorPage />} />
+        <Route path="/post/:id" element={<PostPage />} />
       </Routes>
     </BrowserRouter>
   );

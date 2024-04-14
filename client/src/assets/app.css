@@ -142,3 +142,8 @@
   background-color: var(--primary);
   color: var(--tertiary);
 }
+
+.box-shadow {
+  /* box-shadow: x offset | y offset| blur radius | spread | color */
+  box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.4) !important;
+}
