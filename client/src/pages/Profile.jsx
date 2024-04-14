@@ -5,14 +5,6 @@ import { PostCard } from "../components";
 import styles from "../style";
 
 const Profile = () => {
-  const post = {
-    id: 1,
-    username: "username",
-    displayName: "displayName",
-    content: "This is a post!",
-    timestamp: "2h ago",
-  };
-
   const { username } = useParams();
   const [userData, setUserData] = useState(null);
   const [posts, setPosts] = useState([]);
@@ -27,15 +19,13 @@ const Profile = () => {
         const data = await response.json();
         setUserData(data);
 
-        // Fetch posts based on user information (if available)
         if (data.posts.length > 0) {
-          // Check if user has postIds field
-          const postResponse = await fetch(`/api/posts/user/${data._id}`); // Use user ID for targeted fetch
+          const postResponse = await fetch(`/api/posts/user/${data._id}`);
           if (!postResponse.ok) {
             throw new Error("Error fetching posts");
           }
           const postsData = await postResponse.json();
-          console.log(postsData);
+          console.log("postsData", postsData);
           setPosts(postsData);
         }
       } catch (error) {
@@ -46,9 +36,8 @@ const Profile = () => {
     fetchUserData();
   }, [username]);
 
-  if (!userData) {
-    return <div>Loading...</div>;
-  }
+  const firstName = userData ? userData.firstName : "";
+  const lastName = userData ? userData.lastName : "";
 
   return (
     <div>
@@ -60,7 +49,7 @@ const Profile = () => {
           </div>
           <div className="flex flex-col items-center w-full">
             <h1 className="text-[24px] font-semibold mt-2">
-              {userData.firstName} {userData.lastName}
+              {firstName} {lastName}
             </h1>
             <p className="text-gray-400">@{username}</p>
             <div className="flex mt-4 justify-evenly w-full">
@@ -77,6 +66,7 @@ const Profile = () => {
         {/* Posts */}
         <div className="mt-5 w-full">
           <div className="">
+            {/* >>> add a loading here (maybe in with posts.length?) <<< */}
             {posts.length === 0 && (
               <div className="flex mt-4 bg-white h-[100px]">
                 <p className="text-gray-400 mx-auto my-auto font-[16px]">
@@ -90,9 +80,8 @@ const Profile = () => {
               >
                 <PostCard
                   key={post.id}
-                  id={post.id}
-                  username={username}
-                  displayName={post.displayName}
+                  id={post._id}
+                  userId={post.user}
                   content={post.content}
                   comments={post.comments}
                   likes={post.likes}

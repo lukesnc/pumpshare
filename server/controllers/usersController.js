@@ -50,7 +50,7 @@ exports.registerUser = async (req, res) => {
       // Create a token
       const token = createToken(user._id);
       // Send the response
-      res.status(200).json({ user, email, token });
+      res.status(200).json({ user, username, email, token });
     }) // add a toast alert
     .catch((error) => res.status(400).json({ error: error.message }));
 };
@@ -90,6 +90,23 @@ exports.getProfile = (req, res) => {
   const username = req.params.username;
 
   User.findOne({ username })
+    .then((user) => {
+      if (user) {
+        res.status(200).json(user);
+      } else {
+        res.status(404).json({ error: "User not found" });
+      }
+    })
+    .catch((error) => {
+      console.error("Error fetching user data:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    });
+};
+
+exports.getUserById = (req, res) => {
+  const userId = req.params.id;
+
+  User.findById(userId)
     .then((user) => {
       if (user) {
         res.status(200).json(user);
