@@ -11,6 +11,10 @@ router.get("/", (req, res) => {
 // GET one user
 router.get("/:username", checkUsername, controller.getProfile);
 
+router.get("/:username/followers", checkUsername, controller.getFollowers);
+
+router.get("/:username/following", checkUsername, controller.getFollowing);
+
 router.get("/find/:id", controller.getUserById);
 
 router.post("/login", controller.loginUser);

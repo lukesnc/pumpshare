@@ -1,8 +1,7 @@
-import {useLocation} from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { logExercise } from "../controllers/exerciseController";
-
 
 const Log = () => {
   const location = useLocation();
@@ -17,22 +16,23 @@ const Log = () => {
   const [about, setAbout] = useState("");
 
   const exerciseId = { logId: location.state?.logId };
-  
 
   const handleLog = async (e) => {
-    
     e.preventDefault();
 
     try {
-      const data = await logExercise(exerciseId.logId, date, sets, reps, weight, about);
-      console.log(data);
+      const data = await logExercise(
+        exerciseId.logId,
+        date,
+        sets,
+        reps,
+        weight,
+        about
+      );
       //path to be changed once page is made for viewing single exercise
-      navigate('/', { state: { exercise: data } });
-      
-
+      navigate("/", { state: { exercise: data } });
     } catch (error) {
       setError(error.message);
-      console.log(error.message);
     }
   };
 
@@ -42,7 +42,9 @@ const Log = () => {
         <h1 className="form-title">Log Exercise</h1>
 
         <form className="log-form" onSubmit={handleLog}>
-          <label htmlFor="date" className="input-label">Date</label>
+          <label htmlFor="date" className="input-label">
+            Date
+          </label>
           <input
             value={date}
             onChange={(e) => setDate(e.target.value)}
@@ -52,7 +54,9 @@ const Log = () => {
             className="input"
           />
 
-          <label htmlFor="sets" className="input-label">Sets</label>
+          <label htmlFor="sets" className="input-label">
+            Sets
+          </label>
           <input
             value={sets}
             onChange={(e) => setSets(e.target.value)}
@@ -62,7 +66,9 @@ const Log = () => {
             className="input"
           />
 
-          <label htmlFor="reps" className="input-label">Reps</label>
+          <label htmlFor="reps" className="input-label">
+            Reps
+          </label>
           <input
             value={reps}
             onChange={(e) => setReps(e.target.value)}
@@ -72,7 +78,9 @@ const Log = () => {
             className="input"
           />
 
-          <label htmlFor="weight" className="input-label">Weight</label>
+          <label htmlFor="weight" className="input-label">
+            Weight
+          </label>
           <input
             value={weight}
             onChange={(e) => setWeight(e.target.value)}
@@ -82,7 +90,9 @@ const Log = () => {
             className="input"
           />
 
-          <label htmlFor="about" className="input-label">About</label>
+          <label htmlFor="about" className="input-label">
+            About
+          </label>
           <textarea
             value={about}
             onChange={(e) => setAbout(e.target.value)}
