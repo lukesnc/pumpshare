@@ -15,7 +15,6 @@ const PostPage = () => {
           throw new Error("Failed to fetch post");
         }
         const data = await response.json();
-        console.log("data", data);
         setPost(data);
       } catch (error) {
         console.error("Error fetching post:", error);
