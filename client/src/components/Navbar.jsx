@@ -43,6 +43,7 @@ const Navbar = () => {
             <Link
               to={`/${user.username}`}
               className="my-auto ml-auto mr-[1em] text-white"
+              onClick={showMenu === "menu visible" ? toggleMenu : undefined}
             >
               <i className="fa-solid fa-user fa-lg"></i>
             </Link>
