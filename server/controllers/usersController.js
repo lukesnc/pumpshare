@@ -119,3 +119,47 @@ exports.getUserById = (req, res) => {
       res.status(500).json({ error: "Internal Server Error" });
     });
 };
+
+exports.getFollowers = async (req, res) => {
+  const username = req.params.username;
+
+  try {
+    const user = await User.findOne({ username }).populate("followers");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const followers = user.followers;
+    res.status(200).json({ usersList: followers });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.getFollowing = (req, res) => {
+  const username = req.params.username;
+
+  User.findOne({ username })
+    .populate("following")
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+
+      const following = user.following;
+
+      User.find({ _id: { $in: following } })
+        .then((followingUsers) => {
+          res.status(200).json({ usersList: followingUsers });
+        })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).json({ message: "Error fetching following users" });
+        });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    });
+};
