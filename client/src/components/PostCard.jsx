@@ -12,7 +12,7 @@ const PostCard = ({
   likes,
   timestamp,
 }) => {
-  const imagePlaceholder = "./images/avatar.png"; // To be removed later
+  const imagePlaceholder = "../images/avatar.png"; // To be removed later
 
   const numLikes = likes.length;
   const numComments = comments.length;
