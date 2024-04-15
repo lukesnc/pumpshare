@@ -27,6 +27,7 @@ const Profile = () => {
           const postsData = await postResponse.json();
           console.log("postsData", postsData);
           setPosts(postsData);
+          console.log("posts", posts);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
