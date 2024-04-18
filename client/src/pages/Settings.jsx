@@ -15,8 +15,8 @@ const Settings = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [image, setImage] = useState("../images/avatar.png");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const { setUser } = useContext(UserContext);
 
@@ -41,25 +41,25 @@ const Settings = () => {
     switch (name) {
       case "firstName":
         setFirstName(value);
-        setSuccess("");
+        setSuccess(null);
         break;
       case "lastName":
         setLastName(value);
-        setSuccess("");
+        setSuccess(null);
         break;
       case "email":
         setEmail(value);
-        setSuccess("");
+        setSuccess(null);
         break;
       case "password":
         setPassword(value);
-        setSuccess("");
-        setError("");
+        setSuccess(null);
+        setError(null);
         break;
       case "confirmPassword":
         setConfirmPassword(value);
-        setSuccess("");
-        setError("");
+        setSuccess(null);
+        setError(null);
       default:
         break;
     }
@@ -121,7 +121,7 @@ const Settings = () => {
       setSuccess("Profile updated successfully");
       setPassword("");
       setConfirmPassword("");
-      setError("");
+      setError(null);
     } catch (error) {
       console.error("Error updating profile:", error);
       setError(error.message); // Set error message for display
@@ -155,7 +155,7 @@ const Settings = () => {
                 className="bg-emeraldMist text-white px-4 py-2 rounded mr-4 w-max"
                 onClick={() => {
                   setIsDeleting(false);
-                  setError("");
+                  setError(null);
                   setPassword("");
                 }}
               >
