@@ -163,3 +163,58 @@ exports.getFollowing = (req, res) => {
       res.status(500).json({ message: "Server error" });
     });
 };
+
+exports.getMe = async (req, res) => {
+  const token = req.header("Authorization").replace("Bearer ", "");
+  const data = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const user = await User.findById({ _id: data._id });
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.updateUser = async (req, res) => {
+  console.log("req.body:", req.body);
+  const { firstName, lastName, email, password, id } = req.body;
+  const userId = id;
+  console.log("User ID:", userId);
+  const user = await User.findById(userId);
+  if (!user) {
+    return res
+      .status(404)
+      .json({ message: "User not found while trying to update user data" });
+  }
+
+  const updateData = {
+    $set: {
+      firstName: firstName || user.firstName,
+      lastName: lastName || user.lastName,
+      email: email || user.email,
+    },
+  };
+
+  if (password) {
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    updateData.$set.password = hashedPassword;
+  }
+
+  const filter = { _id: user._id }; // Update users matching this filter
+
+  User.findOneAndUpdate(filter, updateData, { new: true })
+    .then((updatedUser) => {
+      if (updatedUser) {
+        console.log("User updated successfully:", updatedUser);
+        res.status(200).json(updatedUser);
+      } else {
+        console.log("User not found");
+      }
+    })
+    .catch((error) => {
+      console.error("Error updating user:", error);
+    });
+};
+
+exports.deleteUser = async (req, res) => {};
