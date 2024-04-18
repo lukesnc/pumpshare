@@ -179,7 +179,6 @@ exports.updateUser = async (req, res) => {
   console.log("req.body:", req.body);
   const { firstName, lastName, email, password, id } = req.body;
   const userId = id;
-  console.log("User ID:", userId);
   const user = await User.findById(userId);
   if (!user) {
     return res
@@ -206,7 +205,6 @@ exports.updateUser = async (req, res) => {
   User.findOneAndUpdate(filter, updateData, { new: true })
     .then((updatedUser) => {
       if (updatedUser) {
-        console.log("User updated successfully:", updatedUser);
         res.status(200).json(updatedUser);
       } else {
         console.log("User not found");
@@ -217,4 +215,41 @@ exports.updateUser = async (req, res) => {
     });
 };
 
-exports.deleteUser = async (req, res) => {};
+exports.deleteUser = async (req, res) => {
+  const userId = req.params.id;
+  console.log("DELETE USER");
+  try {
+    const user = await User.findByIdAndDelete(userId);
+    if (!user) {
+      console.log("User not found");
+      return res.status(404).json({ message: "User not found" });
+    }
+    console.log("User deleted successfully");
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error(error);
+    console.log("Server error");
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.verifyPassword = async (req, res) => {
+  const { password, userId } = req.body;
+  const token = req.header("Authorization").replace("Bearer ", "");
+  const data = jwt.verify(token, process.env.JWT_SECRET);
+
+  try {
+    const user = await User.findById(data._id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const match = await user.comparePassword(password);
+    if (!match) {
+      return res.status(400).json({ message: "Incorrect password" });
+    }
+    res.status(200).json({ message: "Password verified" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
