@@ -35,6 +35,7 @@ const Navbar = () => {
         <Link
           to="/"
           className="font-poppins text-tertiary my-auto ml-5 text-[26px]"
+          onClick={showMenu === "menu visible" ? toggleMenu : undefined}
         >
           PumpShare
         </Link>
@@ -67,7 +68,9 @@ const Navbar = () => {
             <NavLink to="/activity" className="nav-link" onClick={toggleMenu}>
               Activity Feed
             </NavLink>
-            {/* Add a logout button */}
+            <NavLink to="/settings" className="nav-link" onClick={toggleMenu}>
+              Settings
+            </NavLink>
             <NavLink to="/" className="nav-link" onClick={handleLogout}>
               Logout
             </NavLink>
