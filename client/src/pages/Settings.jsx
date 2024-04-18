@@ -9,16 +9,14 @@ import {
 import { UserContext } from "../contexts/userContext";
 
 const Settings = () => {
-  const imagePlaceholder = "../images/avatar.png"; // To be removed later
-
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [image, setImage] = useState(null);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
+  const [image, setImage] = useState("../images/avatar.png");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const { setUser } = useContext(UserContext);
 
@@ -43,25 +41,25 @@ const Settings = () => {
     switch (name) {
       case "firstName":
         setFirstName(value);
-        setSuccess(null);
+        setSuccess("");
         break;
       case "lastName":
         setLastName(value);
-        setSuccess(null);
+        setSuccess("");
         break;
       case "email":
         setEmail(value);
-        setSuccess(null);
+        setSuccess("");
         break;
       case "password":
         setPassword(value);
-        setSuccess(null);
-        setError(null);
+        setSuccess("");
+        setError("");
         break;
       case "confirmPassword":
         setConfirmPassword(value);
-        setSuccess(null);
-        setError(null);
+        setSuccess("");
+        setError("");
       default:
         break;
     }
@@ -123,7 +121,7 @@ const Settings = () => {
       setSuccess("Profile updated successfully");
       setPassword("");
       setConfirmPassword("");
-      setError(null);
+      setError("");
     } catch (error) {
       console.error("Error updating profile:", error);
       setError(error.message); // Set error message for display
@@ -157,7 +155,7 @@ const Settings = () => {
                 className="bg-emeraldMist text-white px-4 py-2 rounded mr-4 w-max"
                 onClick={() => {
                   setIsDeleting(false);
-                  setError(null);
+                  setError("");
                   setPassword("");
                 }}
               >
@@ -178,11 +176,7 @@ const Settings = () => {
             <h2 className="form-title mb-4">Profile Settings</h2>
             <div className="flex justify-center">
               <label htmlFor="image">
-                <img
-                  src={imagePlaceholder}
-                  alt="avatar"
-                  className="w-[100px] mb-4"
-                />
+                <img src={image} alt="avatar" className="w-[100px] mb-4" />
               </label>
               <input
                 type="file"
