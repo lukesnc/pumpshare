@@ -106,6 +106,7 @@ const updateUserData = async (userData) => {
   });
 
   const data = await res.json();
+  console.log("Final response", data);
   if (!res.ok) {
     throw Error(data.error);
   }
@@ -113,4 +114,58 @@ const updateUserData = async (userData) => {
   return data;
 };
 
-export { loginUser, registerUser, findUser, getMe, updateUserData };
+/****** Delete User ******/
+const deleteUser = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const user = await getMe();
+  const userId = user._id;
+
+  const res = await fetch(`/api/users/delete/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return res;
+};
+
+/****** Verify Password ******/
+const verifyPassword = async (password) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const user = await getMe();
+  const userId = user._id;
+
+  const res = await fetch("/api/users/verify", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, userId }),
+  });
+
+  return res;
+};
+
+export {
+  loginUser,
+  registerUser,
+  findUser,
+  getMe,
+  updateUserData,
+  deleteUser,
+  verifyPassword,
+};
