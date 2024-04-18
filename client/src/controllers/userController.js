@@ -69,4 +69,48 @@ const findUser = async (userId) => {
   return data;
 };
 
-export { loginUser, registerUser, findUser };
+/****** Get User Data ******/
+const getMe = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const res = await fetch("/api/users/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+  return data;
+};
+
+/****** Update User Data ******/
+const updateUserData = async (userData) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+  const user = await getMe();
+  userData.id = user._id;
+  const res = await fetch("/api/users/settings", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const data = await res.json();
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return data;
+};
+
+export { loginUser, registerUser, findUser, getMe, updateUserData };
