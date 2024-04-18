@@ -120,9 +120,9 @@ const Settings = () => {
     }
     try {
       const data = await updateUserData(userData);
-      console.log("Profile updated successfully:", data);
       setSuccess("Profile updated successfully");
       setPassword("");
+      setConfirmPassword("");
       setError(null);
     } catch (error) {
       console.error("Error updating profile:", error);
