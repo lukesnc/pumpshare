@@ -19,7 +19,9 @@ router.post("/register", controller.registerUser);
 
 router.post("/settings", controller.updateUser);
 
-router.delete("/delete", controller.deleteUser);
+router.delete("/delete/:id", controller.deleteUser);
+
+router.post("/verify", controller.verifyPassword);
 
 // NOTE: Authorization middleware needed for routes where only logged-in users should have access to
 
