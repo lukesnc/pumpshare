@@ -148,7 +148,6 @@ exports.getFollowing = (req, res) => {
       }
 
       const following = user.following;
-
       User.find({ _id: { $in: following } })
         .then((followingUsers) => {
           res.status(200).json({ usersList: followingUsers });
@@ -248,6 +247,65 @@ exports.verifyPassword = async (req, res) => {
       return res.status(400).json({ message: "Incorrect password" });
     }
     res.status(200).json({ message: "Password verified" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.follow = async (req, res) => {
+  const token = req.header("Authorization").replace("Bearer ", "");
+  const data = jwt.verify(token, process.env.JWT_SECRET);
+  console.log("Data:", data);
+  const userId = data._id;
+  const username = req.params.username;
+
+  try {
+    const user = await User.findOne({ _id: userId });
+    const userToFollow = await User.findOne({ username });
+    if (!userToFollow) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const following = user.following;
+    const followers = userToFollow.followers;
+
+    if (following.includes(userToFollow._id)) {
+      return res.status(400).json({ message: "Already following user" });
+    }
+
+    following.push(userToFollow._id);
+    followers.push(user._id);
+
+    const filter = { _id: user._id };
+    const updateData = {
+      $set: {
+        following,
+      },
+    };
+
+    const filter2 = { _id: userToFollow._id };
+    const updateData2 = {
+      $set: {
+        followers,
+      },
+    };
+
+    Promise.all([
+      User.findOneAndUpdate(filter, updateData, { new: true }),
+      User.findOneAndUpdate(filter2, updateData2, { new: true }),
+    ])
+      .then(([updatedUser, updatedUser2]) => {
+        if (updatedUser && updatedUser2) {
+          res.status(200).json({ updatedUser, updatedUser2 });
+        } else {
+          console.log("User not found");
+          res.status(404).json({ message: "User not found" });
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating user:", error);
+        res.status(500).json({ message: "Internal server error" });
+      });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
