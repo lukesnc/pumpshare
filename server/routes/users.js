@@ -11,6 +11,8 @@ router.get("/:username/followers", checkUsername, controller.getFollowers);
 
 router.get("/:username/following", checkUsername, controller.getFollowing);
 
+router.post("/:username/follow", checkUsername, controller.follow);
+
 router.get("/find/:id", controller.getUserById);
 
 router.post("/login", controller.loginUser);
