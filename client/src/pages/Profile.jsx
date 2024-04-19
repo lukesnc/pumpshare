@@ -24,7 +24,6 @@ const Profile = () => {
       try {
         const response = await fetch(`/api/users/${username}`);
         const data = await response.json();
-        console.log(data);
         if (!response.ok) {
           if (response.status === 404) {
             setUserExists(false);
@@ -138,9 +137,10 @@ const Profile = () => {
                   </p>
                 </div>
               )}
-              {posts.map((post) => (
+              {posts.map((post, index) => (
                 <div
                   className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
+                  key={posts[index]}
                 >
                   <PostCard
                     key={post.id}
