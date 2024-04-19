@@ -5,9 +5,9 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    username: localStorage.getItem("username"), // Get the username from local storage
-    email: localStorage.getItem("email"), // Get the email from local storage
-    posts: ["ok"],
+    username: localStorage.getItem("username") || null, // Get the username from local storage
+    email: localStorage.getItem("email") || null, // Get the email from local storage
+    posts: [],
   });
 
   // The value prop is the data that we want to share with other components

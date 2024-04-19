@@ -8,7 +8,9 @@ async function checkUsername(req, res, next) {
     const user = await User.findOne({ username });
 
     if (!user) {
-      res.status(404);
+      res
+        .status(404)
+        .json({ message: `Profile for ${username} does not exist` });
       throw new Error(`Profile for ${username} does not exist`);
     }
 
