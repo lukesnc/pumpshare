@@ -3,12 +3,8 @@ const router = express.Router();
 const controller = require("../controllers/usersController");
 const checkUsername = require("../middleware/validator");
 
-// GET all users
-router.get("/", (req, res) => {
-  res.json({ mssg: "GET all users" });
-});
+router.get("/me", controller.getMe);
 
-// GET one user
 router.get("/:username", checkUsername, controller.getProfile);
 
 router.get("/:username/followers", checkUsername, controller.getFollowers);
@@ -20,5 +16,13 @@ router.get("/find/:id", controller.getUserById);
 router.post("/login", controller.loginUser);
 
 router.post("/register", controller.registerUser);
+
+router.post("/settings", controller.updateUser);
+
+router.delete("/delete/:id", controller.deleteUser);
+
+router.post("/verify", controller.verifyPassword);
+
+// NOTE: Authorization middleware needed for routes where only logged-in users should have access to
 
 module.exports = router;

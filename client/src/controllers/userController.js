@@ -69,4 +69,103 @@ const findUser = async (userId) => {
   return data;
 };
 
-export { loginUser, registerUser, findUser };
+/****** Get User Data ******/
+const getMe = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const res = await fetch("/api/users/me", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+  return data;
+};
+
+/****** Update User Data ******/
+const updateUserData = async (userData) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+  const user = await getMe();
+  userData.id = user._id;
+  const res = await fetch("/api/users/settings", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData),
+  });
+
+  const data = await res.json();
+  console.log("Final response", data);
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return data;
+};
+
+/****** Delete User ******/
+const deleteUser = async () => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const user = await getMe();
+  const userId = user._id;
+
+  const res = await fetch(`/api/users/delete/${userId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return res;
+};
+
+/****** Verify Password ******/
+const verifyPassword = async (password) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const user = await getMe();
+  const userId = user._id;
+
+  const res = await fetch("/api/users/verify", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ password, userId }),
+  });
+
+  return res;
+};
+
+export {
+  loginUser,
+  registerUser,
+  findUser,
+  getMe,
+  updateUserData,
+  deleteUser,
+  verifyPassword,
+};
