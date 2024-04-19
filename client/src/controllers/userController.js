@@ -160,6 +160,29 @@ const verifyPassword = async (password) => {
   return res;
 };
 
+/****** Follow User ******/
+const followUser = async (username) => {
+  const token = localStorage.getItem("token");
+  if (!token) {
+    throw Error("No token found");
+  }
+
+  const res = await fetch(`/api/users/${username}/follow`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({}),
+  });
+
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return res;
+};
+
 export {
   loginUser,
   registerUser,
@@ -168,4 +191,5 @@ export {
   updateUserData,
   deleteUser,
   verifyPassword,
+  followUser,
 };

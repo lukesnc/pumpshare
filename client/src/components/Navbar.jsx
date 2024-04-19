@@ -28,7 +28,8 @@ const Navbar = () => {
     localStorage.removeItem("username");
     toggleMenu();
   };
-
+  /*********  NOTE: THERE IS A KNOWN BUG WHERE CLICKING ON PROFILE WHILE VISITING A NON-EXISTENT 
+                    PROFILE WILL ALSO SHOW A "USER NOT FOUND" FOR LOGGED IN USER *********/
   return (
     <header>
       <nav className="navbar">
