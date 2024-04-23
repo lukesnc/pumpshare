@@ -5,24 +5,19 @@ const ExerciseLibrary = () => {
   // Use navigate hook
   useNavigate();
 
-  const [routines, setRoutines] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from the API
-    fetch("api/user/routines")
-      .then((response) => response.json())
-      .then((data) => setRoutines(data))
-      .catch((error) => console.error("Error fetching options:", error));
-  }, []);
-
   const [exercises, setExercises] = useState([]);
 
   useEffect(() => {
-    // Fetch data from the API
-    fetch("api/user/exercises")
-      .then((response) => response.json())
-      .then((data) => setExercises(data))
-      .catch((error) => console.error("Error fetching options:", error));
+    const fetchUserData = async () => {
+      try {
+        const r = await fetch("/api/exercises");
+        const data = await r.json();
+        setExercises(data);
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      }
+    };
+    fetchUserData();
   }, []);
 
   return (
@@ -38,11 +33,6 @@ const ExerciseLibrary = () => {
             <option>Back Routine</option>
             <option>Legs Routine</option>
             <option>Cardio Routine</option>
-            {/* {routines.map((r) => (
-              <option key={r.id} value={r.value}>
-                {r.label}
-              </option>
-            ))} */}
           </select>
         </form>
 
@@ -53,15 +43,9 @@ const ExerciseLibrary = () => {
             className="border rounded-lgblock w-full p-2.5"
           >
             <option selected>Choose an exercise</option>
-            <option>Squat</option>
-            <option>Bench Press</option>
-            <option>Dumbell Row</option>
-            <option>Dumbell Fly</option>
-            {/* {exercises.map((e) => (
-              <option key={e.id} value={e.value}>
-                {e.label}
-              </option>
-            ))} */}
+            {exercises.map((e) => (
+              <option key={e.id}>{e.name}</option>
+            ))}
           </select>
         </form>
 
