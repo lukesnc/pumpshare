@@ -8,11 +8,11 @@ Group 1
 
 ## Requirements
 
-You will need `nodejs`, `npm`, and `mongodb`. These can be retrieved from your system's package manager.
+You will need `nodejs` and `npm`. These can be retrieved from your system's package manager.
 
-Dependencies can be installed for the root level, the client and the server with `npm i`
+Dependencies can be installed for the root level, the client, and the server with `npm i`
 
-The `.env` file will also need to be set up for a working database.
+The `server/.env` file will also need to be set up for a working database.
 
 ## Usage
 
