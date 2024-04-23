@@ -14,8 +14,8 @@ const Profile = () => {
   const [followError, setFollowError] = useState(null);
   const [userExists, setUserExists] = useState(true);
 
-  const [followers, setFollowers] = useState([]);
-  const [following, setFollowing] = useState([]);
+  const [followers, setFollowers] = useState(0);
+  const [following, setFollowing] = useState(0);
 
   const { user } = useContext(UserContext);
 
@@ -30,8 +30,8 @@ const Profile = () => {
           }
           throw new Error("Error fetching user data");
         }
-        setFollowers(data.followers);
-        setFollowing(data.following);
+        setFollowers(data.followers.length);
+        setFollowing(data.following.length);
         setUserData(data);
 
         if (data.posts.length > 0) {
@@ -71,7 +71,7 @@ const Profile = () => {
   const firstName = userData ? userData.firstName : "";
   const lastName = userData ? userData.lastName : "";
 
-  const handleFollow = async () => {
+  const handleFollow = async (followers) => {
     try {
       const res = await followUser(username);
       const data = await res.json();
@@ -79,6 +79,8 @@ const Profile = () => {
         throw new Error(data.error);
       }
       setIsFollowing(true);
+
+      setFollowers(++followers);
     } catch (error) {
       console.error("Error following user:", error);
     }
@@ -108,7 +110,7 @@ const Profile = () => {
                 ) : (
                   <button
                     className="bg-tealGreen text-white px-4 py-2 rounded-md"
-                    onClick={handleFollow}
+                    onClick={() => handleFollow(followers)}
                   >
                     <i className="fa-solid fa-plus mr-3"></i>Follow
                   </button>
@@ -117,10 +119,10 @@ const Profile = () => {
               </div>
               <div className="flex mt-4 justify-evenly w-full">
                 <Link to={`/${username}/followers`} className="text-tealGreen">
-                  {followers.length} Followers
+                  {followers} Followers
                 </Link>
                 <Link to={`/${username}/following`} className="text-tealGreen">
-                  {following.length} Following
+                  {following} Following
                 </Link>
               </div>
             </div>
