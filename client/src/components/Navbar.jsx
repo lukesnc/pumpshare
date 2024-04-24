@@ -48,7 +48,7 @@ const Navbar = () => {
               className="my-auto ml-auto mr-[1em] text-white"
               onClick={showMenu === "menu visible" ? toggleMenu : undefined}
             >
-              <i className="fa-solid fa-plus fa-xl ml-2"></i>
+              <i className="fa-solid fa-circle-plus ml-2 text-[35px] drop-shadow-xl"></i>
             </Link>
           )}
         </div>
