@@ -153,6 +153,24 @@
   color: var(--tertiary);
 }
 
+.container {
+  position: relative;
+  height: auto;
+  
+}
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.visible {
+  display: block;
+}
+.distance{
+  margin-bottom:100px;
+}
+
 .box-shadow {
   /* box-shadow: x offset | y offset| blur radius | spread | color */
   box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.4) !important;

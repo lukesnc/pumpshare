@@ -6,11 +6,13 @@ import {
   Home,
   Signup,
   Login,
+  Update,
   ExerciseLibrary,
   ActivityFeed,
   Profile,
   Follow,
   Log,
+  View,
   Create,
   Dashboard,
   ErrorPage,
@@ -35,6 +37,8 @@ const App = () => {
         <Route path="/:username/:follow" element={<Follow />} />
         <Route path="/create-exercise" element={<Create />} />
         <Route path="/error" element={<ErrorPage />} />
+        <Route path="/view" element={<View />} />
+        <Route path="/update" element={<Update />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>

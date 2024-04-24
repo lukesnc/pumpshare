@@ -6,9 +6,7 @@ const controller = require("../controllers/exercisesController");
 router.get("/", controller.getAllExercises);
 
 // GET one exercise
-router.get("/:id", (req, res) => {
-  res.json({ mssg: "GET one exercise" });
-});
+router.get('/:id', controller.getExercise);
 
 // POST one exercise
 router.post("/", controller.createExercise);
@@ -16,9 +14,7 @@ router.post("/", controller.createExercise);
 router.post("/log", controller.logExercise);
 
 // DELETE one exercise
-router.delete("/:id", (req, res) => {
-  res.json({ mssg: "DELETE one exercise" });
-});
+router.delete('/:id', controller.deleteExercise);
 
 // UPDATE one exercise
 router.patch("/:id", (req, res) => {

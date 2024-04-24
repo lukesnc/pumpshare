@@ -10,7 +10,11 @@ const Create = () => {
   const [error, setError] = useState(null);
 
   const [name, setName] = useState("");
-  const [attr, setAttr] = useState("");
+  const [attr, setAttr] = useState("distance");
+  
+  
+  
+  
 
   const handleCreate = async (e) => {
     e.preventDefault();
@@ -18,7 +22,9 @@ const Create = () => {
     try {
       const data = await createExercise(name, attr);
       //path to be changed once page is made for viewing single exercise
-      navigate("/log", { state: { logId: data._id } });
+      navigate('/log', { state: { exercise: data } });
+      
+
     } catch (error) {
       setError(error.message);
     }
@@ -40,21 +46,15 @@ const Create = () => {
             className="input"
           />
 
-          <label htmlFor="attr">Choose exercise attributes:</label>
-          <select
-            name="attr"
-            id="attr"
-            className="input"
-            value={attr}
-            onChange={(e) => setAttr(e.target.value)}
-          >
-            <option value="distance">Distance</option>
-            <option value="laps">Laps</option>
-            <option value="sets">Sets</option>
-            <option value="time">Time</option>
-            <option value="repitions">Repititions</option>
-            <option value="weight">Weight</option>
-          </select>
+            <label htmlFor="attr">Choose exercise attributes:</label>
+            <select name="attr" id="attr" className="input"  value={attr} onChange={(e) => setAttr(e.target.value)}>
+              <option value="distance">Distance</option>
+              <option value="laps">Laps</option>
+              <option value="sets">Sets</option>
+              <option value="time">Time</option>
+              <option value="repetitions">Repetitions</option>
+              <option value="weight">Weight</option>
+            </select>
 
           <button type="submit" className="form-btn">
             Submit

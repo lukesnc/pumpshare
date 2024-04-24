@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="my-auto ml-auto">
           {user.email && (
             <Link
-              to={`/log`}
+              to={`/create-exercise`}
               className="my-auto ml-auto mr-[1em] text-white"
               onClick={showMenu === "menu visible" ? toggleMenu : undefined}
             >

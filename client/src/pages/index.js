@@ -9,6 +9,8 @@ import ActivityFeed from "./ActivityFeed";
 import Profile from "./Profile";
 import Follow from "./Follow";
 import Log from "./Log";
+import View from "./View";
+import Update from "./Update";
 import Create from "./Create";
 import ErrorPage from "./ErrorPage";
 import PostPage from "./PostPage";
@@ -24,6 +26,8 @@ export {
   Profile,
   Follow,
   Log,
+  View,
+  Update,
   Create,
   ErrorPage,
   PostPage,
