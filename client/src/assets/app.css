@@ -40,7 +40,7 @@
     @apply flex flex-row fixed w-full h-[60px] bg-tealGreen z-50;
   }
   .nav-link {
-    @apply flex flex-col text-tertiary font-bold leading-[4em] cursor-pointer;
+    @apply flex flex-col text-tertiary font-semibold leading-[4em] cursor-pointer;
   }
   .nav-link-active {
     @apply flex flex-col text-tealGreen font-bold leading-[4em] cursor-pointer;
@@ -62,6 +62,10 @@
   }
   .form-btn-disabled {
     @apply w-full mt-3 py-2 px-4 border border-transparent rounded-md shadow-sm text-white bg-gray-300 font-merriweather;
+  }
+
+  .menu-icon {
+    @apply opacity-50;
   }
 }
 
