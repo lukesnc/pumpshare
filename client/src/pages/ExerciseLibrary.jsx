@@ -44,7 +44,7 @@ const ExerciseLibrary = () => {
           >
             <option selected>Choose an exercise</option>
             {exercises.map((e) => (
-              <option key={e.id}>{e.name}</option>
+              <option key={e._id}>{e.name}</option>
             ))}
           </select>
         </form>
