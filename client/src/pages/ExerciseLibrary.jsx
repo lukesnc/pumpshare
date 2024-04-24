@@ -60,14 +60,11 @@ const ExerciseLibrary = () => {
           <select
             id="workouts"
             className="border rounded-lg block w-full p-2.5 mb-3"
-            onChange={handleWorkoutChange} // Corrected
+            onChange={handleWorkoutChange}
           >
             <option value="">Choose a workout</option>
             {workouts.map((workout) => (
-              <option
-                key={workout._id} // Removed unnecessary concatenation
-                value={workout.name}
-              >
+              <option key={workout._id} value={workout.name}>
                 {workout.name}
               </option>
             ))}
@@ -79,14 +76,11 @@ const ExerciseLibrary = () => {
           <select
             id="exercises"
             className="border rounded-lg block w-full p-2.5 mb-3"
-            onChange={handleExerciseChange} // Corrected
+            onChange={handleExerciseChange}
           >
             <option value="">Choose an exercise</option>
             {exercises.map((exercise) => (
-              <option
-                key={exercise._id} // Removed unnecessary concatenation
-                value={exercise.name}
-              >
+              <option key={exercise._id} value={exercise.name}>
                 {exercise.name}
               </option>
             ))}
