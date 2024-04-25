@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 
 const ExerciseLibrary = () => {
   // Use navigate hook
-  useNavigate();
+  const navigate = useNavigate();
 
   const [workouts, setWorkouts] = useState([]);
   const [exercises, setExercises] = useState([]);
@@ -48,6 +48,16 @@ const ExerciseLibrary = () => {
 
   const handleEdit = async (e) => {
     e.preventDefault();
+    // The code below is wrong, but in the right direction.
+    // And id of the workout or exercise is needed, plus an indicator of whether its a workout or an exercise
+    // This will add a search parameter that should be handled by backend routes (obtain info from params)
+    // const id = 1234;
+    // const type = "workout";
+    // const destination = {
+    //   pathname: "/edit", // Replace with your actual route path
+    //   search: new URLSearchParams({ id, type }).toString(), // Use URLSearchParams for query parameters
+    // };
+    // navigate(destination);
   };
 
   return (
@@ -103,10 +113,10 @@ const ExerciseLibrary = () => {
         )}
 
         <button type="submit" className="form-btn-outline">
-          <Link to="/">Create New Workout</Link>
+          <Link to="/create/workout">Create New Workout</Link>
         </button>
         <button type="submit" className="form-btn-outline">
-          <Link to="/create-exercise">Create New Exercise</Link>
+          <Link to="/create/exercise">Create New Exercise</Link>
         </button>
       </div>
     </div>
