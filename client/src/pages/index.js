@@ -11,7 +11,8 @@ import Follow from "./Follow";
 import Log from "./Log";
 import View from "./View";
 import Update from "./Update";
-import Create from "./Create";
+import CreateExercise from "./CreateExercise";
+import CreateWorkout from "./CreateWorkout";
 import ErrorPage from "./ErrorPage";
 import PostPage from "./PostPage";
 import Settings from "./Settings";
@@ -28,7 +29,8 @@ export {
   Log,
   View,
   Update,
-  Create,
+  CreateWorkout,
+  CreateExercise,
   ErrorPage,
   PostPage,
   Settings,
