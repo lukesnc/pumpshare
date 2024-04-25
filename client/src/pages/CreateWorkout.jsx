@@ -1,11 +1,26 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const CreateWorkout = () => {
+  const [error, setError] = useState(null);
   const [name, setName] = useState("");
   const [allExercises, setAllExercises] = useState([]);
   const [selectedExercises, setSelectedExercises] = useState([]);
-  const [workoutState, setWorkoutState] = useState({});
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Determine if returning from the exercise form and obtain info
+  const workoutState = location.state?.workoutState || null;
+  const usingLocation = location.state?.workoutState.navigating || false;
+
+  //  For testing purposes - remove once merged ***
+  useEffect(() => {
+    if (usingLocation) {
+      setName(workoutState.name);
+      setSelectedExercises(workoutState.exercises);
+    }
+  }, []);
 
   useEffect(() => {
     const fetchAttrData = async () => {
@@ -21,6 +36,7 @@ const CreateWorkout = () => {
   }, []);
 
   const addToSelectedExercise = (e) => {
+    console.log("adding to selected exercisee:", e);
     if (selectedExercises.includes(e)) {
       removeSelectedExercise(e);
       return;
@@ -43,24 +59,20 @@ const CreateWorkout = () => {
   };
 
   const handleNewExercise = async () => {
-    const newWorkoutState = {
+    const currentWorkoutState = {
       name: `${name}`,
-      exercises: [selectedExercises],
+      exercises: selectedExercises,
+      navigating: true,
     };
-    try {
-      const data = await createExercise();
-      navigate("/log", { state: { exercise: data } });
-    } catch (error) {
-      setError(error.message);
-    }
+    navigate("/create/exercise", {
+      state: { workoutState: currentWorkoutState },
+    });
   };
 
   const handleCreate = async (e) => {
     e.preventDefault();
-
     try {
       const data = await createWorkout(name, attr);
-      //path to be changed once page is made for viewing single exercise
       navigate("/log", { state: { exercise: data } });
     } catch (error) {
       setError(error.message);
@@ -122,10 +134,6 @@ const CreateWorkout = () => {
                     }`}
                   >
                     {exercise.name}
-                    {/* <span className="text-gray-400 ml-2 text-[12px]">
-                      <i className="fa-solid fa-arrow-right-long mr-1"></i>
-                      {exercise.short}
-                    </span> */}
                   </li>
                 ))}
                 <li
@@ -136,6 +144,7 @@ const CreateWorkout = () => {
                 </li>
               </ul>
             </div>
+            {error && <p className="text-red-500 text-center">{error}</p>}
             <button type="submit" className="form-btn">
               Submit
             </button>
