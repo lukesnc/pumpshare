@@ -19,12 +19,6 @@ const CreateExercise = () => {
   const workoutState = location.state?.workoutState || null;
   const usingLocation = location.state?.workoutState.navigating || false;
 
-  //  For testing purposes - remove once merged ***
-  useEffect(() => {
-    console.log("Exercise Form - workoutState: ", workoutState);
-    console.log("Exercise Form - usingLocation: ", usingLocation);
-  }, []);
-
   useEffect(() => {
     const fetchAttrData = async () => {
       try {
