@@ -1,17 +1,17 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const controller = require('../controllers/postsController');
+const controller = require("../controllers/postsController");
 
 // GET all users
-router.get('/', controller.getAllPosts);
+router.get("/", controller.getAllPosts);
 
 // GET one post
-router.get('/:id', (req, res) => {
-    res.json({mssg: 'GET one post'});
-});
-// POST a post
-router.post('/post', controller.postPost);
+router.get("/:id", controller.getPost);
 
-router.get('/create', controller.create);
+router.get("/user/:id", controller.getPostsByUserId);
+// POST a post
+router.post("/post", controller.getPost);
+
+router.get("/create", controller.create);
 
 module.exports = router;

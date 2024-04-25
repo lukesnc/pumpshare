@@ -5,44 +5,69 @@ const ExerciseLibrary = () => {
   // Use navigate hook
   useNavigate();
 
-  const [routines, setRoutines] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from the API
-    fetch("api/user/routines")
-      .then((response) => response.json())
-      .then((data) => setRoutines(data))
-      .catch((error) => console.error("Error fetching options:", error));
-  }, []);
-
+  const [workouts, setWorkouts] = useState([]);
   const [exercises, setExercises] = useState([]);
+  const [selectedExercise, setSelectedExercise] = useState("");
+  const [selectedWorkout, setSelectedWorkout] = useState("");
 
   useEffect(() => {
-    // Fetch data from the API
-    fetch("api/user/exercises")
-      .then((response) => response.json())
-      .then((data) => setExercises(data))
-      .catch((error) => console.error("Error fetching options:", error));
+    const fetchUserData = async () => {
+      try {
+        const r = await fetch("/api/workouts");
+        const data = await r.json();
+        setWorkouts(data);
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      }
+    };
+    fetchUserData();
   }, []);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const r = await fetch("/api/exercises");
+        const data = await r.json();
+        setExercises(data);
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const handleExerciseChange = (e) => {
+    setSelectedWorkout("");
+    setSelectedExercise(e.target.value);
+  };
+
+  const handleWorkoutChange = (e) => {
+    setSelectedExercise("");
+    setSelectedWorkout(e.target.value);
+  };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-        <h2 className="form-title">Exercise Library</h2>
+        <h2 className="form-title">Workout Library</h2>
 
-        <h3>Routines</h3>
+        <h3>Workouts</h3>
         <form>
-          <select id="routines" className="border rounded-lgblock w-full p-2.5">
-            <option selected>Choose a routine</option>
-            <option>Chest Routine</option>
-            <option>Back Routine</option>
-            <option>Legs Routine</option>
-            <option>Cardio Routine</option>
-            {/* {routines.map((r) => (
-              <option key={r.id} value={r.value}>
-                {r.label}
+          <select
+            id="workouts"
+            className="border rounded-lg block w-full p-2.5 mb-3"
+            onChange={handleWorkoutChange}
+          >
+            <option value="">Choose a workout</option>
+            {workouts.map((workout) => (
+              <option key={workout._id} value={workout.name}>
+                {workout.name}
               </option>
-            ))} */}
+            ))}
           </select>
         </form>
 
@@ -50,25 +75,37 @@ const ExerciseLibrary = () => {
         <form>
           <select
             id="exercises"
-            className="border rounded-lgblock w-full p-2.5"
+            className="border rounded-lg block w-full p-2.5 mb-3"
+            onChange={handleExerciseChange}
           >
-            <option selected>Choose an exercise</option>
-            <option>Squat</option>
-            <option>Bench Press</option>
-            <option>Dumbell Row</option>
-            <option>Dumbell Fly</option>
-            {/* {exercises.map((e) => (
-              <option key={e.id} value={e.value}>
-                {e.label}
+            <option value="">Choose an exercise</option>
+            {exercises.map((exercise) => (
+              <option key={exercise._id} value={exercise.name}>
+                {exercise.name}
               </option>
-            ))} */}
+            ))}
           </select>
         </form>
 
-        <button type="submit" className="form-btn">
-          <Link to="/">Create New Routine</Link>
+        {selectedWorkout !== "" || selectedExercise !== "" ? (
+          <button type="submit" className="form-btn" onClick={handleEdit}>
+            Edit {selectedWorkout || selectedExercise}
+          </button>
+        ) : (
+          <button
+            type="submit"
+            className="form-btn-disabled"
+            onClick={handleEdit}
+            disabled
+          >
+            Edit
+          </button>
+        )}
+
+        <button type="submit" className="form-btn-outline">
+          <Link to="/">Create New Workout</Link>
         </button>
-        <button type="submit" className="form-btn">
+        <button type="submit" className="form-btn-outline">
           <Link to="/create-exercise">Create New Exercise</Link>
         </button>
       </div>

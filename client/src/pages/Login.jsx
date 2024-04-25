@@ -1,33 +1,37 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Alert } from '../components';
-import { loginUser } from '../controllers/userController';
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "../components";
+import { loginUser } from "../controllers/userController";
+import { UserContext } from "../contexts/userContext";
 
 const Login = () => {
-    // Use navigate hook
+  // User context
+  const { user, setUser } = useContext(UserContext);
+
+  // Use navigate hook
   const navigate = useNavigate();
 
   // Error state
   const [error, setError] = useState(null);
 
   // Form data state
-  const [ email, setEmail ] = useState('');
-  const [ password, setPassword ] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-        // Login the user
-      await loginUser(email, password);
-      // Update the user state
-      // setUser({ email, posts: [] }); <-------------- // Uncomment this when the user state is created //
+      // Login the user
+      const { user } = await loginUser(email, password);
+      // Update the user state > this may be handled in the controller
+      setUser(user);
       setError(null);
-        // Redirect to the dashboard
-        navigate('/dashboard'); 
+      // Redirect to the dashboard
+      navigate("/dashboard");
     } catch (error) {
       setError(error.message);
     }
-  }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
@@ -35,17 +39,37 @@ const Login = () => {
         <h2 className="form-title">Login to Your Account</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-4">
-            <label htmlFor="email" className="input-label">Email</label>
-            <input type="email" id="email" name="email" className="input" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <label htmlFor="email" className="input-label">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="input-label">Password</label>
-            <input type="password" id="password" name="password" className="input" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <label htmlFor="password" className="input-label">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
-          
-          { error && <Alert message={error} type="error" />}
 
-          <button type="submit" className="form-btn">Login</button>
+          {error && <Alert message={error} type="error" />}
+
+          <button type="submit" className="form-btn">
+            Login
+          </button>
         </form>
         {/* Google/Apple Login Buttons */}
         {/* <div className="flex items-center mt-4">
