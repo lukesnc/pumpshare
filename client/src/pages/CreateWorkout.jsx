@@ -1,4 +1,4 @@
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
 const CreateWorkout = () => {
@@ -8,21 +8,18 @@ const CreateWorkout = () => {
   const [selectedExercises, setSelectedExercises] = useState([]);
 
   const navigate = useNavigate();
-  const location = useLocation();
 
-  // Determine if returning from the exercise form and obtain info
-  const workoutState = location.state?.workoutState || null;
-  const usingLocation = location.state?.workoutState.navigating || false;
+  const workoutFormString = localStorage.getItem("workoutFormState") || null;
+  const workoutFormState = workoutFormString
+    ? JSON.parse(workoutFormString)
+    : null;
 
   useEffect(() => {
-    console.log("workoutState upon rendering: ", workoutState);
-    if (workoutState && usingLocation) {
-      setName(workoutState.name);
-      setSelectedExercises(workoutState.exercises);
-      navigate("/create/workout"); // Erase location state
+    if (workoutFormState) {
+      setName(workoutFormState.name);
+      setSelectedExercises(workoutFormState.exercises);
     }
-    console.log("selectedExercises after navigating back: ", selectedExercises);
-  }, [workoutState]);
+  }, []);
 
   useEffect(() => {
     const fetchAttrData = async () => {
@@ -37,12 +34,22 @@ const CreateWorkout = () => {
     fetchAttrData();
   }, []);
 
+  useEffect(() => {
+    const formInfo = {
+      name,
+      exercises: selectedExercises,
+    };
+    const formState = JSON.stringify(formInfo);
+    localStorage.setItem("workoutFormState", formState);
+  }, [name, selectedExercises]);
+
   const addToSelectedExercise = (e) => {
     if (selectedExercises.includes(e)) {
       removeSelectedExercise(e);
       return;
     }
-    setSelectedExercises([...selectedExercises, e]);
+    const newExercises = [...selectedExercises, e];
+    setSelectedExercises(newExercises);
   };
 
   const removeSelectedExercise = (e) => {
@@ -59,22 +66,14 @@ const CreateWorkout = () => {
     }
   };
 
-  const handleNewExercise = async () => {
-    const currentWorkoutState = {
-      name: `${name}`,
-      exercises: selectedExercises,
-      navigating: true,
-    };
-    navigate("/create/exercise", {
-      state: { workoutState: currentWorkoutState },
-    });
-  };
+  const handleNewExercise = async () => {};
 
   const handleCreate = async (e) => {
     e.preventDefault();
+    localStorage.removeItem("workoutFormState");
     try {
       const data = await createWorkout(name, attr);
-      navigate("/log", { state: { exercise: data } });
+      // navigate("/log", { state: { exercise: data } });
     } catch (error) {
       setError(error.message);
     }
@@ -129,7 +128,9 @@ const CreateWorkout = () => {
                     value={exercise.name}
                     onClick={(e) => addToSelectedExercise(exercise)}
                     className={`${
-                      selectedExercises.includes(exercise)
+                      (workoutFormState?.exercises || []).some(
+                        (ex) => ex._id === exercise._id
+                      ) || selectedExercises.includes(exercise)
                         ? "text-emeraldMist font-semibold"
                         : "text-gray-500 "
                     }`}
@@ -139,7 +140,7 @@ const CreateWorkout = () => {
                 ))}
                 <li
                   className="my-3 text-center font-semibold text-gray-500"
-                  onClick={handleNewExercise}
+                  onClick={() => navigate("/create/exercise")}
                 >
                   + Add a new exercise
                 </li>

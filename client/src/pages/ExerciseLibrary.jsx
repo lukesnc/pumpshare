@@ -24,6 +24,7 @@ const ExerciseLibrary = () => {
   }, []);
 
   useEffect(() => {
+    localStorage.removeItem("workoutFormState");
     const fetchUserData = async () => {
       try {
         const r = await fetch("/api/exercises");

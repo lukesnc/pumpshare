@@ -1,23 +1,22 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { createExercise } from "../controllers/exerciseController";
 
 const CreateExercise = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
   const [name, setName] = useState("");
   const [attributes, setAttributes] = useState([]);
-  // const [exerciseObject, setExerciseObject] = useState({});
   const [selectedAttributes, setSelectedAttributes] = useState([]);
   const [createAttr, setCreateAttr] = useState(false);
   const [newAttrName, setNewAttrName] = useState("");
   const [newAttrUnits, setNewAttrUnits] = useState("");
 
-  // Determine if navigating from the workout form and obtain info
-  const workoutState = location.state?.workoutState || null;
-  const usingLocation = location.state?.workoutState.navigating || false;
+  const workoutFormString = localStorage.getItem("workoutFormState") || null;
+  const workoutFormState = workoutFormString
+    ? JSON.parse(workoutFormString)
+    : null;
 
   useEffect(() => {
     const fetchAttrData = async () => {
@@ -82,24 +81,18 @@ const CreateExercise = () => {
     e.preventDefault();
     try {
       const data = await createExercise(name, attributes);
-      const exerciseObject = {
-        id: data._id,
-        name: data.name,
-      };
-      if (!usingLocation) {
+      const updatedExercises = [...workoutFormState.exercises, data];
+      const updatedWorkoutForm = JSON.stringify({
+        name: workoutFormState.name,
+        exercises: updatedExercises,
+        navigating: true,
+      });
+      localStorage.setItem("workoutFormState", updatedWorkoutForm);
+      if (!workoutFormState) {
         navigate("/log"); // POSSIBLE CHANGE
         // navigate("/log", { state: { exercise: data } }); // POSSIBLE CHANGE
       } else {
-        const updatedExercises = [...workoutState.exercises, exerciseObject];
-        const newWorkoutState = {
-          name: `${workoutState.name}`,
-          exercises: updatedExercises,
-          navigating: true,
-        };
-        console.log("newWorkoutState: ", newWorkoutState);
-        navigate("/create/workout", {
-          state: { workoutState: newWorkoutState },
-        });
+        navigate("/create/workout");
       }
     } catch (error) {
       setError(error.message);
@@ -110,10 +103,10 @@ const CreateExercise = () => {
     <>
       <div className="min-h-screen bg-gray-100 flex justify-center">
         <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-          {usingLocation ? (
+          {workoutFormState ? (
             <h2 className="form-title">
               Add an exercise to{" "}
-              {workoutState.name ? workoutState.name : "your workout"}
+              {workoutFormState.name ? workoutFormState.name : "your workout"}
             </h2>
           ) : (
             <h2 className="form-title">New Exercise</h2>
@@ -210,15 +203,15 @@ const CreateExercise = () => {
             )}
             {error && <p className="text-red-500 text-center">{error}</p>}
             <button type="submit" className="form-btn">
-              {usingLocation ? " Add Exercise" : "Submit"}
+              {workoutFormState ? " Add Exercise" : "Submit"}
             </button>
-            {usingLocation && (
+            {workoutFormState && (
               <button
                 type="button"
                 className="form-btn bg-red-600"
                 onClick={() => {
                   navigate("/create/workout", {
-                    state: { workoutState },
+                    // state: { workoutState },
                   });
                 }}
               >
