@@ -14,13 +14,15 @@ const CreateWorkout = () => {
   const workoutState = location.state?.workoutState || null;
   const usingLocation = location.state?.workoutState.navigating || false;
 
-  //  For testing purposes - remove once merged ***
   useEffect(() => {
-    if (usingLocation) {
+    console.log("workoutState upon rendering: ", workoutState);
+    if (workoutState && usingLocation) {
       setName(workoutState.name);
       setSelectedExercises(workoutState.exercises);
+      navigate("/create/workout"); // Erase location state
     }
-  }, []);
+    console.log("selectedExercises after navigating back: ", selectedExercises);
+  }, [workoutState]);
 
   useEffect(() => {
     const fetchAttrData = async () => {
@@ -36,7 +38,6 @@ const CreateWorkout = () => {
   }, []);
 
   const addToSelectedExercise = (e) => {
-    console.log("adding to selected exercisee:", e);
     if (selectedExercises.includes(e)) {
       removeSelectedExercise(e);
       return;
