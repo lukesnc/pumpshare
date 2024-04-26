@@ -80,82 +80,87 @@ const CreateWorkout = () => {
     }
   };
 
-  return (
-    <>
-      <div className="min-h-screen bg-gray-100 flex justify-center">
-        <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-          <h2 className="form-title">New Workout</h2>
+  
 
-          <form className="log-form" onSubmit={handleCreate}>
-            <label htmlFor="sets">Workout Name</label>
-            <input
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              type="text"
-              name="name"
-              id="name"
-              className="input mb-4"
-            />
-            <div>
-              <span className="">Exercises</span>
-              <ul className="h-20 overflow-y-auto">
-                {selectedExercises.map((exercise, index) => (
-                  <li
-                    key={index}
-                    value={exercise.name}
-                    className="text-gray-500"
-                  >
-                    <i
-                      key={index + exercise._id}
+    return (
+      <>
+        <div className="min-h-screen bg-gray-100 flex justify-center">
+          <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
+            <h2 className="form-title">New Workout</h2>
+
+            <form className="log-form" onSubmit={handleCreate}>
+              <label htmlFor="sets">Workout Name</label>
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                name="name"
+                id="name"
+                className="input mb-4"
+              />
+              <div>
+                <span className="">Exercises</span>
+                <ul className="h-20 overflow-y-auto">
+                  {selectedExercises.map((exercise, index) => (
+                    <li
+                      key={index}
                       value={exercise.name}
-                      className="fa-solid fa-xmark text-red-500 mr-2 "
-                      onClick={(e) => {
-                        removeSelectedExercise(exercise);
-                      }}
-                    ></i>
-                    <span>{exercise.name}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <label className="mt-4 mb-2">
-              Choose exercises for this workout:
-            </label>
-            <div className="h-[150px] overflow-y-auto border rounded-md p-2 mb-4">
-              <ul>
-                {allExercises.map((exercise) => (
+                      className="text-gray-500"
+                    >
+                      <i
+                        key={index + exercise._id}
+                        value={exercise.name}
+                        className="fa-solid fa-xmark text-red-500 mr-2 "
+                        onClick={(e) => {
+                          removeSelectedExercise(exercise);
+                        }}
+                      ></i>
+                      <span>{exercise.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <label className="mt-4 mb-2">
+                Choose exercises for this workout:
+              </label>
+              <div className="h-[150px] overflow-y-auto border rounded-md p-2 mb-4">
+                <ul>
+                  {allExercises.map((exercise) => (
+                    <li
+                      key={exercise._id}
+                      value={exercise.name}
+                      onClick={(e) => addToSelectedExercise(exercise)}
+                      className={`${
+                        (workoutFormState?.exercises || []).some(
+                          (ex) => ex._id === exercise._id
+                        ) || selectedExercises.includes(exercise)
+                          ? "text-emeraldMist font-semibold"
+                          : "text-gray-500 "
+                      }`}
+                    >
+                      {exercise.name}
+                    </li>
+                  ))}
                   <li
-                    key={exercise._id}
-                    value={exercise.name}
-                    onClick={(e) => addToSelectedExercise(exercise)}
-                    className={`${
-                      (workoutFormState?.exercises || []).some(
-                        (ex) => ex._id === exercise._id
-                      ) || selectedExercises.includes(exercise)
-                        ? "text-emeraldMist font-semibold"
-                        : "text-gray-500 "
-                    }`}
+                    className="my-3 text-center font-semibold text-gray-500"
+                    onClick={() => navigate("/create/exercise")}
                   >
-                    {exercise.name}
+                    + Add a new exercise
                   </li>
-                ))}
-                <li
-                  className="my-3 text-center font-semibold text-gray-500"
-                  onClick={() => navigate("/create/exercise")}
-                >
-                  + Add a new exercise
-                </li>
-              </ul>
-            </div>
-            {error && <p className="text-red-500 text-center">{error}</p>}
-            <button type="submit" className="form-btn">
-              Submit
-            </button>
-          </form>
+                </ul>
+              </div>
+              {error && <p className="text-red-500 text-center">{error}</p>}
+              <button type="submit" className="form-btn">
+                Submit
+              </button>
+            </form>
+          </div>
         </div>
-      </div>
-    </>
-  );
-};
+      </>
+    );
+  
+
+
+}
 
 export default CreateWorkout;

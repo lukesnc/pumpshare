@@ -9,6 +9,7 @@ const exerciseSchema = new Schema(
       trim: true,
       minlength: 1,
     },
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
     attr: [{ type: Schema.Types.ObjectId, ref: "Attribute" }],
     date: { type: Date, trim: true },
     about: { type: String, trim: true },

@@ -7,4 +7,8 @@ router.get("/", controller.getAllWorkouts);
 
 router.post("/create", controller.createWorkout);
 
+router.post("/log", controller.logWorkout);
+
+router.delete("/:id", controller.deleteWorkout);
+
 module.exports = router;

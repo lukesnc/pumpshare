@@ -1,23 +1,35 @@
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { format } from 'date-fns';
 import { logWorkout } from "../controllers/workoutController";
 
-const Log = () => {
+const UpdateWorkout = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const ogWorkout = { workout: location.state?.workout }.workout;
 
+  const parsedDate = ogWorkout.date.toString();
+  const reformattedDate = parsedDate.substring(0,10);
+  console.log(reformattedDate);
+  
+ 
+  console.log(ogWorkout);
   const [error, setError] = useState(null);
-  const [date, setDate] = useState("");
-  const [about, setAbout] = useState("");
-  const [workout, setWorkout] = useState("");
+  const [date, setDate] = useState(ogWorkout.date);
+  const [about, setAbout] = useState(ogWorkout.about);
+  const [workout, setWorkout] = useState(ogWorkout.name);
   const [allWorkouts, setAllWorkouts] = useState([]);
   const [selectedWorkout, setSelectedWorkout] = useState([]);
+
+  
 
   const logFormString = localStorage.getItem("logFormState") || null;
   const logFormState = logFormString
     ? JSON.parse(logFormString)
     : null;
+
+    
 
   useEffect(() => {
     const getWorkouts = async () => {
@@ -47,7 +59,7 @@ const Log = () => {
     e.preventDefault();
 
     try {
-      const data = await logWorkout(date, workout, about);
+      const data = await logWorkout(date, ogWorkout, about);
       console.log("Result: ", data);
       //path to be changed once page is made for viewing single Workout
       navigate("/", { state: { workout: data } });
@@ -68,6 +80,7 @@ const Log = () => {
           </label>
           <input
             value={date}
+            defaultValue={reformattedDate}
             onChange={(e) => setDate(e.target.value)}
             type="date"
             name="date"
@@ -76,7 +89,8 @@ const Log = () => {
           />
           
           <span className="">Workout</span>
-          <input value={workout.name}
+          <input value={workout}
+              defaultValue={ogWorkout.name}
               readOnly
               type="text"
               name="name"
@@ -134,4 +148,4 @@ const Log = () => {
   );
 };
 
-export default Log;
+export default UpdateWorkout;

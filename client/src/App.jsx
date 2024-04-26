@@ -6,13 +6,13 @@ import {
   Home,
   Signup,
   Login,
-  Update,
+  UpdateWorkout,
   ExerciseLibrary,
   ActivityFeed,
   Profile,
   Follow,
   Log,
-  View,
+  ViewWorkout,
   CreateExercise,
   CreateWorkout,
   Dashboard,
@@ -37,8 +37,8 @@ const App = () => {
         <Route path="/:username" element={<Profile />} />
         <Route path="/:username/:follow" element={<Follow />} />
         <Route path="/error" element={<ErrorPage />} />
-        <Route path="/view" element={<View />} />
-        <Route path="/update" element={<Update />} />
+        <Route path="/view/workout" element={<ViewWorkout />} />
+        <Route path="/update/workout" element={<UpdateWorkout />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/create/exercise" element={<CreateExercise />} />

@@ -8,7 +8,6 @@ exports.createExercise = async (req, res) => {
   }
 
   const exercise = new Exercise({ name, attr });
-  console.log(exercise);
   exercise
     .save()
     .then(() => {

@@ -17,5 +17,31 @@ const createWorkout = async (name, exercises) => {
 
   return data;
 };
+const logWorkout = async ( date, workout, about) =>{
+  const res = await fetch("/api/workouts/log", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ date, workout, about }),
+  });
+  const data = await res.json();
+  if (!res.ok) {
+    throw Error(data.error);
+  }
 
-export { createWorkout };
+  return data;
+}
+
+const deleteWorkout = async(workout) =>{
+
+  let id = workout._id;
+  const res = await fetch('/api/workouts/' + id , {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+      },
+      
+  });
+}
+export { createWorkout, logWorkout, deleteWorkout };
