@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { createWorkout } from "../controllers/workoutController";
 
 const CreateWorkout = () => {
   const [error, setError] = useState(null);
@@ -26,6 +27,7 @@ const CreateWorkout = () => {
       try {
         const res = await fetch("/api/exercises");
         const data = await res.json();
+        console.log("data: ", data);
         setAllExercises(data);
       } catch (err) {
         console.error("Error fetching options:", err);
@@ -66,14 +68,13 @@ const CreateWorkout = () => {
     }
   };
 
-  const handleNewExercise = async () => {};
-
   const handleCreate = async (e) => {
     e.preventDefault();
+    console.log("exercise: ", selectedExercises);
     localStorage.removeItem("workoutFormState");
     try {
-      const data = await createWorkout(name, attr);
-      // navigate("/log", { state: { exercise: data } });
+      const data = await createWorkout(name, selectedExercises);
+      navigate("/log");
     } catch (error) {
       setError(error.message);
     }
