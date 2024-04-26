@@ -74,7 +74,7 @@ const CreateWorkout = () => {
     localStorage.removeItem("workoutFormState");
     try {
       const data = await createWorkout(name, selectedExercises);
-      navigate("/log");
+      navigate("/library");
     } catch (error) {
       setError(error.message);
     }

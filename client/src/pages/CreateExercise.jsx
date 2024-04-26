@@ -80,16 +80,18 @@ const CreateExercise = () => {
   const handleCreateExercise = async (e) => {
     e.preventDefault();
     try {
-      const data = await createExercise(name, attributes);
-      const updatedExercises = [...workoutFormState.exercises, data];
-      const updatedWorkoutForm = JSON.stringify({
-        name: workoutFormState.name,
-        exercises: updatedExercises,
-        navigating: true,
-      });
-      localStorage.setItem("workoutFormState", updatedWorkoutForm);
+      const data = await createExercise(name, selectedAttributes);
+      if (workoutFormState) {
+        const updatedExercises = [...workoutFormState.exercises, data];
+        const updatedWorkoutForm = JSON.stringify({
+          name: workoutFormState.name,
+          exercises: updatedExercises,
+        });
+        localStorage.setItem("workoutFormState", updatedWorkoutForm);
+      }
+
       if (!workoutFormState) {
-        navigate("/log"); // POSSIBLE CHANGE
+        navigate("/library"); // POSSIBLE CHANGE
         // navigate("/log", { state: { exercise: data } }); // POSSIBLE CHANGE
       } else {
         navigate("/create/workout");
