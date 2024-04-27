@@ -264,7 +264,7 @@ const Settings = () => {
                 Update
               </button>
               <a
-                className="text-red-700 mt-4 flex justify-end text-[12px]"
+                className="text-red-700 mt-4 flex justify-end text-[12px] cursor-pointer"
                 onClick={() => setIsDeleting(true)}
               >
                 Delete Account
