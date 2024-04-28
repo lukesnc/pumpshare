@@ -83,7 +83,7 @@ const Navbar = () => {
             </NavLink>
             <NavLink to="/library" className="nav-link" onClick={toggleMenu}>
               <div>
-                <i className="fa-solid fa-book mr-4 fa-xl menu-icon"></i>
+                <i className="fa-solid fa-book mr-5 fa-xl menu-icon"></i>
                 Exercise Library
               </div>
             </NavLink>
