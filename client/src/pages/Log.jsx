@@ -14,13 +14,6 @@ const Log = () => {
 
   const [selectedLog, setSelectedLog] = useState("workout");
 
-  const workoutRef = useRef(null);
-  const exerciseRef = useRef(null);
-  const attributeInput = useRef(null);
-
-  const workoutList = useRef(null);
-  const exerciseList = useRef(null);
-
   const logFormString = localStorage.getItem("logFormState") || null;
   const logFormState = logFormString ? JSON.parse(logFormString) : null;
 
@@ -51,86 +44,6 @@ const Log = () => {
     };
     getExercises();
   }, []);
-
-  // const renderAttributes = async (exercise) => {
-  //   setExercise(exercise);
-
-  //   setExerciseAttributes(exercise?.attr || []);
-  // };
-  // const addAttributeValue = async (attribute, value) => {
-  //   const newKey = attribute._id;
-  //   const newValue = value;
-  //   setValues([...values, newValue]);
-  //   setAttrValue(value);
-  // };
-
-  // const handleMenuItemClick = async (type) => {
-  //   setSelectedItem(type);
-
-  //   if (type == "exercise") {
-  //     exerciseList.current.classList.add(
-  //       "text-blue-600",
-  //       "border-blue-600",
-  //       "active",
-  //       "dark:text-blue-500",
-  //       "dark:border-blue-500"
-  //     );
-  //     workoutList.current.classList.remove(
-  //       "text-blue-600",
-  //       "border-blue-600",
-  //       "active",
-  //       "dark:text-blue-500",
-  //       "dark:border-blue-500"
-  //     );
-  //     exerciseList.current.classList.remove(
-  //       "text-gray-500",
-  //       "border-b",
-  //       "border-gray-200",
-  //       "dark:text-gray-400",
-  //       "dark:border-gray-700",
-  //       "border-transparent"
-  //     );
-  //     workoutList.current.classList.add(
-  //       "text-gray-500",
-  //       "border-b",
-  //       "border-gray-200",
-  //       "dark:text-gray-400",
-  //       "dark:border-gray-700",
-  //       "border-transparent"
-  //     );
-  //   } else {
-  //     exerciseList.current.classList.remove(
-  //       "text-blue-600",
-  //       "border-blue-600",
-  //       "active",
-  //       "dark:text-blue-500",
-  //       "dark:border-blue-500"
-  //     );
-  //     workoutList.current.classList.add(
-  //       "text-blue-600",
-  //       "border-blue-600",
-  //       "active",
-  //       "dark:text-blue-500",
-  //       "dark:border-blue-500"
-  //     );
-  //     exerciseList.current.classList.add(
-  //       "text-gray-500",
-  //       "border-b",
-  //       "border-gray-200",
-  //       "dark:text-gray-400",
-  //       "dark:border-gray-700",
-  //       "border-transparent"
-  //     );
-  //     workoutList.current.classList.remove(
-  //       "text-gray-500",
-  //       "border-b",
-  //       "border-gray-200",
-  //       "dark:text-gray-400",
-  //       "dark:border-gray-700",
-  //       "border-transparent"
-  //     );
-  //   }
-  // };
 
   const handleNext = async (e) => {
     e.preventDefault();
@@ -210,12 +123,12 @@ const Log = () => {
                     {workout.name}
                   </li>
                 ))}
-                <li
+                {/* <li
                   className="my-3 text-center font-semibold text-gray-500"
                   onClick={() => navigate("/create/workout")}
                 >
                   + Add a new workout
-                </li>
+                </li> */}
               </ul>
             </div>
           ) : (
@@ -235,12 +148,12 @@ const Log = () => {
                     {exercise.name}
                   </li>
                 ))}
-                <li
+                {/* <li
                   className="my-3 text-center font-semibold text-gray-500"
                   onClick={() => navigate("/create/exercise")}
                 >
                   + Add a new exercise
-                </li>
+                </li> */}
               </ul>
             </div>
           )}
