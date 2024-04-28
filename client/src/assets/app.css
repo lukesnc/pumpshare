@@ -152,23 +152,25 @@
   background-color: var(--primary);
   color: var(--tertiary);
 }
+/*.container{
+  position:relative;
+  
+  width:100%;
+  
+}*/
 
-.container {
-  position: relative;
-  height: auto;
-}
 .content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
+  
+  width:100%;
+  top:0;
+  left:0;
 }
-.visible {
-  display: block;
-}
+
+
 .distance {
   margin-bottom: 100px;
 }
+
 
 .box-shadow {
   /* box-shadow: x offset | y offset| blur radius | spread | color */

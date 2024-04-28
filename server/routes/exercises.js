@@ -7,6 +7,8 @@ router.get("/", controller.getAllExercises);
 
 router.get("/attributes", controller.getAllAttributes);
 
+router.get("/attributes/:id", controller.getAttributesByExercise);
+
 // GET one exercise
 router.get("/:id", controller.getExercise);
 

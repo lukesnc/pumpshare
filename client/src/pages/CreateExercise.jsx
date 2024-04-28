@@ -94,7 +94,7 @@ const CreateExercise = () => {
         navigate("/library"); // POSSIBLE CHANGE
         // navigate("/log", { state: { exercise: data } }); // POSSIBLE CHANGE
       } else {
-        navigate("/create/workout");
+        navigate("/log");
       }
     } catch (error) {
       setError(error.message);
@@ -131,7 +131,7 @@ const CreateExercise = () => {
                   <li key={index} value={attr.name} className="text-gray-500">
                     <i
                       key={index + attr._id}
-                      value={attr.name}
+                      value={attr.name} 
                       className="fa-solid fa-xmark text-red-500 mr-2 "
                       onClick={(e) => {
                         removeSelectedAttr(attr);
@@ -194,7 +194,7 @@ const CreateExercise = () => {
                   value={newAttrUnits}
                   onChange={(e) => setNewAttrUnits(e.target.value)}
                   type="text"
-                  placeholder="lbs"
+                  placeholder="Unit"
                   className="input w-[25%] mb-1 mx-auto text-[14px]"
                 />
                 <i

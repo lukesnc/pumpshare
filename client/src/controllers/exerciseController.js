@@ -33,14 +33,14 @@ const getExercise = async (id) =>{
     return data;
 };
 
-const logExercise = async (id,name,attr,date,distance,sets,time,laps,reps,weight,about, measurement, timeUnit) =>{
+const logExercise = async (date,exercise,about, values) =>{
 
     const res = await fetch('/api/exercises/log', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ id,name,attr,date,distance,sets,time,laps,reps,weight,about, measurement, timeUnit}),
+        body: JSON.stringify({date, exercise, about, values }),
     });
     
     // data is the response from the server

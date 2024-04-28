@@ -5,7 +5,7 @@ const attributeSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, "Name is required"],
+      required: [true, 'Name is required'],
       trim: true,
       minlength: 1,
     },
@@ -15,10 +15,10 @@ const attributeSchema = new Schema(
     },
     short: {
       type: String,
-      required: [true, "Abbreviation of unit is required"],
+      required: [true, 'Abbreviation of unit is required'],
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Attribute", attributeSchema, "attributes");
+module.exports = mongoose.model('Attribute', attributeSchema, 'attributes');
