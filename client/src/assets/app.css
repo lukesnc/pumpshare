@@ -49,7 +49,7 @@
     @apply block text-sm font-medium text-primary font-merriweather;
   }
   .input {
-    @apply pl-2 mt-1 h-[38px] block w-full border-secondary rounded-md shadow-sm focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-50;
+    @apply pl-2 mt-1 h-[38px] block w-full border-gray-300 border rounded-md focus:border-emeraldMist focus:ring focus:ring-emeraldMist focus:ring-opacity-25 outline-none;
   }
   .form-title {
     @apply text-3xl font-semibold font-merriweather text-center mb-10;
@@ -160,17 +160,14 @@
 }*/
 
 .content {
-  
-  width:100%;
-  top:0;
-  left:0;
+  width: 100%;
+  top: 0;
+  left: 0;
 }
-
 
 .distance {
   margin-bottom: 100px;
 }
-
 
 .box-shadow {
   /* box-shadow: x offset | y offset| blur radius | spread | color */
