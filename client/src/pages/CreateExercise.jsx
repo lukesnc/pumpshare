@@ -94,7 +94,7 @@ const CreateExercise = () => {
         navigate("/library"); // POSSIBLE CHANGE
         // navigate("/log", { state: { exercise: data } }); // POSSIBLE CHANGE
       } else {
-        navigate("/log");
+        navigate("/create/workout");
       }
     } catch (error) {
       setError(error.message);
@@ -131,7 +131,7 @@ const CreateExercise = () => {
                   <li key={index} value={attr.name} className="text-gray-500">
                     <i
                       key={index + attr._id}
-                      value={attr.name} 
+                      value={attr.name}
                       className="fa-solid fa-xmark text-red-500 mr-2 "
                       onClick={(e) => {
                         removeSelectedAttr(attr);
