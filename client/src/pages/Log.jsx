@@ -47,7 +47,7 @@ const Log = () => {
   useEffect(() => {
     const getExercises = async () => {
       try {
-        const res = await fetch("/api/exercises");
+        const res = await fetch("/api/exercises/populate-attributes");
         const data = await res.json();
         console.log("data: ", data);
         setAllExercises(data);
@@ -97,8 +97,8 @@ const Log = () => {
         const data = await logExercise(date, exercise, about,values);
         console.log("Result: ", data);
         //path to be changed once page is made for viewing single Workout
-        navigate("/", { state: { exercise: data } });
-        navigate("/view/exercise", { state: { exercise: data } });
+        navigate("/library", { state: { exercise: data } });
+        //navigate("/view/exercise", { state: { exercise: data } });
       } catch (error) {
         setError(error.message);
       }
@@ -107,8 +107,8 @@ const Log = () => {
         const data = await logWorkout(date, workout, about);
         console.log("Result: ", data);
         //path to be changed once page is made for viewing single Workout
-        navigate("/", { state: { workout: data } });
-        navigate("/view/workout", { state: { workout: data } });
+        navigate("/library", { state: { workout: data } });
+        //navigate("/view/workout", { state: { workout: data } });
       } catch (error) {
         setError(error.message);
       }

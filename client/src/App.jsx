@@ -6,7 +6,7 @@ import {
   Home,
   Signup,
   Login,
-  UpdateWorkout,
+  Update,
   ExerciseLibrary,
   ActivityFeed,
   Profile,
@@ -38,7 +38,7 @@ const App = () => {
         <Route path="/:username/:follow" element={<Follow />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/view/workout" element={<ViewWorkout />} />
-        <Route path="/update/workout" element={<UpdateWorkout />} />
+        <Route path="/update" element={<Update />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/create/exercise" element={<CreateExercise />} />

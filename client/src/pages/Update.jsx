@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { format } from 'date-fns';
 import { logWorkout } from "../controllers/workoutController";
 
-const UpdateWorkout = () => {
+const Update = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const ogWorkout = { workout: location.state?.workout }.workout;
@@ -148,4 +148,4 @@ const UpdateWorkout = () => {
   );
 };
 
-export default UpdateWorkout;
+export default Update;

@@ -10,7 +10,7 @@ import Profile from "./Profile";
 import Follow from "./Follow";
 import Log from "./Log";
 import ViewWorkout from "./ViewWorkout";
-import UpdateWorkout from "./UpdateWorkout";
+import Update from "./Update";
 import CreateExercise from "./CreateExercise";
 import CreateWorkout from "./CreateWorkout";
 import ErrorPage from "./ErrorPage";
@@ -28,7 +28,7 @@ export {
   Follow,
   Log,
   ViewWorkout,
-  UpdateWorkout,
+  Update,
   CreateWorkout,
   CreateExercise,
   ErrorPage,

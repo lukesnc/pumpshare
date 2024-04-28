@@ -87,7 +87,7 @@ exports.deleteExercise = async (req, res) => {
     });
 };
 
-exports.getAllExercises = async (req, res) => {
+exports.getAllExercisesWithAttributes = async (req, res) => {
   Exercise.find({})
     .populate('attr')
     .then((exercises) => {
@@ -105,6 +105,16 @@ exports.getAllExercises = async (req, res) => {
       res.status(500).json({ message: "Error fetching exercises" });
     });
 };
+exports.getAllExercises = async (req, res) => {
+  Exercise.find()
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
 
 exports.getAllAttributes = async (req, res) => {
   Attribute.find()

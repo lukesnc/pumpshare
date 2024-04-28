@@ -9,6 +9,7 @@ const ExerciseLibrary = () => {
   const [exercises, setExercises] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState("");
   const [selectedWorkout, setSelectedWorkout] = useState("");
+  let isExercise = 0;
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -38,17 +39,21 @@ const ExerciseLibrary = () => {
   }, []);
 
   const handleExerciseChange = (e) => {
-    setSelectedWorkout("");
+    isExercise = 1;
     setSelectedExercise(e.target.value);
+    setSelectedWorkout("");
   };
 
   const handleWorkoutChange = (e) => {
+    isExercise=0;
     setSelectedExercise("");
     setSelectedWorkout(e.target.value);
+    console.log(selectedWorkout, isExercise);
   };
 
   const handleEdit = async (e) => {
     e.preventDefault();
+    console.log(isExercise);
     // The code below is wrong, but in the right direction.
     // And id of the workout or exercise is needed, plus an indicator of whether its a workout or an exercise
     // This will add a search parameter that should be handled by backend routes (obtain info from params)
@@ -59,6 +64,11 @@ const ExerciseLibrary = () => {
     //   search: new URLSearchParams({ id, type }).toString(), // Use URLSearchParams for query parameters
     // };
     // navigate(destination);
+    if (isExercise == 1){
+      console.log(selectedExercise);
+    } else{
+      console.log(selectedWorkout);
+    }
   };
 
   return (
@@ -71,7 +81,7 @@ const ExerciseLibrary = () => {
           <select
             id="workouts"
             className="border rounded-lg block w-full p-2.5 mb-3"
-            onChange={handleWorkoutChange}
+            onChange={(e) => handleWorkoutChange(e.target.value)}
           >
             <option value="">Choose a workout</option>
             {workouts.map((workout) => (
