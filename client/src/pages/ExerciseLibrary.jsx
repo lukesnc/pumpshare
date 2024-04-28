@@ -79,7 +79,7 @@ const ExerciseLibrary = () => {
         <form>
           <select
             id="workouts"
-            className="border rounded-lg block w-full p-2.5 mb-3"
+            className="border rounded-lg block w-full p-2.5 mb-3 outline-none"
             onChange={(e) => handleWorkoutChange(e.target.value)}
           >
             <option value="">Choose a workout</option>
@@ -95,7 +95,7 @@ const ExerciseLibrary = () => {
         <form>
           <select
             id="exercises"
-            className="border rounded-lg block w-full p-2.5 mb-3"
+            className="border rounded-lg block w-full p-2.5 mb-3 outline-none"
             onChange={handleExerciseChange}
           >
             <option value="">Choose an exercise</option>
