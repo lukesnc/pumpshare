@@ -45,10 +45,9 @@ const ExerciseLibrary = () => {
   };
 
   const handleWorkoutChange = (e) => {
-    isExercise=0;
+    isExercise = 0;
     setSelectedExercise("");
     setSelectedWorkout(e.target.value);
-    console.log(selectedWorkout, isExercise);
   };
 
   const handleEdit = async (e) => {
@@ -64,9 +63,9 @@ const ExerciseLibrary = () => {
     //   search: new URLSearchParams({ id, type }).toString(), // Use URLSearchParams for query parameters
     // };
     // navigate(destination);
-    if (isExercise == 1){
+    if (isExercise == 1) {
       console.log(selectedExercise);
-    } else{
+    } else {
       console.log(selectedWorkout);
     }
   };
