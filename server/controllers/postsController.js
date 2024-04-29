@@ -1,4 +1,5 @@
 const Post = require("../models/post");
+const { countDocuments } = require("../models/workouts");
 
 exports.getPost = (req, res) => {
   const postId = req.params.id;
@@ -45,6 +46,24 @@ exports.getPostsByUserId = (req, res) => {
     });
 };
 
-exports.create = (req, res) => {
-  res.send("Create");
+exports.createPost = async (content) => {
+  if (!content) {
+    throw Error("All fields are required");
+  }
+
+  const res = await fetch("/api/posts/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ content}),
+  });
+
+  // data is the response from the server
+  const data = await res.json();
+  if (!res.ok) {
+    throw Error(data.error);
+  }
+
+  return data;
 };

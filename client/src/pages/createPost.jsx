@@ -1,14 +1,24 @@
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 const PostCreate = () => {
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [content, setContent] = useState("");
 
+  const location = useLocation();
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleCreatePost = async (e) => {
     e.preventDefault();
+
+    try {
+      const data = await createPost(body);
+      //path to be changed once page is made for viewing single exercise
+      navigate("/log", { state: { logId: data._id } });
+    } catch (error) {
+      setError(error.message);
+    }
+  };
 
     const newPost = {
       title,
@@ -16,56 +26,39 @@ const PostCreate = () => {
       created_at: new Date().toLocaleDateString(),
     };
 
-    fetch("http://localhost:3000/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newPost),
-    }).then(() => {
-      navigate("/");
-    });
-  };
+
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-        <h2 className="form-title">Login to Your Account</h2>
-        <form onSubmit={handleLogin}>
+        <h2 className="form-title">New Post</h2>
+        <form onSubmit={handleCreatePost}>
           <div className="mb-4">
-            <label htmlFor="email" className="input-label">
-              Email
+            <label htmlFor="PostInput" className="input-label">
+              What's on your mind?
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="PostInput"
+              id="PostInput"
+              name="PostInput"
               className="input"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label htmlFor="password" className="input-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              className="input"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-
+          
           {error && <Alert message={error} type="error" />}
 
           <button type="submit" className="form-btn">
-            Login
+            Post
           </button>
+          
         </form>
       </div>
     </div>
   );
 };
+
 
 export default PostCreate;

@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import styles from "../style";
 import { PostCard } from "../components";
+import { Link } from 'react-router-dom';
+
 
 const ActivityFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -29,12 +31,6 @@ const ActivityFeed = () => {
           <h2 className="text-3xl font-semibold font-merriweather text-center mx-4">
             Activity Feed
           </h2>
-            <a
-              className="form-btn-outline"
-              to="/create"
-            >
-              New Post
-            </a>
         </div>
         {posts.map((post) => (
           <div
@@ -52,6 +48,11 @@ const ActivityFeed = () => {
             />
           </div>
         ))}
+        <Link to="/createPost">
+          <button type="submit" className="form-btn">
+            Create New Post
+          </button>
+        </Link>
       </div>
     </div>
   );
