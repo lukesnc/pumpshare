@@ -13,6 +13,7 @@ import Create from "./Create";
 import ErrorPage from "./ErrorPage";
 import PostPage from "./PostPage";
 import Settings from "./Settings";
+import CreatePost from "./CreatePost";
 
 export {
   Home,
@@ -28,4 +29,5 @@ export {
   ErrorPage,
   PostPage,
   Settings,
+  CreatePost,
 };

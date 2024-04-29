@@ -46,24 +46,12 @@ exports.getPostsByUserId = (req, res) => {
     });
 };
 
-exports.createPost = async (content) => {
-  if (!content) {
-    throw Error("All fields are required");
-  }
+exports.createPost = async (req,res) => {
+  console.log("hi")
+  const { content } = req.body;
+  const token = req.header("Authorization").replace("Bearer ", "");
+  const data = jwt.verify(token, process.env.JWT_SECRET);
 
-  const res = await fetch("/api/posts/", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ content}),
-  });
-
-  // data is the response from the server
-  const data = await res.json();
-  if (!res.ok) {
-    throw Error(data.error);
-  }
-
-  return data;
+  console.log("data", data);
 };
+
