@@ -29,6 +29,12 @@ const ActivityFeed = () => {
           <h2 className="text-3xl font-semibold font-merriweather text-center mx-4">
             Activity Feed
           </h2>
+            <a
+              className="form-btn-outline"
+              to="/create"
+            >
+              New Post
+            </a>
         </div>
         {posts.map((post) => (
           <div

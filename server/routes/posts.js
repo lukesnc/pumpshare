@@ -13,5 +13,5 @@ router.get("/user/:id", controller.getPostsByUserId);
 router.post("/post", controller.getPost);
 
 router.get("/create", controller.create);
-
+    
 module.exports = router;

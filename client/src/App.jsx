@@ -37,6 +37,7 @@ const App = () => {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/createPost" element={<createPost />} />
       </Routes>
     </BrowserRouter>
   );
