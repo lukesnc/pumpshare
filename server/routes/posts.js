@@ -12,6 +12,6 @@ router.get("/user/:id", controller.getPostsByUserId);
 // POST a post
 router.post("/post", controller.getPost);
 
-router.get("/create", controller.create);
+router.post("/create", controller.create);
     
 module.exports = router;

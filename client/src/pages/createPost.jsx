@@ -26,31 +26,45 @@ const PostCreate = () => {
   };
 
   return (
-    <>
-      <h1 className="font-bold text-2xl mb-6">Create a new post</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label>Post title</label>
-          <input
-            type="text"
-            className="border-0 outline-0 p-2 ring-1 ring-indigo-400 rounded-lg w-full block mt-1 focus:ring-2"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-        <div className="mb-8">
-          <label>Post content</label>
-          <textarea
-            className="border-0 outline-0 p-2 ring-1 ring-indigo-400 rounded-lg w-full block mt-1 focus:ring-2"
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-          ></textarea>
-        </div>
-        <button className="bg-indigo-400 text-white block w-full p-2 rounded-lg hover:bg-indigo-600">
-          Create
-        </button>
-      </form>
-    </>
+    <div className="min-h-screen bg-gray-100 flex justify-center">
+      <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
+        <h2 className="form-title">Login to Your Account</h2>
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
+            <label htmlFor="email" className="input-label">
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="input"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="password" className="input-label">
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          {error && <Alert message={error} type="error" />}
+
+          <button type="submit" className="form-btn">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   );
 };
 
