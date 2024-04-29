@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { createPost } from "../controllers/postController";
 
 const CreatePost = () => {
   const [content, setContent] = useState("");
@@ -46,7 +47,7 @@ const CreatePost = () => {
           </div>
           
           {/* {error && <Alert message={error} type="error" />} */}
-
+        
             <button type="submit" className="form-btn">
                 Post
             </button>

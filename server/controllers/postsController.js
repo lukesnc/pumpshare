@@ -47,8 +47,8 @@ exports.getPostsByUserId = (req, res) => {
 };
 
 exports.createPost = async (req,res) => {
-  console.log("hi")
-  const { content } = req.body;
+  console.log("we've made it!!!!!!")
+  const { content, userId } = req.body;
   const token = req.header("Authorization").replace("Bearer ", "");
   const data = jwt.verify(token, process.env.JWT_SECRET);
 
