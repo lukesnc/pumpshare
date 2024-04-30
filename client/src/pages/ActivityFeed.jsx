@@ -49,11 +49,11 @@ const ActivityFeed = () => {
             </div>
           ))}
         </div>
-        <div className="fixed bottom-0 w-full">
+        <div className="fixed bottom-0 w-full box-shadow">
           <Link to="/createPost">
             <button
               type="submit"
-              className="text-white bg-emeraldMist font-merriweather h-20 w-full py-2 px-4 "
+              className="text-white bg-emeraldMist font-merriweather w-full py-5 px-4 "
             >
               Create New Post
             </button>
