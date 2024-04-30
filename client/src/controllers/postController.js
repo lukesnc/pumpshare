@@ -1,5 +1,3 @@
-import { getMe } from "./userController";
-
 const createPost = async (content) => {
   const token = localStorage.getItem("token");
   if (!token) {
