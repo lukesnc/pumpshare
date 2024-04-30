@@ -8,6 +8,8 @@ const PostPage = () => {
   const [error, setError] = useState("");
   const [post, setPost] = useState({});
   const [comments, setComments] = useState([]);
+  const [numComments, setNumComments] = useState();
+  const [numLikes, setNumLikes] = useState();
 
   // Fetch post by id and related comments
   const [isCommenting, setIsCommenting] = useState(false);
@@ -69,9 +71,11 @@ const PostPage = () => {
         },
         body: JSON.stringify({ content }),
       });
+      const newComment = await res.json();
+      setComments([...comments, newComment.newComment]);
+      // setPost({ ...post, comments: [...post.comments, newComment] });
       setIsCommenting(false);
       setComment("");
-      navigate(`/post/${id}`);
     } catch (error) {
       console.log(error);
       setError(error.message || "Something went wrong!");
@@ -81,9 +85,9 @@ const PostPage = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col mt-2">
       {/* Post */}
-      <div className="mt-12 w-full">
+      <div className="mt-12 w-full ">
         <div className="">
-          {post.likes && (
+          {post.comments && (
             <div
               className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
             >
@@ -94,14 +98,15 @@ const PostPage = () => {
                 comments={post.comments}
                 likes={post.likes}
                 timestamp={post.timestamp}
+                truncate={false}
               />
             </div>
           )}
         </div>
       </div>
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full mb-16">
         {/* Comments */}
-        <div>
+        <div className={` ${isCommenting ? "mb-[275px]" : ""}`}>
           <h3 className="text-center text-lg font-semibold font-merriweather text-gray-400 font-semibold my-5">
             Comments
           </h3>
@@ -122,13 +127,6 @@ const PostPage = () => {
                 />
               </div>
             ))}
-          <div className="bg-white py-6 border-t-2 border-gray-100">
-            <p
-              className={`text-primary text-[14px] mx-2 h-[600px] ${
-                isCommenting ? "mb-[200px]" : ""
-              }`}
-            ></p>
-          </div>
 
           {/* Add Comment */}
           <div className="flex bottom-0 justify-center w-full fixed z-auto box-shadow">
