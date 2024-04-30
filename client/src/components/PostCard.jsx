@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../style";
 import { findUser } from "../controllers/userController";
 
@@ -16,6 +16,8 @@ const PostCard = ({
 
   const numLikes = likes.length;
   const numComments = comments.length;
+
+  const navigate = useNavigate();
 
   const [user, setUser] = useState(null); // Initialize user state to null
 
@@ -35,6 +37,11 @@ const PostCard = ({
   const username = user ? user.username : "";
   const firstName = user ? user.firstName : "";
   const lastName = user ? user.lastName : "";
+
+  const handleComment = () => {
+    navigate(`/post/${id}`, { state: "true" });
+  };
+  const handleLike = () => {};
 
   return (
     <div className="flex text-primary flex-auto my-4">
@@ -61,14 +68,17 @@ const PostCard = ({
         <div className="flex flex-auto mt-2">
           <span className="text-gray-400">{timestamp}</span>
           {/* Comment */}
-          <button className="flex-auto flex-wrap">
+          <button
+            className="flex-auto flex-wrap"
+            onClick={() => handleComment()}
+          >
             <i className={`fa-regular fa-message ${styles.postButton}`}></i>
             <span className="ml-1 text-gray-400 text-[10px]">
               {numComments}
             </span>
           </button>
           {/* Like Button */}
-          <button className="">
+          <button className="" onClick={(e) => handleLike(e)}>
             <i className={`fa-regular fa-heart ${styles.postButton}`}></i>
             <span className="ml-1 text-gray-400 text-[10px]">{numLikes}</span>
           </button>
