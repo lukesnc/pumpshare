@@ -31,27 +31,34 @@ const ActivityFeed = () => {
             Activity Feed
           </h2>
         </div>
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
-          >
-            <PostCard
-              key={post.id}
-              id={post._id}
-              userId={post.user}
-              content={post.content}
-              comments={post.comments}
-              likes={post.likes}
-              timestamp={post.timestamp}
-            />
-          </div>
-        ))}
-        <Link to="/createPost">
-          <button type="submit" className="form-btn">
-            Create New Post
-          </button>
-        </Link>
+        <div className="h-fit pb-20">
+          {posts.map((post, index) => (
+            <div
+              key={post._id}
+              className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
+            >
+              <PostCard
+                key={post._id}
+                id={post._id}
+                userId={post.user}
+                content={post.content}
+                comments={post.comments}
+                likes={post.likes}
+                timestamp={post.timestamp}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="fixed bottom-0 w-full">
+          <Link to="/createPost">
+            <button
+              type="submit"
+              className="text-white bg-emeraldMist font-merriweather h-20 w-full py-2 px-4 "
+            >
+              Create New Post
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
