@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { PostCard } from "../components";
+import { PostCard, CommentCard } from "../components";
 import styles from "../style";
 
 const PostPage = () => {
   const { id } = useParams();
   const [post, setPost] = useState({});
-  // Fetch post by id
+  const [comments, setComments] = useState([]);
+
+  // Fetch post by id and related comments
   useEffect(() => {
     const fetchPost = async () => {
       try {
@@ -14,13 +16,27 @@ const PostPage = () => {
         if (!response.ok) {
           throw new Error("Failed to fetch post");
         }
-        const data = await response.json();
-        setPost(data);
+        const postData = await response.json();
+        setPost(postData);
+        // Fetch post comments
+        const tmpComments = [];
+        for (const id of postData.comments) {
+          try {
+            const r = await fetch(`/api/comments/${id}`);
+            if (!r.ok) {
+              throw new Error("Failed to fetch comment");
+            }
+            const data = await r.json();
+            tmpComments.push(data);
+          } catch (error) {
+            console.log("Error fetching comment:", error);
+          }
+        }
+        setComments(tmpComments);
       } catch (error) {
         console.error("Error fetching post:", error);
       }
     };
-
     fetchPost();
   }, [id]);
 
@@ -51,11 +67,25 @@ const PostPage = () => {
           <h3 className="text-center text-gray-400 font-semibold my-5">
             Comments
           </h3>
-          <div className="bg-white py-6 border-t-2 border-gray-100">
-            <p className="text-primary text-[14px] mx-2">
-              This is a fake comment. Replace with actual comments later.
-            </p>
-          </div>
+
+          {/* Comments on post */}
+          {comments &&
+            comments.map((comment) => (
+              <div
+                key={comment.id}
+                className={`${styles.commentCard} flex flex-col border-t-2 border-gray-100`}
+              >
+                <CommentCard
+                  key={comment.id}
+                  id={comment._id}
+                  userId={comment.user}
+                  content={comment.content}
+                  likes={comment.likes}
+                  timestamp={comment.timestamp}
+                />
+              </div>
+            ))}
+
           {/* Add Comment */}
           <div className="flex bg-emeraldMist bottom-0 justify-center w-full fixed z-50 shadow-md box-shadow">
             {/* app.css for dropshadow */}
