@@ -76,7 +76,6 @@ const PostPage = () => {
                 className={`${styles.commentCard} flex flex-col border-t-2 border-gray-100`}
               >
                 <CommentCard
-                  key={comment._id}
                   id={comment._id}
                   userId={comment.user}
                   content={comment.content}
