@@ -1,4 +1,6 @@
+const User = require("../models/user");
 const Post = require("../models/post");
+const jwt = require("jsonwebtoken");
 
 exports.getPost = (req, res) => {
   const postId = req.params.id;
@@ -45,6 +47,28 @@ exports.getPostsByUserId = (req, res) => {
     });
 };
 
-exports.create = (req, res) => {
-  res.send("Create");
+exports.createPost = async (req, res) => {
+  const { content } = req.body;
+  if (!content) {
+    throw Error("Your post must include content");
+  }
+  const token = req.header("Authorization").replace("Bearer ", "");
+  const data = jwt.verify(token, process.env.JWT_SECRET);
+  try {
+    const user = await User.findById(data._id).then();
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    const newPost = new Post({ user: data._id, content });
+    try {
+      await newPost.save();
+      res.status(201).json({ message: "Post created successfully!" });
+    } catch (error) {
+      console.error("Error saving post:", error);
+      res.status(500).json({ error: "Unable to create post" });
+    }
+  } catch (error) {
+    console.error("Error verifying token:", error);
+    res.status(401).json({ error: "Unauthorized" });
+  }
 };
