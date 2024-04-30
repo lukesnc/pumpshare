@@ -70,7 +70,7 @@ const PostCard = ({
           {/* Comment */}
           <button
             className="flex-auto flex-wrap"
-            onClick={(e) => handleComment(e)}
+            onClick={() => handleComment()}
           >
             <i className={`fa-regular fa-message ${styles.postButton}`}></i>
             <span className="ml-1 text-gray-400 text-[10px]">
