@@ -1,4 +1,7 @@
 const createPost = async (content) => {
+  if (!content) {
+    throw Error("Your post must include content");
+  }
   const token = localStorage.getItem("token");
   if (!token) {
     throw Error("No token found");

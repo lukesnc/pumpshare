@@ -49,6 +49,9 @@ exports.getPostsByUserId = (req, res) => {
 
 exports.createPost = async (req, res) => {
   const { content } = req.body;
+  if (!content) {
+    throw Error("Your post must include content");
+  }
   const token = req.header("Authorization").replace("Bearer ", "");
   const data = jwt.verify(token, process.env.JWT_SECRET);
   try {

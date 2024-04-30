@@ -11,13 +11,13 @@ const CreatePost = () => {
     e.preventDefault();
     try {
       const res = await createPost(content);
-      // const data = await res.json();
+      const data = await res.json();
       if (!res.ok) {
         throw Error(data.error);
       }
       navigate("/activity");
     } catch (error) {
-      setError(error.message);
+      setError("Your post must include content");
     }
   };
 
@@ -41,7 +41,7 @@ const CreatePost = () => {
             />
           </div>
 
-          {/* {error && <Alert message={error} type="error" />} */}
+          {error && <p className="text-red-500 text-center">{error}</p>}
 
           <button type="submit" className="form-btn">
             Post
