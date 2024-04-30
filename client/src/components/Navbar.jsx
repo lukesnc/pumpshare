@@ -32,39 +32,41 @@ const Navbar = () => {
                     PROFILE WILL ALSO SHOW A "USER NOT FOUND" FOR LOGGED IN USER *********/
   return (
     <header>
-      <nav className="navbar">
-        <Link
-          to="/"
-          className="font-poppins text-tertiary my-auto ml-5 text-[26px]"
-          onClick={showMenu === "menu visible" ? toggleMenu : undefined}
-        >
-          PumpShare
-        </Link>
+      <div className="flex flex-row fixed top-0 w-full h-[60px] bg-tealGreen z-50 fixed">
+        <nav className="navbar">
+          <Link
+            to="/"
+            className="font-poppins text-tertiary my-auto ml-5 text-[26px]"
+            onClick={showMenu === "menu visible" ? toggleMenu : undefined}
+          >
+            PumpShare
+          </Link>
 
-        <div className="my-auto ml-auto">
-          {user.email && (
-            <Link
-              to={`/log`}
-              className="my-auto ml-auto mr-[1em] text-white"
-              onClick={showMenu === "menu visible" ? toggleMenu : undefined}
-            >
-              <i className="fa-solid fa-circle-plus ml-2 text-[35px] drop-shadow-xl"></i>
-            </Link>
-          )}
-        </div>
-        <div className="my-auto ml-auto">
-          {user.email && (
-            <Link
-              to={`/${user.username}`}
-              className="my-auto ml-auto mr-[1em] text-white"
-              onClick={showMenu === "menu visible" ? toggleMenu : undefined}
-            >
-              <i className="fa-solid fa-user fa-lg"></i>
-            </Link>
-          )}
-          <div className={menuIcon} onClick={toggleMenu}></div>
-        </div>
-      </nav>
+          <div className="my-auto ml-auto">
+            {user.email && (
+              <Link
+                to={`/log`}
+                className="my-auto ml-auto mr-[1em] text-white"
+                onClick={showMenu === "menu visible" ? toggleMenu : undefined}
+              >
+                <i className="fa-solid fa-circle-plus ml-2 text-[35px] drop-shadow-xl"></i>
+              </Link>
+            )}
+          </div>
+          <div className="my-auto ml-auto">
+            {user.email && (
+              <Link
+                to={`/${user.username}`}
+                className="my-auto ml-auto mr-[1em] text-white"
+                onClick={showMenu === "menu visible" ? toggleMenu : undefined}
+              >
+                <i className="fa-solid fa-user fa-lg"></i>
+              </Link>
+            )}
+            <div className={menuIcon} onClick={toggleMenu}></div>
+          </div>
+        </nav>
+      </div>
       <div className={showMenu}>
         {/* NavLink has prop for active link - Currently not working (probably until backend API is functioning) */}
         {user.email ? (
