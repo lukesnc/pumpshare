@@ -67,7 +67,7 @@ const Navbar = () => {
           </div>
         </nav>
       </div>
-      <div className={showMenu}>
+      <div className={`${showMenu} z-50`}>
         {/* NavLink has prop for active link - Currently not working (probably until backend API is functioning) */}
         {user.email ? (
           <>
