@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../style";
 import { PostCard } from "../components";
-import { Link } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
 
 const ActivityFeed = () => {
   const [posts, setPosts] = useState([]);
