@@ -72,11 +72,11 @@ const PostPage = () => {
           {comments &&
             comments.map((comment) => (
               <div
-                key={comment.id}
+                key={comment._id}
                 className={`${styles.commentCard} flex flex-col border-t-2 border-gray-100`}
               >
                 <CommentCard
-                  key={comment.id}
+                  key={comment._id}
                   id={comment._id}
                   userId={comment.user}
                   content={comment.content}
