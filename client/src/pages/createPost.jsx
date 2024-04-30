@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { createPost } from "../controllers/postController";
 
@@ -10,21 +9,17 @@ const CreatePost = () => {
 
   const handleCreatePost = async (e) => {
     e.preventDefault();
-    console.log("here")
-
     try {
-        const x = await createPost(content);
-        const data = await res.json();
-        if (!res.ok) {
-            throw Error(data.error);
-        }
-      navigate("/log");
+      const res = await createPost(content);
+      // const data = await res.json();
+      if (!res.ok) {
+        throw Error(data.error);
+      }
+      navigate("/activity");
     } catch (error) {
       setError(error.message);
     }
   };
-
-
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
@@ -45,18 +40,16 @@ const CreatePost = () => {
               onChange={(e) => setContent(e.target.value)}
             />
           </div>
-          
-          {/* {error && <Alert message={error} type="error" />} */}
-        
-            <button type="submit" className="form-btn">
-                Post
-            </button>
-        </form>
 
+          {/* {error && <Alert message={error} type="error" />} */}
+
+          <button type="submit" className="form-btn">
+            Post
+          </button>
+        </form>
       </div>
     </div>
   );
 };
-
 
 export default CreatePost;
