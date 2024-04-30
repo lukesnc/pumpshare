@@ -3,9 +3,6 @@
 import Navbar from "./Navbar";
 import Alert from "./Alert";
 import PostCard from "./PostCard";
+import CommentCard from "./CommentCard";
 
-export {
-Navbar,
-Alert,
-PostCard,
-};
+export { Navbar, Alert, PostCard, CommentCard };
