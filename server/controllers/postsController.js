@@ -72,3 +72,40 @@ exports.createPost = async (req, res) => {
     res.status(401).json({ error: "Unauthorized" });
   }
 };
+
+exports.getLikes = async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const post = await Post.findById(postId).populate("likes");
+    console.log(": ");
+    if (!post) {
+      return { success: false, message: "Post not found" };
+    }
+
+    const likesData = post.likes.map((user) => ({
+      _id: user._id,
+      username: user.username || user.email,
+    }));
+    console.log("likesData: ", likesData);
+    return { success: true, likes: likesData };
+  } catch (error) {
+    console.error("Error fetching likes:", error);
+    return { success: false, message: "Error fetching likes" };
+  }
+};
+
+exports.getComments = async (req, res) => {
+  const postId = req.params.id;
+  try {
+    const post = await Post.findById(postId).populate("comments");
+    if (!post) {
+      return res.status(404).json({ message: "Post not found" });
+    }
+
+    const comments = post.comments;
+    res.status(200).json(comments);
+  } catch (error) {
+    console.error("Error fetching comments:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
