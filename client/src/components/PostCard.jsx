@@ -11,15 +11,15 @@ const PostCard = ({
   comments,
   likes,
   timestamp,
+  truncate,
 }) => {
   const imagePlaceholder = "../images/avatar.png"; // To be removed later
-
-  const numLikes = likes.length;
-  const numComments = comments.length;
 
   const navigate = useNavigate();
 
   const [user, setUser] = useState(null); // Initialize user state to null
+  const [numLikes, setNumLikes] = useState(likes.length);
+  const [numComments, setNumComments] = useState(comments.length);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,6 +33,41 @@ const PostCard = ({
 
     fetchUser();
   }, [userId]);
+
+  // useEffect(() => {
+  //   const fetchLikes = async () => {
+  //     try {
+  //       // Assuming you have an API endpoint for fetching likes based on post ID
+  //       const response = await fetch(`/api/posts/${id}/likes`);
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch likes");
+  //       }
+  //       const likeData = await response.json();
+  //       setNumLikes(likeData.length);
+  //     } catch (error) {
+  //       console.error("Error fetching likes:", error);
+  //     }
+  //   };
+  //   fetchLikes();
+  // }, [id]);
+
+  // useEffect(() => {
+  //   const fetchComments = async () => {
+  //     try {
+  //       const response = await fetch(`/api/posts/${id}/comments`);
+  //       if (!response.ok) {
+  //         throw new Error("Failed to fetch comments");
+  //       }
+  //       const commentData = await response.json();
+  //       setNumComments(commentData.length);
+  //       console.log("fetching and comments: ", commentData.length);
+  //     } catch (error) {
+  //       console.error("Error fetching comments:", error);
+  //     }
+  //   };
+
+  //   fetchComments();
+  // }, [id]);
 
   const username = user ? user.username : "";
   const firstName = user ? user.firstName : "";
@@ -60,7 +95,9 @@ const PostCard = ({
           <span className="text-[14px]  text-gray-400">{"@" + username}</span>
         </Link>
         <Link to={`/post/${id}`}>
-          <p className={`text-[14px] line-clamp-5 ${styles.truncate}`}>
+          <p
+            className={`text-[14px] ${truncate === true ? `line-clamp-5` : ""}`}
+          >
             {content}
           </p>
         </Link>

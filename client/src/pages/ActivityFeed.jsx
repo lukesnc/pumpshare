@@ -45,6 +45,7 @@ const ActivityFeed = () => {
                 comments={post.comments}
                 likes={post.likes}
                 timestamp={post.timestamp}
+                truncate={true}
               />
             </div>
           ))}
