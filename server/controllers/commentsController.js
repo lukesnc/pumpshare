@@ -47,9 +47,10 @@ exports.postComment = async (req, res) => {
                 $currentDate: { lastUpdated: true },
               };
               Post.findByIdAndUpdate(postId, updateData).then(() => {
-                res
-                  .status(201)
-                  .json({ message: "Comment created successfully!" });
+                res.status(201).json({
+                  message: "Comment created successfully!",
+                  newComment,
+                });
               });
             }
           })
