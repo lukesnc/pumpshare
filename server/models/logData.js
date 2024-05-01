@@ -21,7 +21,7 @@ const logSchema = new Schema(
           ref: 'Attribute', 
         },
         amount: {
-          type: Number, // Example additional data field
+          type: Number,
         }
       }],
     exercises: [
@@ -30,8 +30,8 @@ const logSchema = new Schema(
           
         },
       ],
-    date: { type: Date, trim: true, required: [true, "Date is required!"] },
-    about: { type: String, trim: true, required: [true, "About section is required!"] },
+    date: { type: Date, trim: true },
+    about: { type: String, trim: true},
   },
   { timestamps: true }
 );

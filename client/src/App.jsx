@@ -12,6 +12,8 @@ import {
   Profile,
   Follow,
   Log,
+  LogWorkout,
+  LogExercise,
   ViewWorkout,
   CreateExercise,
   CreateWorkout,
@@ -43,6 +45,8 @@ const App = () => {
         <Route path="/settings" element={<Settings />} />
         <Route path="/create/exercise" element={<CreateExercise />} />
         <Route path="/create/workout" element={<CreateWorkout />} />
+        <Route path="/log/workout" element={<LogWorkout />} />
+        <Route path="/log/exercise" element={<LogExercise />} />
       </Routes>
     </BrowserRouter>
   );

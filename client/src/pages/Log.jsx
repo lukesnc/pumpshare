@@ -14,6 +14,7 @@ const Log = () => {
 
   const [selectedLog, setSelectedLog] = useState("workout");
 
+  
   const logFormString = localStorage.getItem("logFormState") || null;
   const logFormState = logFormString ? JSON.parse(logFormString) : null;
 
@@ -47,13 +48,13 @@ const Log = () => {
 
   const handleNext = async (e) => {
     e.preventDefault();
-    console.log(values);
-    if (selectedItem === "exercise") {
+    
+    if (selectedLog === "exercise") {
       try {
-        const data = await logExercise(date, exercise, about, values);
-        console.log("Result: ", data);
-        //path to be changed once page is made for viewing single Workout
-        navigate("/library", { state: { exercise: data } });
+        localStorage.setItem("exercise", JSON.stringify(selectedItem));
+        
+        
+        navigate("/log/exercise");
         //navigate("/view/exercise", { state: { exercise: data } });
       } catch (error) {
         setError(error.message);
@@ -63,7 +64,7 @@ const Log = () => {
         const data = await logWorkout(date, workout, about);
         console.log("Result: ", data);
         //path to be changed once page is made for viewing single Workout
-        navigate("/library", { state: { workout: data } });
+        navigate("/log/workout", { state: { workout: data } });
         //navigate("/view/workout", { state: { workout: data } });
       } catch (error) {
         setError(error.message);

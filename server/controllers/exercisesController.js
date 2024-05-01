@@ -19,28 +19,37 @@ exports.createExercise = async (req, res) => {
 };
 
 exports.logExercise = async (req, res) => {
-  const date = req.body.date;
+  
+  const removeItemWithValue = (arrayOfObjects, valueToRemove) => {
+    
+    return arrayOfObjects.filter(obj => Object.values(obj)[0] !== valueToRemove);
+  };
+
   const exercise = req.body.exercise;
   const about = req.body.about;
   const values = req.body.values;
-
-  if (!date || !exercise || !about || !values) {
+  
+  if (!exercise || !about || !values) {
     return res.status(400).json({ error: "All fields are required" });
   }
+  
 
   const id = exercise._id;
   const name = exercise.name;
-  const attr = exercise.attr;
-  const attributes = attr.map((attr, index) => ({ 
-    attributeId: attr._id.toString(), 
-    amount: values[index] 
-  }));
+  let attributes = values
+  .filter(attr => attr[Object.keys(attr)[0]] !== '') // Filter out entries with null values
+  .map(attr => {
+    console.log(Object.entries(attr)[0]);
+    const [attributeId, amount] = Object.entries(attr)[0]; // Get the first entry
+    return { attributeId, amount };
+  });
+  const newValues = removeItemWithValue(attributes, '');
   const type = "exercise"
   const exercises = null;
+  
 
-
-
-  const log = new LogData({name, type, attributes, exercises, date, about});
+  console.log(newValues);
+  const log = new LogData({name, type, attributes, exercises, about});
   console.log("log object: ", log);
   log
     .save()
@@ -66,6 +75,28 @@ exports.getExercise = async (req, res) => {
       res.status(500).json({ error: error.message });
     });
 };
+
+exports.getExerciseWithAttributes = async (req, res) => {
+  let id = req.params;
+  console.log(id);
+  Exercise.find({_id: id.id})
+    .populate('attr')
+    .then((exercises) => {
+      // Convert the nested objects in the 'attr' field to strings
+      const formattedExercises = exercises.map((exercise) => ({
+        ...exercise.toObject(), // Convert Mongoose document to plain JavaScript object
+        attr: exercise.attr.map((attr) => attr.toObject())
+      }));
+
+      
+      res.status(200).json(formattedExercises);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching exercises" });
+    });
+};
+
 
 exports.deleteExercise = async (req, res) => {
   const id = req.params;
@@ -158,4 +189,16 @@ exports.createNewAttribute = async (req, res) => {
       res.status(200).json(attribute);
     })
     .catch((error) => res.status(400).json({ error: error.message }));
+};
+
+exports.getAllLogData = async (req, res) => {
+  LogData.find()
+    .then((logData) => {
+      console.log(logData);
+      res.status(200).json(logData);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).json({ message: "Error fetching attributes" });
+    });
 };

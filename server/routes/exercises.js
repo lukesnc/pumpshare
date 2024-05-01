@@ -14,6 +14,8 @@ router.get("/populate-attributes", controller.getAllExercisesWithAttributes);
 // GET one exercise
 router.get("/:id", controller.getExercise);
 
+router.get("/log-data", controller.getAllLogData);
+
 // POST one exercise
 router.post("/", controller.createExercise);
 
@@ -23,6 +25,8 @@ router.post("/attributes", controller.createNewAttribute);
 
 // DELETE one exercise
 router.delete("/:id", controller.deleteExercise);
+
+router.get("/attribute/:id", controller.getExerciseWithAttributes);
 
 // UPDATE one exercise
 router.patch("/:id", (req, res) => {

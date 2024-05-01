@@ -16,6 +16,8 @@ import CreateWorkout from "./CreateWorkout";
 import ErrorPage from "./ErrorPage";
 import PostPage from "./PostPage";
 import Settings from "./Settings";
+import LogExercise from "./LogExercise";
+import LogWorkout from "./LogWorkout";
 
 export {
   Home,
@@ -28,6 +30,8 @@ export {
   Follow,
   Log,
   ViewWorkout,
+  LogWorkout,
+  LogExercise,
   Update,
   CreateWorkout,
   CreateExercise,
