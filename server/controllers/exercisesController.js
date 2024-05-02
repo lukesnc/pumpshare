@@ -1,7 +1,6 @@
 const Exercise = require("../models/exercise");
 const Attribute = require("../models/attributes");
 const LogData = require("../models/logData");
-const mongoose = require("mongoose");
 
 exports.createExercise = async (req, res) => {
   const { name, attr } = req.body;
@@ -19,45 +18,31 @@ exports.createExercise = async (req, res) => {
 };
 
 exports.logExercise = async (req, res) => {
-  
-  const removeItemWithValue = (arrayOfObjects, valueToRemove) => {
-    
-    return arrayOfObjects.filter(obj => Object.values(obj)[0] !== valueToRemove);
-  };
+  const { logObject } = req.body;
+  console.log("logObject", logObject);
+  const combinedDateString = `${logObject.date}T${logObject.time}:00Z`;
+  const userTimezoneOffset = new Date().getTimezoneOffset();
+  const dateObject = new Date(
+    new Date(combinedDateString).getTime() + userTimezoneOffset * 60 * 1000
+  );
 
-  const exercise = req.body.exercise;
-  const about = req.body.about;
-  const values = req.body.values;
-  
-  if (!exercise || !about || !values) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-  
-
-  const id = exercise._id;
-  const name = exercise.name;
-  let attributes = values
-  .filter(attr => attr[Object.keys(attr)[0]] !== '') // Filter out entries with null values
-  .map(attr => {
-    console.log(Object.entries(attr)[0]);
-    const [attributeId, amount] = Object.entries(attr)[0]; // Get the first entry
-    return { attributeId, amount };
+  const newLogData = new LogData({
+    name: logObject.name,
+    exerciseId: logObject.exerciseId,
+    type: logObject.type,
+    date: dateObject,
+    attributes: logObject.attributes,
+    notes: logObject.notes,
   });
-  const newValues = removeItemWithValue(attributes, '');
-  const type = "exercise"
-  const exercises = null;
-  
-
-  console.log(newValues);
-  const log = new LogData({name, type, attributes, exercises, about});
-  console.log("log object: ", log);
-  log
+  newLogData
     .save()
-    .then((exercise) => {
-      res.status(200).json({ exercise });
-      //res.redirect(`/:${exercise._id}`);
+    .then((data) => {
+      res.status(200).json(data);
+      console.log("Workout Logged: ", newLogData);
     })
-    .catch((error) => res.status(500).json({ error: error.message }));
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    });
 };
 
 exports.getExercise = async (req, res) => {
@@ -68,7 +53,6 @@ exports.getExercise = async (req, res) => {
 
   Exercise.findById(id.id)
     .then((exercise) => {
-      console.log("No error");
       res.status(200).json({ exercise });
     })
     .catch((error) => {
@@ -79,16 +63,15 @@ exports.getExercise = async (req, res) => {
 exports.getExerciseWithAttributes = async (req, res) => {
   let id = req.params;
   console.log(id);
-  Exercise.find({_id: id.id})
-    .populate('attr')
+  Exercise.find({ _id: id.id })
+    .populate("attr")
     .then((exercises) => {
       // Convert the nested objects in the 'attr' field to strings
       const formattedExercises = exercises.map((exercise) => ({
         ...exercise.toObject(), // Convert Mongoose document to plain JavaScript object
-        attr: exercise.attr.map((attr) => attr.toObject())
+        attr: exercise.attr.map((attr) => attr.toObject()),
       }));
 
-      
       res.status(200).json(formattedExercises);
     })
     .catch((error) => {
@@ -96,7 +79,6 @@ exports.getExerciseWithAttributes = async (req, res) => {
       res.status(500).json({ message: "Error fetching exercises" });
     });
 };
-
 
 exports.deleteExercise = async (req, res) => {
   const id = req.params;
@@ -120,15 +102,14 @@ exports.deleteExercise = async (req, res) => {
 
 exports.getAllExercisesWithAttributes = async (req, res) => {
   Exercise.find({})
-    .populate('attr')
+    .populate("attr")
     .then((exercises) => {
       // Convert the nested objects in the 'attr' field to strings
       const formattedExercises = exercises.map((exercise) => ({
         ...exercise.toObject(), // Convert Mongoose document to plain JavaScript object
-        attr: exercise.attr.map((attr) => attr.toObject())
+        attr: exercise.attr.map((attr) => attr.toObject()),
       }));
 
-      
       res.status(200).json(formattedExercises);
     })
     .catch((error) => {
@@ -145,7 +126,6 @@ exports.getAllExercises = async (req, res) => {
       console.error(error);
     });
 };
-
 
 exports.getAllAttributes = async (req, res) => {
   Attribute.find()
@@ -164,7 +144,7 @@ exports.getAttributesByExercise = async (req, res) => {
     return res.status(400).json({ error: "Invalid Exercise" });
   }
 
-  Exercise.find({ _id: exerciseId }, 'attr')
+  Exercise.find({ _id: exerciseId }, "attr")
     .then((attributes) => {
       console.log(attributes);
       res.status(200).json(attributes);
@@ -200,5 +180,74 @@ exports.getAllLogData = async (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(500).json({ message: "Error fetching attributes" });
+    });
+};
+
+exports.getLogObjectTemplate = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // let template = {};
+
+  // PLEASE KEEP THIS - ID LIKE TO LEARN WHY THIS DOESN'T WORK - FRED SCHUCK
+
+  // Exercise.findById(id)
+  //   .then((exercise) => {
+  //     template = {
+  //       name: exercise.name,
+  //       type: "exercise",
+  //       attributes: [],
+  //     };
+  //     exercise.attr.forEach((attribute) => {
+  //       Attribute.find(attribute)
+  //         .then((attr) => {
+  //           // console.log("attr id: ", attr[0].name);
+  //           const attributeEntry = {
+  //             attributeId: attr[0]._id,
+  //             short: attr[0].short,
+  //             amount: "",
+  //           };
+  //           template.attributes = [...template.attributes, attributeEntry];
+  //           console.log("template object: ", template);
+  //         })
+  //         .catch((error) => {
+  //           res.status(500).json({ error: error.message });
+  //         });
+  //     });
+  //   })
+  //   .catch((error) => {
+  //     res.status(500).json({ error: error.message });
+  //   });
+
+  Exercise.findById(id)
+    .then((exercise) => {
+      const promises = exercise.attr.map((attributeId) =>
+        Attribute.findById(attributeId).then((attribute) => ({
+          attributeId: attribute._id,
+          short: attribute.short,
+          amount: "",
+        }))
+      );
+
+      return Promise.all(promises)
+        .then((attributes) => {
+          const template = {
+            name: exercise.name,
+            exerciseId: exercise._id,
+            type: "exercise",
+            date: "",
+            attributes,
+            notes: "",
+          };
+          res.status(200).json(template);
+        })
+        .catch((error) => {
+          res.status(500).json({ error: error.message });
+        });
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
     });
 };

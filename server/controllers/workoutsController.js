@@ -1,5 +1,7 @@
 const Workout = require("../models/workouts");
-const Exercises = require("../models/exercise");
+const Exercise = require("../models/exercise");
+const Attribute = require("../models/attributes");
+const LogData = require("../models/logData");
 
 exports.getAllWorkouts = async (req, res) => {
   Workout.find()
@@ -9,6 +11,21 @@ exports.getAllWorkouts = async (req, res) => {
     .catch((error) => {
       console.error(error);
       res.status(500).json({ message: "Error fetching workouts" });
+    });
+};
+
+exports.getWorkout = async (req, res) => {
+  const id = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  Workout.findById(id.id)
+    .then((workout) => {
+      res.status(200).json({ workout });
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
     });
 };
 
@@ -29,39 +46,36 @@ exports.createWorkout = async (req, res) => {
     .catch((error) => res.status(400).json({ error: error.message }));
 };
 
-exports.logWorkout = async (req,res) =>{
-  const date = req.body.date;
-  const workout = req.body.workout;
-  const about = req.body.about;
-  const id = workout._id;
+exports.logWorkout = async (req, res) => {
+  const { logObject } = req.body;
+  const combinedDateString = `${logObject.date}T${logObject.time}:00Z`;
+  const userTimezoneOffset = new Date().getTimezoneOffset();
+  const dateObject = new Date(
+    new Date(combinedDateString).getTime() + userTimezoneOffset * 60 * 1000
+  );
 
-  if (!date || !workout || !about) {
-    return res.status(400).json({ error: "All fields are required" });
-  }
-
-  
-  console.log("log workout controller: " ,workout);
-
-  Workout.findOneAndUpdate(
-    { _id: id },
-    {
-      date:date,
-      about:about
-    },
-    { new: true }
-  )
-  .populate('exercises')
-    .then((workout) => {
-      res.status(200).json({ workout });
-      //res.redirect(`/:${exercise._id}`);
+  const newLogData = new LogData({
+    name: logObject.name,
+    workoutId: logObject.workoutId,
+    type: logObject.type,
+    date: dateObject,
+    exercises: logObject.exercises, // Use the processed exercises array
+    notes: logObject.notes,
+  });
+  newLogData
+    .save()
+    .then((data) => {
+      res.status(200).json(data);
+      console.log("Workout Logged: ", newLogData);
     })
-    .catch((error) => res.status(500).json({ error: error.message }));
-  
-}
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    });
+};
 
 exports.deleteWorkout = async (req, res) => {
   const id = req.params;
-  
+
   if (!id) {
     return res.status(400).json({ error: "Invalid Exercise" });
   }
@@ -76,5 +90,99 @@ exports.deleteWorkout = async (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({ error: error.message });
+    });
+};
+
+exports.getLogObjectTemplate = async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  // let template = {};
+  // let exercises = {};
+
+  // PLEASE KEEP THIS - ID LIKE TO LEARN WHY THIS DOESN'T WORK - FRED SCHUCK
+
+  // Workout.findById(id)
+  //   .then((workout) => {
+  //     const exercisePromises = workout.exercises.map((exerciseId) =>
+  //       Exercise.findById(exerciseId).then((exercise) => {
+  //         const attributePromises = exercise.attr.map((attributeId) =>
+  //           Attribute.findById(attributeId).then((attribute) => ({
+  //             attributeId: attribute._id,
+  //             short: attribute.short,
+  //             amount: "",
+  //           }))
+  //         );
+  //         return Promise.all(attributePromises)
+  //           .then((attributes) => {
+  //             exercises = {
+  //               name: exercise.name,
+  //               type: "exercise",
+  //               attributes,
+  //             };
+  //             console.log("exercises: ", exercises);
+  //           })
+  //           .catch((error) => {
+  //             res.status(500).json({ error: error.message });
+  //           });
+  //       })
+  //     );
+  //     return Promise.all(exercisePromises)
+  //       .then((exercises) => {
+  //         template = {
+  //           name: workout.name,
+  //           type: "workout",
+  //           exercises,
+  //         };
+  //         console.log(template);
+  //         // res.status(200).json(template);
+  //       })
+  //       .catch((error) => {
+  //         res.status(500).json({ error: error.message });
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     res.status(500).json({ error: error.message });
+  //   });
+  Workout.findById(id)
+    .then(async (workout) => {
+      const exercises = await Promise.all(
+        workout.exercises.map(async (exerciseId) => {
+          const exercise = await Exercise.findById(exerciseId);
+          const attributes = await Promise.all(
+            exercise.attr.map(async (attributeId) => {
+              const attribute = await Attribute.findById(attributeId);
+              return {
+                attributeId: attribute._id,
+                short: attribute.short,
+                amount: "",
+              };
+            })
+          );
+          return {
+            name: exercise.name,
+            exerciseId: exercise._id,
+            type: "exercise",
+            attributes,
+          };
+        })
+      );
+
+      const template = {
+        name: workout.name,
+        workoutId: workout._id,
+        type: "workout",
+        date: "",
+        time: "",
+        exercises,
+        notes: "",
+      };
+
+      res.status(200).json(template);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: message });
     });
 };
