@@ -9,29 +9,69 @@ const logSchema = new Schema(
       trim: true,
       minlength: 1,
     },
+    workoutId: {
+      type: Schema.Types.ObjectId,
+      ref: "Workout",
+    },
+    exerciseId: {
+      type: Schema.Types.ObjectId,
+      ref: "Exercise",
+    },
     type: {
       type: String,
       enum: ["exercise", "workout"],
       required: [true, "Type is required"],
       trim: true,
     },
-    attributes: [{
-        attributeId: {
-          type: Schema.Types.ObjectId,
-          ref: 'Attribute', 
-        },
-        amount: {
-          type: Number,
-        }
-      }],
-    exercises: [
-        {
-          exercise_id: [{ type: Schema.Types.ObjectId, ref: "Exercise" }],
-          
-        },
-      ],
     date: { type: Date, trim: true },
-    about: { type: String, trim: true},
+    notes: { type: String, trim: true },
+    // KEEP COMMENTED CODE
+    // attributes: [
+    //   {
+    //     attributeId: {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Attribute",
+    //     },
+    //     short: {
+    //       type: String,
+    //     },
+    //     amount: {
+    //       type: Number,
+    //     },
+    //   },
+    // ],
+    // exercises: [
+    //   {
+    //     exerciseId: {
+    //       type: Schema.Types.ObjectId,
+    //       ref: "Exercise",
+    //     },
+    //     name: { type: String },
+    //     attributes: [
+    //       {
+    //         attributeId: {
+    //           type: Schema.Types.ObjectId,
+    //           ref: "Attribute",
+    //         },
+    //         short: {
+    //           type: String,
+    //         },
+    //         amount: {
+    //           type: Number,
+    //         },
+    //       },
+    //     ],
+    //   },
+    // ],
+    attributes: {
+      type: Schema.Types.Mixed,
+      required: false,
+    },
+    exercises: {
+      type: Schema.Types.Mixed,
+      required: false,
+      default: {},
+    },
   },
   { timestamps: true }
 );
