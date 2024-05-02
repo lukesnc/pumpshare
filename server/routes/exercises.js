@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/exercisesController");
 
-// GET all exercises
+// GET
 router.get("/", controller.getAllExercises);
 
 router.get("/attributes", controller.getAllAttributes);
@@ -11,24 +11,23 @@ router.get("/attributes/:id", controller.getAttributesByExercise);
 
 router.get("/populate-attributes", controller.getAllExercisesWithAttributes);
 
-// GET one exercise
 router.get("/:id", controller.getExercise);
 
 router.get("/log-data", controller.getAllLogData);
 
-// POST one exercise
-router.post("/", controller.createExercise);
+router.get("/template/:id", controller.getLogObjectTemplate);
 
-router.post("/log", controller.logExercise);
+// POST
+router.post("/", controller.createExercise);
 
 router.post("/attributes", controller.createNewAttribute);
 
-// DELETE one exercise
+router.post("/log/:id", controller.logExercise);
+
+// DELETE
 router.delete("/:id", controller.deleteExercise);
 
-router.get("/attribute/:id", controller.getExerciseWithAttributes);
-
-// UPDATE one exercise
+// UPDATE
 router.patch("/:id", (req, res) => {
   res.json({ mssg: "UPDATE one exercise" });
 });
