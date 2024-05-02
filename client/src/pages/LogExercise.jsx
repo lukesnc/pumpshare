@@ -22,7 +22,6 @@ const LogExercise = () => {
       const res = await fetch(`/api/${logType}s/template/${id}/`);
       const data = await res.json();
       const logTemplate = data;
-      console.log("HERE: ", data);
       logTemplate.date = date;
       logTemplate.time = time;
       setLogObject(logTemplate);
