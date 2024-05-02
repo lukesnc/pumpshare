@@ -37,7 +37,7 @@
 /* Note: The @apply directive allows css to implement Tailwind classes */
 @layer components {
   .navbar {
-    @apply flex flex-row fixed w-full h-[60px] bg-tealGreen z-50;
+    @apply flex flex-row fixed top-0 w-full h-[60px] bg-tealGreen z-50;
   }
   .nav-link {
     @apply flex flex-col text-tertiary font-semibold leading-[4em] cursor-pointer;
@@ -171,5 +171,5 @@
 
 .box-shadow {
   /* box-shadow: x offset | y offset| blur radius | spread | color */
-  box-shadow: 0px -2px 10px 0px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0px -4px 10px 0px rgba(36, 116, 89, 0.4) !important;
 }

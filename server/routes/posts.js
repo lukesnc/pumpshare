@@ -8,10 +8,13 @@ router.get("/", controller.getAllPosts);
 // GET one post
 router.get("/:id", controller.getPost);
 
+router.get("/:id/likes", controller.getLikes);
+router.get("/:id/comments", controller.getComments);
+
 router.get("/user/:id", controller.getPostsByUserId);
 // POST a post
 router.post("/post", controller.getPost);
 
-router.get("/create", controller.create);
+router.post("/create", controller.createPost);
 
 module.exports = router;

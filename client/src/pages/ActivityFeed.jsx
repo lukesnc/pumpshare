@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styles from "../style";
 import { PostCard } from "../components";
+import { Link } from "react-router-dom";
 
 const ActivityFeed = () => {
   const [posts, setPosts] = useState([]);
@@ -30,22 +31,35 @@ const ActivityFeed = () => {
             Activity Feed
           </h2>
         </div>
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
-          >
-            <PostCard
-              key={post.id}
-              id={post._id}
-              userId={post.user}
-              content={post.content}
-              comments={post.comments}
-              likes={post.likes}
-              timestamp={post.timestamp}
-            />
-          </div>
-        ))}
+        <div className="h-fit pb-20">
+          {posts.map((post, index) => (
+            <div
+              key={post._id}
+              className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
+            >
+              <PostCard
+                key={post._id}
+                id={post._id}
+                userId={post.user}
+                content={post.content}
+                comments={post.comments}
+                likes={post.likes}
+                timestamp={post.timestamp}
+                truncate={true}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="fixed bottom-0 w-full box-shadow">
+          <Link to="/createPost">
+            <button
+              type="submit"
+              className="text-white bg-emeraldMist font-merriweather w-full py-5 px-4 "
+            >
+              Create New Post
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

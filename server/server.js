@@ -7,6 +7,7 @@ const exercisesRoutes = require("./routes/exercises");
 const usersRoutes = require("./routes/users");
 const postsRoutes = require("./routes/posts");
 const workoutsRoutes = require("./routes/workouts");
+const commentsRoutes = require("./routes/comments");
 
 // Express App
 const app = express();
@@ -42,3 +43,4 @@ app.use("/api/exercises", exercisesRoutes);
 app.use("/api/users", usersRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/workouts", workoutsRoutes);
+app.use("/api/comments", commentsRoutes);

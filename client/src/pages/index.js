@@ -18,6 +18,7 @@ import PostPage from "./PostPage";
 import Settings from "./Settings";
 import LogExercise from "./LogExercise";
 import LogWorkout from "./LogWorkout";
+import CreatePost from "./CreatePost";
 
 export {
   Home,
@@ -38,4 +39,5 @@ export {
   ErrorPage,
   PostPage,
   Settings,
+  CreatePost,
 };

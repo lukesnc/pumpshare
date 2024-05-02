@@ -81,6 +81,9 @@ const getMe = async () => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  
+
   const data = await res.json();
   if (!res.ok) {
     throw Error(data.error);

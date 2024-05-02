@@ -21,6 +21,7 @@ import {
   ErrorPage,
   PostPage,
   Settings,
+  CreatePost,
 } from "./pages";
 import { Navbar } from "./components"; // Import all components here from components/index.js
 
@@ -46,6 +47,7 @@ const App = () => {
         <Route path="/create/exercise" element={<CreateExercise />} />
         <Route path="/create/workout" element={<CreateWorkout />} />
         <Route path="/log/:logType/:id" element={<LogExercise />} />
+        <Route path="/createPost" element={<CreatePost />} />
       </Routes>
     </BrowserRouter>
   );
