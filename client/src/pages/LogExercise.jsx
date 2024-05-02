@@ -68,6 +68,11 @@ const LogExercise = () => {
         },
         body: JSON.stringify({ logObject }),
       });
+      if (res.ok) {
+        navigate("/dashboard");
+      } else {
+        setError("Something went wrong.");
+      }
     } catch (error) {
       setError(`There was an error saving the ${logType} data`);
     }
