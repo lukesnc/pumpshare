@@ -55,7 +55,11 @@ const Follow = () => {
                     {/* Avatar */}
                     <div className="mr-2">
                       <img
-                        src={user.avatar || imagePlaceholder}
+                        src={
+                          user && user.avatar !== undefined
+                            ? `../images/${user.avatar}`
+                            : "../images/avatar.png"
+                        }
                         alt="avatar"
                         className="w-6 h-6 rounded-full object-cover"
                       />
