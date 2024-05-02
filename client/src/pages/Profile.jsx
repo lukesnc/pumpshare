@@ -93,9 +93,13 @@ const Profile = () => {
           <div className="flex flex-col items-center mt-[5rem] w-full">
             <div className="">
               <img
-                src="./images/avatar.png"
+                src={
+                  userData && userData.avatar !== undefined
+                    ? `../images/${userData.avatar}`
+                    : "../images/avatar.png"
+                }
                 alt="avatar"
-                className="w-[10rem]"
+                className="w-[10rem] rounded-full"
               />
             </div>
             <div className="flex flex-col items-center w-full">
