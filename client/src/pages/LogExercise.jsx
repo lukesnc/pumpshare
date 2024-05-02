@@ -6,14 +6,14 @@ const LogExercise = () => {
   const { logType, id } = useParams();
   const [error, setError] = useState(null);
   const [logObject, setLogObject] = useState({});
-  const today = new Date().toISOString().substring(0, 10); // YYYY-MM-DD format
+  const today = new Date().toISOString().substring(0, 10);
   const [date, setDate] = useState(today);
   const [time, setTime] = useState(getTime());
 
   function getTime() {
     const now = new Date();
     const hours = now.getHours();
-    const minutes = now.getMinutes().toString().padStart(2, "0"); // Add leading zero for single-digit minutes
+    const minutes = now.getMinutes().toString().padStart(2, "0");
     return `${hours}:${minutes}`;
   }
 

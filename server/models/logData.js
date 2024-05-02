@@ -24,6 +24,15 @@ const logSchema = new Schema(
       trim: true,
     },
     date: { type: Date, trim: true },
+    attributes: {
+      type: Schema.Types.Mixed,
+      required: false,
+    },
+    exercises: {
+      type: Schema.Types.Mixed,
+      required: false,
+      default: {},
+    },
     notes: { type: String, trim: true },
     // KEEP COMMENTED CODE
     // attributes: [
@@ -63,15 +72,6 @@ const logSchema = new Schema(
     //     ],
     //   },
     // ],
-    attributes: {
-      type: Schema.Types.Mixed,
-      required: false,
-    },
-    exercises: {
-      type: Schema.Types.Mixed,
-      required: false,
-      default: {},
-    },
   },
   { timestamps: true }
 );

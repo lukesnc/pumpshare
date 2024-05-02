@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const { posts } = require("./postsController"); // This to be removed - for testing only
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
@@ -12,31 +11,25 @@ const createToken = (_id) => {
 };
 
 exports.registerUser = async (req, res) => {
-  // Get the email and password from the request body (json object)
   const { firstName, lastName, username, email, password } = req.body;
 
-  // Check if the email and password are not empty
   if (!firstName || !lastName || !username || !email || !password) {
     return res.status(400).json({ error: "All fields are required" });
   }
 
-  // Check if the username exists
   const usernameExists = await User.findOne({ username });
   if (usernameExists) {
     return res.status(400).json({ error: "Username is taken" });
   }
 
-  // Check if the email exists
   const emailExists = await User.findOne({ email });
   if (emailExists) {
     return res.status(400).json({ error: "Email is taken" });
   }
 
-  // Hash the password
   const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, salt);
 
-  // Create a new user
   const user = new User({
     firstName,
     lastName,
@@ -47,11 +40,9 @@ exports.registerUser = async (req, res) => {
   user
     .save()
     .then(() => {
-      // Create a token
       const token = createToken(user._id);
-      // Send the response
       res.status(200).json({ user, username, email, token });
-    }) // add a toast alert
+    })
     .catch((error) => res.status(400).json({ error: error.message }));
 };
 

@@ -66,9 +66,8 @@ exports.getExerciseWithAttributes = async (req, res) => {
   Exercise.find({ _id: id.id })
     .populate("attr")
     .then((exercises) => {
-      // Convert the nested objects in the 'attr' field to strings
       const formattedExercises = exercises.map((exercise) => ({
-        ...exercise.toObject(), // Convert Mongoose document to plain JavaScript object
+        ...exercise.toObject(),
         attr: exercise.attr.map((attr) => attr.toObject()),
       }));
 

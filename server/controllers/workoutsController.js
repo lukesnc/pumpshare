@@ -59,7 +59,7 @@ exports.logWorkout = async (req, res) => {
     workoutId: logObject.workoutId,
     type: logObject.type,
     date: dateObject,
-    exercises: logObject.exercises, // Use the processed exercises array
+    exercises: logObject.exercises,
     notes: logObject.notes,
   });
   newLogData
