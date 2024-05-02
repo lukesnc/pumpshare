@@ -24,7 +24,6 @@ const ExerciseLibrary = () => {
     };
     fetchWorkoutData();
   }, []);
-  
 
   useEffect(() => {
     localStorage.removeItem("workoutFormState");
@@ -59,7 +58,6 @@ const ExerciseLibrary = () => {
     } else {
       try {
         const data = selectedWorkout;
-        console.log(data);
         navigate("/update", { state: { workout: data } });
       } catch (error) {
         setError(error.message);
