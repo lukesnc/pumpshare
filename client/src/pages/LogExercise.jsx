@@ -1,172 +1,172 @@
-import { useNavigate } from "react-router-dom";
-import ReactDOM from "react-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect, useRef, React } from "react";
-import { logWorkout } from "../controllers/workoutController";
-import { logExercise } from "../controllers/exerciseController";
 
 const LogExercise = () => {
   const navigate = useNavigate();
-
+  const { logType, id } = useParams();
   const [error, setError] = useState(null);
-  const [date, setDate] = useState("");
-  const [about, setAbout] = useState("");
-  const [workout, setWorkout] = useState("");
-  const [currentInputIndex, setCurrentInputIndex] = useState(0);
+  const [logObject, setLogObject] = useState({});
+  const today = new Date().toISOString().substring(0, 10); // YYYY-MM-DD format
+  const [date, setDate] = useState(today);
+  const [time, setTime] = useState(getTime());
 
-  const [values, setValues] = useState([]);
-  const [attrValue, setAttrValue] = useState("");
-  const [allExercises, setAllExercises] = useState([]);
-  const [exerciseAttributes, setExerciseAttributes] = useState([]);
-  const [selectedItem, setSelectedItem] = useState("exercise");
-  const [selectedWorkout, setSelectedWorkout] = useState([]);
+  function getTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes().toString().padStart(2, "0"); // Add leading zero for single-digit minutes
+    return `${hours}:${minutes}`;
+  }
 
-  const workoutRef = useRef(null);
-  const exerciseRef = useRef(null);
-  const attributeInput = useRef(null);
-
-  const workoutList = useRef(null);
-  const exerciseList = useRef(null);
-
-  const storedItem = localStorage.getItem("exercise");
-  const exerciseObject = JSON.parse(storedItem);
   useEffect(() => {
-    const getExerciseWithAttributes = async () => {
-      try {
-        const res = await fetch(
-          "/api/exercises/attribute/" + exerciseObject._id
-        );
-        const data = await res.json();
-        console.log(data[0].attr);
-        setExerciseAttributes(data[0].attr);
-      } catch (err) {
-        console.error("Error fetching options:", err);
-      }
+    const fetchTemplate = async () => {
+      const res = await fetch(`/api/${logType}s/template/${id}/`);
+      const data = await res.json();
+      const logTemplate = data;
+      console.log("HERE: ", data);
+      logTemplate.date = date;
+      logTemplate.time = time;
+      setLogObject(logTemplate);
     };
-    getExerciseWithAttributes();
-  }, []);
-  const onNextClick = () => {
-    console.log(values);
-    setCurrentInputIndex((prevIndex) => prevIndex + 1);
+    fetchTemplate();
+  }, [logType, id]);
+
+  const handleDateChange = (newDate) => {
+    const updatedLogObject = { ...logObject };
+    setDate(newDate);
+    updatedLogObject.date = newDate;
+    setLogObject(updatedLogObject);
   };
 
-  const renderAttributes = async (exercise) => {
-    setExercise(exercise);
-
-    setExerciseAttributes(exercise?.attr || []);
+  const handleTimeChange = (newTime) => {
+    const updatedLogObject = { ...logObject };
+    setTime(newTime);
+    updatedLogObject.time = newTime;
+    setLogObject(updatedLogObject);
   };
-  const addAttributeValue = async (attribute, value) => {
-    const newKey = attribute._id;
-    const newValue = value;
 
-    // Check if the key already exists in the values array
-    const existingIndex = values.findIndex((item) => item[newKey]);
-
-    if (existingIndex !== -1) {
-      // If the key exists, update the corresponding value
-      setValues((prevValues) => {
-        const updatedValues = [...prevValues];
-        updatedValues[existingIndex][newKey] = newValue;
-        return updatedValues;
-      });
-    } else {
-      // If the key doesn't exist, add a new entry
-      setValues((prevValues) => [...prevValues, { [newKey]: newValue }]);
+  const handleInputChange = (e, attributeIndex, exerciseIndex, notes) => {
+    const updatedLogObject = { ...logObject };
+    if (e != null || attributeIndex != null || exerciseIndex != null) {
+      exerciseIndex >= 0
+        ? (updatedLogObject.exercises[exerciseIndex].attributes[
+            attributeIndex
+          ].amount = e.target.value)
+        : (updatedLogObject.attributes[attributeIndex].amount = e.target.value);
     }
+    if (notes != null) updatedLogObject.notes = notes;
 
-    setAttrValue(value);
-  };
-  const removeItemWithValue = (arrayOfObjects, valueToRemove) => {
-    return arrayOfObjects.filter(
-      (obj) => Object.values(obj)[0] !== valueToRemove
-    );
+    setLogObject(updatedLogObject);
   };
 
   const handleLog = async (e) => {
     e.preventDefault();
-
+    console.log(logObject);
     try {
-      const newValues = removeItemWithValue(values, "");
-      const data = await logExercise(exerciseObject, about, values);
-      console.log("Result: ", data);
-      //path to be changed once page is made for viewing single Workout
-      //navigate("/", { state: { exercise: data } });
-      navigate("/profile", { state: { exercise: data } });
+      const res = await fetch(`/api/${logType}s/log/${id}/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ logObject }),
+      });
     } catch (error) {
-      setError(error.message);
+      setError(`There was an error saving the ${logType} data`);
     }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-        <h1 className="form-title">Log {exerciseObject.name}</h1>
+        <h1 className="form-title">Log - {logObject.name}</h1>
 
         <form className="log-form" onSubmit={handleLog}>
           <div className="container">
-            <div
-              style={{ flexGrow: 1 }}
-              ref={exerciseRef}
-              className={`content`}
-            >
-              {currentInputIndex < exerciseAttributes.length && (
-                <div ref={attributeInput}>
-                  <div>
-                    <div className="flex border border-emeraldMist rounded-md shadow-lg p-2 mb-4">
-                      <input
-                        value={exerciseAttributes[currentInputIndex].name}
-                        type="text"
-                        readOnly
-                        placeholder="Attribute Name"
-                        className="input w-[60%] text-[14px] mr-2"
-                      />
-                      <input
-                        value={exerciseAttributes[currentInputIndex].number}
-                        type="number"
-                        onChange={(e) =>
-                          addAttributeValue(
-                            exerciseAttributes[currentInputIndex],
-                            e.target.value
-                          )
-                        }
-                        placeholder="Attribute Value"
-                        className="input w-[60%] text-[14px] mr-2"
-                      />
-                      <input
-                        value={exerciseAttributes[currentInputIndex].short}
-                        readOnly
-                        type="text"
-                        placeholder="Unit"
-                        className="input w-[25%] mb-1 mx-auto text-[14px]"
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-              {currentInputIndex < exerciseAttributes.length - 1 && (
-                <button className="form-btn" onClick={onNextClick}>
-                  Next
-                </button>
-              )}
-              {currentInputIndex >= exerciseAttributes.length - 1 && (
-                <div>
-                  <label htmlFor="about" className="input-label">
-                    About Exercise
-                  </label>
-                  <textarea
-                    value={about}
-                    onChange={(e) => setAbout(e.target.value)}
-                    name="about"
-                    id="about"
-                    cols="30"
-                    rows="6"
-                    className="input"
-                  ></textarea>
-                  <button type="submit" className="form-btn">
-                    Submit
-                  </button>
-                </div>
-              )}
+            <div className="flex mb-8">
+              <div className="mr-auto">
+                <label className="input-label my-auto">Date</label>
+                <input
+                  type="date"
+                  className="input border-gray-300 mb-4 pr-2"
+                  value={date}
+                  onChange={(e) => handleDateChange(e.target.value)}
+                />
+              </div>
+              <div className="">
+                <label className="input-label my-auto">Time</label>
+                <input
+                  type="time"
+                  className="input border-gray-300 pr-2"
+                  value={time}
+                  onChange={(e) => handleTimeChange(e.target.value)}
+                />
+              </div>
             </div>
+            {logType === "exercise" && logObject.attributes
+              ? logObject.attributes.map((attr, attributeIndex) => (
+                  <div key={attr.attributeId} className="flex gap-4">
+                    <input
+                      type="number"
+                      id={attr.attributeId}
+                      name={attr.short}
+                      className="input w-20 mb-4"
+                      value={attr.amount}
+                      onChange={(e) => handleInputChange(e, attributeIndex)}
+                    />
+                    <label className="input-label my-auto">{attr.short}</label>
+                  </div>
+                ))
+              : logObject.exercises &&
+                logObject.exercises.map((exercise, exerciseIndex) => (
+                  <div key={exerciseIndex}>
+                    <h2
+                      key={exerciseIndex}
+                      className="text-xl font-semibold text-emeraldMist border-t border-emeraldMist text-end"
+                    >
+                      {exercise.name}
+                    </h2>
+                    {exercise.attributes.map((attribute, attributeIndex) => (
+                      <div key={attributeIndex} className="flex gap-4">
+                        <input
+                          key={attribute.attributeId}
+                          type="number"
+                          id={attribute.attributeId}
+                          name={attribute.short}
+                          className="input w-20 mb-4"
+                          value={attribute.amount}
+                          onChange={(e) =>
+                            handleInputChange(e, attributeIndex, exerciseIndex)
+                          }
+                        />
+                        <label
+                          key={attribute.attributeId + attributeIndex}
+                          className="input-label my-auto"
+                        >
+                          {attribute.short}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+            <div className="">
+              <label htmlFor="about" className="input-label mt-6 text-center">
+                Notes about this {logObject.type}:
+              </label>
+              <textarea
+                value={logObject.notes}
+                onChange={(e) =>
+                  handleInputChange(null, null, null, e.target.value)
+                }
+                name="about"
+                id="about"
+                cols="30"
+                rows="6"
+                className="input h-20"
+              ></textarea>
+            </div>
+            {error && <p className="text-red-500 text-center">{error}</p>}
+            <button type="submit" className="form-btn">
+              Submit
+            </button>
           </div>
         </form>
       </div>
