@@ -1,8 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ReactDOM from "react-dom";
-import { useState, useEffect, useRef, React } from "react";
-import { logWorkout } from "../controllers/workoutController";
-import { logExercise } from "../controllers/exerciseController";
+import { useState, useEffect } from "react";
 
 const Log = () => {
   const navigate = useNavigate();
@@ -11,19 +8,13 @@ const Log = () => {
   const [workouts, setWorkouts] = useState([]);
   const [exercises, setExercises] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
-
-  const [selectedLog, setSelectedLog] = useState("workout");
-
-  
-  const logFormString = localStorage.getItem("logFormState") || null;
-  const logFormState = logFormString ? JSON.parse(logFormString) : null;
+  const [selectedType, setSelectedType] = useState("workout");
 
   useEffect(() => {
     const getWorkouts = async () => {
       try {
         const res = await fetch("/api/workouts");
         const data = await res.json();
-        console.log("data: ", data);
         setWorkouts(data);
       } catch (err) {
         console.error("Error fetching options:", err);
@@ -31,13 +22,12 @@ const Log = () => {
     };
     getWorkouts();
   }, []);
+
   useEffect(() => {
     const getExercises = async () => {
       try {
-        // const res = await fetch("/api/exercises/populate-attributes");
         const res = await fetch("/api/exercises/");
         const data = await res.json();
-        console.log("data: ", data);
         setExercises(data);
       } catch (err) {
         console.error("Error fetching options:", err);
@@ -46,30 +36,13 @@ const Log = () => {
     getExercises();
   }, []);
 
-  const handleNext = async (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    
-    if (selectedLog === "exercise") {
-      try {
-        localStorage.setItem("exercise", JSON.stringify(selectedItem));
-        
-        
-        navigate("/log/exercise");
-        //navigate("/view/exercise", { state: { exercise: data } });
-      } catch (error) {
-        setError(error.message);
-      }
-    } else {
-      try {
-        const data = await logWorkout(date, workout, about);
-        console.log("Result: ", data);
-        //path to be changed once page is made for viewing single Workout
-        navigate("/log/workout", { state: { workout: data } });
-        //navigate("/view/workout", { state: { workout: data } });
-      } catch (error) {
-        setError(error.message);
-      }
+    if (!selectedItem || !selectedType || !selectedItem._id) {
+      console.error("Missing data in event object for navigation");
+      return;
     }
+    navigate(`/log/${selectedType}/${selectedItem._id}`);
   };
 
   return (
@@ -78,24 +51,24 @@ const Log = () => {
         <div className="flex border-b border-gray-200">
           <button
             className={`w-full py-2 text-center ${
-              selectedLog === "workout"
+              selectedType === "workout"
                 ? "border-b-2 border-b-emeraldMist font-semibold text-lg"
                 : "text-gray-500"
             }`}
             onClick={() => {
-              setSelectedLog("workout");
+              setSelectedType("workout");
             }}
           >
             Workout
           </button>
           <button
             className={`w-full py-2 text-center ${
-              selectedLog === "exercise"
+              selectedType === "exercise"
                 ? "border-b-2 border-b-emeraldMist font-semibold text-lg"
                 : "text-gray-500"
             }`}
             onClick={() => {
-              setSelectedLog("exercise");
+              setSelectedType("exercise");
             }}
           >
             Exercise
@@ -103,11 +76,11 @@ const Log = () => {
         </div>
 
         <h1 className="my-6 text-xl font-semibold font-merriweather text-center">
-          Log {selectedLog === "workout" ? "a workout" : "an exercise"}
+          Log {selectedType === "workout" ? "a workout" : "an exercise"}
         </h1>
 
         <form className="log-form" onSubmit={handleNext}>
-          {selectedLog === "workout" ? (
+          {selectedType === "workout" ? (
             <div className="h-[150px] overflow-y-auto border rounded-md p-2 mb-4">
               <ul>
                 {workouts.map((workout) => (
@@ -124,12 +97,6 @@ const Log = () => {
                     {workout.name}
                   </li>
                 ))}
-                {/* <li
-                  className="my-3 text-center font-semibold text-gray-500"
-                  onClick={() => navigate("/create/workout")}
-                >
-                  + Add a new workout
-                </li> */}
               </ul>
             </div>
           ) : (
@@ -149,12 +116,6 @@ const Log = () => {
                     {exercise.name}
                   </li>
                 ))}
-                {/* <li
-                  className="my-3 text-center font-semibold text-gray-500"
-                  onClick={() => navigate("/create/exercise")}
-                >
-                  + Add a new exercise
-                </li> */}
               </ul>
             </div>
           )}
