@@ -83,7 +83,15 @@ const PostCard = ({
       {/* Avatar - condition to remove if being viewed in profile */}
       <Link to={`/${username}`}>
         <div className="min-w-12 w-12">
-          <img src={imagePlaceholder} alt="avatar" className="" />
+          <img
+            src={
+              user && user.avatar !== undefined
+                ? `../images/${user.avatar}`
+                : "../images/avatar.png"
+            }
+            alt="avatar"
+            className="rounded-full"
+          />
         </div>
       </Link>
       {/* Content */}
