@@ -9,10 +9,15 @@ import ActivityFeed from "./ActivityFeed";
 import Profile from "./Profile";
 import Follow from "./Follow";
 import Log from "./Log";
-import Create from "./Create";
+import ViewWorkout from "./ViewWorkout";
+import Update from "./Update";
+import CreateExercise from "./CreateExercise";
+import CreateWorkout from "./CreateWorkout";
 import ErrorPage from "./ErrorPage";
 import PostPage from "./PostPage";
 import Settings from "./Settings";
+import LogExercise from "./LogExercise";
+import LogWorkout from "./LogWorkout";
 import CreatePost from "./CreatePost";
 
 export {
@@ -25,7 +30,12 @@ export {
   Profile,
   Follow,
   Log,
-  Create,
+  ViewWorkout,
+  LogWorkout,
+  LogExercise,
+  Update,
+  CreateWorkout,
+  CreateExercise,
   ErrorPage,
   PostPage,
   Settings,

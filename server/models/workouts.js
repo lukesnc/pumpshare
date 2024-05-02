@@ -11,9 +11,8 @@ const workoutSchema = new Schema(
     },
     exercises: [
       {
-        //type: Schema.Types.ObjectId, This would allow workouts to include a list of Exercises using our Exercise model this might add
-        //ref: "Exercise",             confusion since there's currently no way to create a workout, for now its list of Strings
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: "Exercise",
         required: [true, "At least one exercise is required"],
         trim: true,
         minlength: 1,

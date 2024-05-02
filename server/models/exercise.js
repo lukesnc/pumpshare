@@ -9,18 +9,9 @@ const exerciseSchema = new Schema(
       trim: true,
       minlength: 1,
     },
-    attr: [
-      {
-        type: String,
-        required: [true, "Attribute is required"],
-        trim: true,
-        minlength: 1,
-      },
-    ],
+    user: { type: Schema.Types.ObjectId, ref: 'User' },
+    attr: [{ type: Schema.Types.ObjectId, ref: "Attribute" }],
     date: { type: Date, trim: true },
-    sets: { type: String, trim: true },
-    reps: { type: String, trim: true },
-    weight: { type: String, trim: true },
     about: { type: String, trim: true },
   },
   { timestamps: true }

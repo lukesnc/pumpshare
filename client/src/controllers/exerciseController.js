@@ -11,29 +11,34 @@ const createExercise = async (name, attr) => {
     body: JSON.stringify({ name, attr }),
   });
 
-  // data is the response from the server
   const data = await res.json();
   if (!res.ok) {
     throw Error(data.error);
   }
+  return data;
+};
+
+const getExercise = async (id) => {
+  const res = await fetch("/api/exercises/" + id.logId, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const data = await res.json();
 
   return data;
 };
 
-const logExercise = async (id, date, sets, reps, weight, about) => {
-  if (!date || !sets || !reps || !weight || !about) {
-    throw Error("All fields are required");
-  }
-
+const logExercise = async (exercise, about, values) => {
   const res = await fetch("/api/exercises/log", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ date, sets, reps, weight, about }),
+    body: JSON.stringify({ exercise, about, values }),
   });
 
-  // data is the response from the server
   const data = await res.json();
   if (!res.ok) {
     throw Error(data.error);
@@ -42,4 +47,13 @@ const logExercise = async (id, date, sets, reps, weight, about) => {
   return data;
 };
 
-export { createExercise, logExercise };
+const deleteExercise = async (exercise) => {
+  let id = exercise.exercise._id;
+  const res = await fetch("/api/exercises/" + id, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+export { createExercise, logExercise, getExercise, deleteExercise };

@@ -2,25 +2,32 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/exercisesController");
 
-// GET all exercises
+// GET
 router.get("/", controller.getAllExercises);
 
-// GET one exercise
-router.get("/:id", (req, res) => {
-  res.json({ mssg: "GET one exercise" });
-});
+router.get("/attributes", controller.getAllAttributes);
 
-// POST one exercise
+router.get("/attributes/:id", controller.getAttributesByExercise);
+
+router.get("/populate-attributes", controller.getAllExercisesWithAttributes);
+
+router.get("/:id", controller.getExercise);
+
+router.get("/log-data", controller.getAllLogData);
+
+router.get("/template/:id", controller.getLogObjectTemplate);
+
+// POST
 router.post("/", controller.createExercise);
 
-router.post("/log", controller.logExercise);
+router.post("/attributes", controller.createNewAttribute);
 
-// DELETE one exercise
-router.delete("/:id", (req, res) => {
-  res.json({ mssg: "DELETE one exercise" });
-});
+router.post("/log/:id", controller.logExercise);
 
-// UPDATE one exercise
+// DELETE
+router.delete("/:id", controller.deleteExercise);
+
+// UPDATE
 router.patch("/:id", (req, res) => {
   res.json({ mssg: "UPDATE one exercise" });
 });

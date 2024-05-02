@@ -1,110 +1,126 @@
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { logExercise } from "../controllers/exerciseController";
+import { useState, useEffect } from "react";
 
 const Log = () => {
-  const location = useLocation();
   const navigate = useNavigate();
 
   const [error, setError] = useState(null);
+  const [workouts, setWorkouts] = useState([]);
+  const [exercises, setExercises] = useState([]);
+  const [selectedItem, setSelectedItem] = useState({});
+  const [selectedType, setSelectedType] = useState("workout");
 
-  const [date, setDate] = useState("");
-  const [sets, setSets] = useState("");
-  const [reps, setReps] = useState("");
-  const [weight, setWeight] = useState("");
-  const [about, setAbout] = useState("");
+  useEffect(() => {
+    const getWorkouts = async () => {
+      try {
+        const res = await fetch("/api/workouts");
+        const data = await res.json();
+        setWorkouts(data);
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      }
+    };
+    getWorkouts();
+  }, []);
 
-  const exerciseId = { logId: location.state?.logId };
+  useEffect(() => {
+    const getExercises = async () => {
+      try {
+        const res = await fetch("/api/exercises/");
+        const data = await res.json();
+        setExercises(data);
+      } catch (err) {
+        console.error("Error fetching options:", err);
+      }
+    };
+    getExercises();
+  }, []);
 
-  const handleLog = async (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-
-    try {
-      const data = await logExercise(
-        exerciseId.logId,
-        date,
-        sets,
-        reps,
-        weight,
-        about
-      );
-      //path to be changed once page is made for viewing single exercise
-      navigate("/", { state: { exercise: data } });
-    } catch (error) {
-      setError(error.message);
+    if (!selectedItem || !selectedType || !selectedItem._id) {
+      console.error("Missing data in event object for navigation");
+      return;
     }
+    navigate(`/log/${selectedType}/${selectedItem._id}`);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
-      <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
-        <h1 className="form-title">Log Exercise</h1>
+      <div className="max-w-md w-full pt-3 pb-8 px-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
+        <div className="flex border-b border-gray-200">
+          <button
+            className={`w-full py-2 text-center ${
+              selectedType === "workout"
+                ? "border-b-2 border-b-emeraldMist font-semibold text-lg"
+                : "text-gray-500"
+            }`}
+            onClick={() => {
+              setSelectedType("workout");
+            }}
+          >
+            Workout
+          </button>
+          <button
+            className={`w-full py-2 text-center ${
+              selectedType === "exercise"
+                ? "border-b-2 border-b-emeraldMist font-semibold text-lg"
+                : "text-gray-500"
+            }`}
+            onClick={() => {
+              setSelectedType("exercise");
+            }}
+          >
+            Exercise
+          </button>
+        </div>
 
-        <form className="log-form" onSubmit={handleLog}>
-          <label htmlFor="date" className="input-label">
-            Date
-          </label>
-          <input
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            type="date"
-            name="date"
-            id="date"
-            className="input"
-          />
+        <h1 className="my-6 text-xl font-semibold font-merriweather text-center">
+          Log {selectedType === "workout" ? "a workout" : "an exercise"}
+        </h1>
 
-          <label htmlFor="sets" className="input-label">
-            Sets
-          </label>
-          <input
-            value={sets}
-            onChange={(e) => setSets(e.target.value)}
-            type="text"
-            name="sets"
-            id="sets"
-            className="input"
-          />
-
-          <label htmlFor="reps" className="input-label">
-            Reps
-          </label>
-          <input
-            value={reps}
-            onChange={(e) => setReps(e.target.value)}
-            type="text"
-            name="reps"
-            id="reps"
-            className="input"
-          />
-
-          <label htmlFor="weight" className="input-label">
-            Weight
-          </label>
-          <input
-            value={weight}
-            onChange={(e) => setWeight(e.target.value)}
-            type="text"
-            name="weight"
-            id="weight"
-            className="input"
-          />
-
-          <label htmlFor="about" className="input-label">
-            About
-          </label>
-          <textarea
-            value={about}
-            onChange={(e) => setAbout(e.target.value)}
-            name="about"
-            id="about"
-            cols="30"
-            rows="6"
-            className="input"
-          ></textarea>
-
+        <form className="log-form" onSubmit={handleNext}>
+          {selectedType === "workout" ? (
+            <div className="h-[150px] overflow-y-auto border rounded-md p-2 mb-4">
+              <ul>
+                {workouts.map((workout) => (
+                  <li
+                    key={workout._id}
+                    value={workout.name}
+                    onClick={(e) => setSelectedItem(workout)}
+                    className={`${
+                      selectedItem === workout
+                        ? "text-emeraldMist font-semibold"
+                        : "text-gray-500 "
+                    }`}
+                  >
+                    {workout.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : (
+            <div className="h-[150px] overflow-y-auto border rounded-md p-2 mb-4">
+              <ul>
+                {exercises.map((exercise) => (
+                  <li
+                    key={exercise._id}
+                    value={exercise.name}
+                    onClick={(e) => setSelectedItem(exercise)}
+                    className={`${
+                      selectedItem === exercise
+                        ? "text-emeraldMist font-semibold"
+                        : "text-gray-500 "
+                    }`}
+                  >
+                    {exercise.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <button type="submit" className="form-btn">
-            Submit
+            Next
           </button>
         </form>
       </div>

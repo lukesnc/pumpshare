@@ -3,15 +3,17 @@ import { useNavigate, Link } from "react-router-dom";
 
 const ExerciseLibrary = () => {
   // Use navigate hook
-  useNavigate();
+  const navigate = useNavigate();
 
   const [workouts, setWorkouts] = useState([]);
   const [exercises, setExercises] = useState([]);
+  const [logData, setLogData] = useState([]);
   const [selectedExercise, setSelectedExercise] = useState("");
   const [selectedWorkout, setSelectedWorkout] = useState("");
+  const [isExercise, setIsExercise] = useState("");
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    const fetchWorkoutData = async () => {
       try {
         const r = await fetch("/api/workouts");
         const data = await r.json();
@@ -20,11 +22,12 @@ const ExerciseLibrary = () => {
         console.error("Error fetching options:", err);
       }
     };
-    fetchUserData();
+    fetchWorkoutData();
   }, []);
 
   useEffect(() => {
-    const fetchUserData = async () => {
+    localStorage.removeItem("workoutFormState");
+    const fetchExerciseData = async () => {
       try {
         const r = await fetch("/api/exercises");
         const data = await r.json();
@@ -33,28 +36,40 @@ const ExerciseLibrary = () => {
         console.error("Error fetching options:", err);
       }
     };
-    fetchUserData();
+    fetchExerciseData();
   }, []);
 
   const handleExerciseChange = (e) => {
-    setSelectedWorkout("");
+    setIsExercise(1);
     setSelectedExercise(e.target.value);
+    setSelectedWorkout("");
   };
 
   const handleWorkoutChange = (e) => {
-    setSelectedExercise("");
+    setIsExercise(0);
     setSelectedWorkout(e.target.value);
+    setSelectedExercise("");
   };
 
   const handleEdit = async (e) => {
     e.preventDefault();
+
+    if (isExercise == 1) {
+    } else {
+      try {
+        const data = selectedWorkout;
+        navigate("/update", { state: { workout: data } });
+      } catch (error) {
+        setError(error.message);
+        console.log(error.message);
+      }
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center">
       <div className="max-w-md w-full p-8 mx-4 bg-white rounded-lg shadow-md mb-auto mt-[100px]">
         <h2 className="form-title">Workout Library</h2>
-
         <h3>Workouts</h3>
         <form>
           <select
@@ -63,11 +78,13 @@ const ExerciseLibrary = () => {
             onChange={handleWorkoutChange}
           >
             <option value="">Choose a workout</option>
-            {workouts.map((workout) => (
-              <option key={workout._id} value={workout.name}>
-                {workout.name}
-              </option>
-            ))}
+            {Object.values(workouts)
+              .filter((workout) => workout.type === "workout")
+              .map((workout) => (
+                <option key={workout._id} value={workout.name}>
+                  {workout.name}
+                </option>
+              ))}
           </select>
         </form>
 
@@ -76,7 +93,7 @@ const ExerciseLibrary = () => {
           <select
             id="exercises"
             className="border rounded-lg block w-full p-2.5 mb-3"
-            onChange={handleExerciseChange}
+            onClick={handleExerciseChange}
           >
             <option value="">Choose an exercise</option>
             {exercises.map((exercise) => (
@@ -103,10 +120,10 @@ const ExerciseLibrary = () => {
         )}
 
         <button type="submit" className="form-btn-outline">
-          <Link to="/">Create New Workout</Link>
+          <Link to="/create/workout">Create New Workout</Link>
         </button>
         <button type="submit" className="form-btn-outline">
-          <Link to="/create-exercise">Create New Exercise</Link>
+          <Link to="/create/exercise">Create New Exercise</Link>
         </button>
       </div>
     </div>
