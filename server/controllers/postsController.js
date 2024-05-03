@@ -60,6 +60,9 @@ exports.createPost = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     const newPost = new Post({ user: data._id, content });
+    await User.findByIdAndUpdate(user._id, {
+      $set: { posts: [...user.posts, newPost._id] },
+    });
     try {
       await newPost.save();
       res.status(201).json({ message: "Post created successfully!" });
