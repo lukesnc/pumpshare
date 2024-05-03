@@ -24,6 +24,7 @@ const Profile = () => {
       try {
         const response = await fetch(`/api/users/${username}`);
         const data = await response.json();
+
         if (!response.ok) {
           if (response.status === 404) {
             setUserExists(false);
@@ -33,8 +34,7 @@ const Profile = () => {
         setFollowers(data.followers.length);
         setFollowing(data.following.length);
         setUserData(data);
-
-        if (data.posts.length > 0) {
+        if (data.posts.length >= 0) {
           const postResponse = await fetch(`/api/posts/user/${data._id}`);
           if (!postResponse.ok) {
             throw new Error("Error fetching posts");
@@ -146,7 +146,7 @@ const Profile = () => {
               {posts.map((post, index) => (
                 <div
                   className={`${styles.postCard} flex flex-col border-t-2 border-gray-100`}
-                  key={posts[index]}
+                  key={post._id}
                 >
                   <PostCard
                     key={post.id}
