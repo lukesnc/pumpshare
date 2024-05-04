@@ -56,9 +56,8 @@ const deleteExercise = async (exercise) => {
     },
   });
 };
-export { createExercise, logExercise, getExercise, deleteExercise };
 
-exports.getAllExercises = async (req, res) => {
+const getAllExercises = async (req, res) => {
   try {
       const exercises = await Exercise.find({});
       console.log("Exercises fetched:", exercises);  // Check the console for this output
@@ -67,3 +66,6 @@ exports.getAllExercises = async (req, res) => {
       res.status(500).json({ message: "Error retrieving exercises", error: error.toString() });
   }
 };
+export { createExercise, logExercise, getExercise, deleteExercise, getAllExercises};
+
+
