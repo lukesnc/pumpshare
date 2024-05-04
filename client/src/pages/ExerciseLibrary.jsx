@@ -78,13 +78,11 @@ const ExerciseLibrary = () => {
             onChange={handleWorkoutChange}
           >
             <option value="">Choose a workout</option>
-            {Object.values(workouts)
-              .filter((workout) => workout.type === "workout")
-              .map((workout) => (
-                <option key={workout._id} value={workout.name}>
-                  {workout.name}
-                </option>
-              ))}
+            {workouts.map((workout) => (
+              <option key={workout._id} value={workout.name}>
+                {workout.name}
+              </option>
+            ))}
           </select>
         </form>
 
